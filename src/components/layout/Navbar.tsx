@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Phone, Menu, X, ChevronDown, Building2 } from "lucide-react";
+import { Phone, Menu, X, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import ConsultationForm from "@/components/forms/ConsultationForm";
+import SkylineLogo from "@/components/SkylineLogo";
 
 const languages = [
   { code: "uz", label: "O'zbekcha" },
@@ -38,9 +39,7 @@ export default function Navbar() {
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
             <Link to="/" className="flex items-center gap-3 group">
-              <div className="w-12 h-12 rounded-xl bg-primary flex items-center justify-center group-hover:scale-105 transition-transform">
-                <Building2 className="w-7 h-7 text-accent" />
-              </div>
+              <SkylineLogo className="w-12 h-12 group-hover:scale-105 transition-transform" />
               <div className="hidden sm:block">
                 <span className="font-heading font-bold text-xl text-primary">General</span>
                 <span className="font-heading font-bold text-xl text-accent"> Construction</span>
@@ -188,7 +187,7 @@ export default function Navbar() {
                     setShowContactForm(true);
                     setIsOpen(false);
                   }}
-                  className="btn-gold w-full text-center"
+                  className="btn-terracotta w-full text-center"
                 >
                   Bog'lanish
                 </button>

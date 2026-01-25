@@ -29,23 +29,23 @@
     --muted: 210 15% 93%;
     --muted-foreground: 215 15% 45%;
 
-    /* Gold Accent - Luxury & Premium */
-    --accent: 42 90% 50%;
-    --accent-foreground: 215 35% 10%;
+    /* Terracotta Accent - Warm & Elegant */
+    --accent: 20 55% 50%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
     --border: 210 20% 88%;
     --input: 210 20% 88%;
-    --ring: 42 90% 50%;
+    --ring: 20 55% 50%;
 
     --radius: 0.75rem;
 
     /* Custom colors */
-    --gold: 42 90% 50%;
-    --gold-light: 42 80% 65%;
-    --gold-dark: 42 95% 40%;
+    --terracotta: 20 55% 50%;
+    --terracotta-light: 20 50% 62%;
+    --terracotta-dark: 20 60% 38%;
     --navy: 215 50% 12%;
     --navy-light: 215 40% 20%;
     --navy-dark: 215 55% 8%;
@@ -53,7 +53,7 @@
     --success: 145 65% 42%;
 
     /* Gradients */
-    --gradient-gold: linear-gradient(135deg, hsl(42 90% 50%), hsl(42 80% 60%));
+    --gradient-terracotta: linear-gradient(135deg, hsl(20 55% 50%), hsl(20 50% 60%));
     --gradient-navy: linear-gradient(180deg, hsl(215 50% 12%), hsl(215 55% 8%));
     --gradient-hero: linear-gradient(135deg, hsl(215 50% 12% / 0.95), hsl(215 40% 20% / 0.85));
 
@@ -61,7 +61,7 @@
     --shadow-sm: 0 2px 8px hsl(215 50% 12% / 0.08);
     --shadow-md: 0 4px 20px hsl(215 50% 12% / 0.12);
     --shadow-lg: 0 8px 40px hsl(215 50% 12% / 0.16);
-    --shadow-gold: 0 4px 20px hsl(42 90% 50% / 0.3);
+    --shadow-terracotta: 0 4px 20px hsl(20 55% 50% / 0.3);
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -86,13 +86,13 @@
     --secondary-foreground: 45 100% 96%;
     --muted: 215 40% 18%;
     --muted-foreground: 210 15% 65%;
-    --accent: 42 90% 50%;
-    --accent-foreground: 215 35% 10%;
+    --accent: 20 55% 50%;
+    --accent-foreground: 0 0% 100%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
     --border: 215 40% 20%;
     --input: 215 40% 20%;
-    --ring: 42 90% 50%;
+    --ring: 20 55% 50%;
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -125,15 +125,15 @@
     @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
   }
 
-  .btn-gold {
-    @apply bg-accent text-primary font-semibold px-6 py-3 rounded-lg transition-all duration-300;
+  .btn-terracotta {
+    @apply bg-accent text-accent-foreground font-semibold px-6 py-3 rounded-lg transition-all duration-300;
     @apply hover:shadow-lg hover:-translate-y-0.5;
-    box-shadow: var(--shadow-gold);
+    box-shadow: var(--shadow-terracotta);
   }
 
-  .btn-outline-gold {
+  .btn-outline-terracotta {
     @apply border-2 border-accent text-accent font-semibold px-6 py-3 rounded-lg transition-all duration-300;
-    @apply hover:bg-accent hover:text-primary;
+    @apply hover:bg-accent hover:text-accent-foreground;
   }
 
   .btn-navy {
@@ -174,8 +174,8 @@
   }
 
   .social-icon {
-    @apply w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center transition-all duration-300;
-    @apply hover:bg-accent hover:text-primary hover:-translate-y-1;
+    @apply flex items-center justify-center transition-all duration-300 text-foreground;
+    @apply hover:text-accent hover:-translate-y-1;
   }
 
   .filter-select {
@@ -192,9 +192,9 @@
 }
 
 @layer utilities {
-  .text-gradient-gold {
+  .text-gradient-terracotta {
     @apply bg-clip-text text-transparent;
-    background-image: var(--gradient-gold);
+    background-image: var(--gradient-terracotta);
   }
 
   .animate-fade-up {

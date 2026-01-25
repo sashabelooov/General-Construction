@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import { Building2, Phone, Mail, MapPin } from "lucide-react";
+import { Phone, Mail, MapPin } from "lucide-react";
+import SkylineLogo from "@/components/SkylineLogo";
 
 const offices = [
   { name: "Toshkent shahar", address: "Mirzo Ulug'bek tumani, Buyuk Ipak Yo'li ko'chasi 15" },
@@ -28,9 +29,7 @@ export default function Footer() {
           {/* Logo & Description */}
           <div className="lg:col-span-1">
             <Link to="/" className="flex items-center gap-3 mb-6">
-              <div className="w-12 h-12 rounded-xl bg-accent flex items-center justify-center">
-                <Building2 className="w-7 h-7 text-primary" />
-              </div>
+              <SkylineLogo className="w-12 h-12" />
               <div>
                 <span className="font-heading font-bold text-xl">General</span>
                 <span className="font-heading font-bold text-xl text-accent"> Construction</span>
@@ -40,14 +39,14 @@ export default function Footer() {
               O'zbekistondagi yetakchi qurilish kompaniyasi. 10+ yillik tajriba, 50+ tugatilgan loyihalar.
             </p>
             {/* Social Links */}
-            <div className="flex gap-3">
+            <div className="flex gap-4">
               {socialLinks.map((social) => (
                 <a
                   key={social.icon}
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full bg-primary-foreground/10 flex items-center justify-center hover:bg-accent hover:text-primary transition-all"
+                  className="text-primary-foreground/70 hover:text-accent transition-all duration-300 hover:-translate-y-1"
                 >
                   {social.icon === "telegram" && (
                     <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
@@ -130,19 +129,22 @@ export default function Footer() {
                 </a>
               </li>
             </ul>
+          </div>
+        </div>
 
-            {/* Map Preview */}
-            <div className="mt-6 rounded-xl overflow-hidden h-32 bg-primary-foreground/10">
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d191885.50264024!2d69.11455!3d41.31151!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38ae8b0cc379e9c3%3A0xa5a9323b4aa5cb98!2sTashkent%2C%20Uzbekistan!5e0!3m2!1sen!2s!4v1635959481000!5m2!1sen!2s"
-                width="100%"
-                height="100%"
-                style={{ border: 0 }}
-                allowFullScreen
-                loading="lazy"
-                title="Office Location"
-              />
-            </div>
+        {/* Large Map Section */}
+        <div className="mt-12">
+          <h4 className="font-heading font-bold text-lg mb-6">Bizning joylashuv</h4>
+          <div className="rounded-2xl overflow-hidden h-80 md:h-96 bg-primary-foreground/10">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d191885.50264024!2d69.11455!3d41.31151!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38ae8b0cc379e9c3%3A0xa5a9323b4aa5cb98!2sTashkent%2C%20Uzbekistan!5e0!3m2!1sen!2s!4v1635959481000!5m2!1sen!2s"
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              title="Office Location"
+            />
           </div>
         </div>
 
