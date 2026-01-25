@@ -8,7 +8,7 @@
 
 @layer base {
   :root {
-    --background: 210 20% 98%;
+    --background: 40 25% 96%;
     --foreground: 215 35% 10%;
 
     --card: 0 0% 100%;
@@ -19,41 +19,41 @@
 
     /* Deep Navy - Professional & Trustworthy */
     --primary: 215 50% 12%;
-    --primary-foreground: 45 100% 96%;
+    --primary-foreground: 40 30% 95%;
 
-    /* Light Gray-Blue */
-    --secondary: 210 20% 96%;
+    /* Warm Beige */
+    --secondary: 40 25% 93%;
     --secondary-foreground: 215 35% 15%;
 
     /* Muted tones */
-    --muted: 210 15% 93%;
+    --muted: 40 20% 90%;
     --muted-foreground: 215 15% 45%;
 
-    /* Terracotta Accent - Warm & Elegant */
-    --accent: 20 55% 50%;
+    /* Beige/Warm Accent - Elegant & Warm */
+    --accent: 35 35% 45%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 210 20% 88%;
-    --input: 210 20% 88%;
-    --ring: 20 55% 50%;
+    --border: 40 20% 85%;
+    --input: 40 20% 85%;
+    --ring: 35 35% 45%;
 
     --radius: 0.75rem;
 
     /* Custom colors */
-    --terracotta: 20 55% 50%;
-    --terracotta-light: 20 50% 62%;
-    --terracotta-dark: 20 60% 38%;
+    --beige: 35 35% 45%;
+    --beige-light: 35 30% 55%;
+    --beige-dark: 35 40% 35%;
     --navy: 215 50% 12%;
     --navy-light: 215 40% 20%;
     --navy-dark: 215 55% 8%;
-    --cream: 45 100% 96%;
+    --cream: 40 30% 95%;
     --success: 145 65% 42%;
 
     /* Gradients */
-    --gradient-terracotta: linear-gradient(135deg, hsl(20 55% 50%), hsl(20 50% 60%));
+    --gradient-beige: linear-gradient(135deg, hsl(35 35% 45%), hsl(35 30% 55%));
     --gradient-navy: linear-gradient(180deg, hsl(215 50% 12%), hsl(215 55% 8%));
     --gradient-hero: linear-gradient(135deg, hsl(215 50% 12% / 0.95), hsl(215 40% 20% / 0.85));
 
@@ -61,7 +61,7 @@
     --shadow-sm: 0 2px 8px hsl(215 50% 12% / 0.08);
     --shadow-md: 0 4px 20px hsl(215 50% 12% / 0.12);
     --shadow-lg: 0 8px 40px hsl(215 50% 12% / 0.16);
-    --shadow-terracotta: 0 4px 20px hsl(20 55% 50% / 0.3);
+    --shadow-beige: 0 4px 20px hsl(35 35% 45% / 0.3);
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -75,24 +75,24 @@
 
   .dark {
     --background: 215 55% 8%;
-    --foreground: 45 100% 96%;
+    --foreground: 40 30% 95%;
     --card: 215 50% 12%;
-    --card-foreground: 45 100% 96%;
+    --card-foreground: 40 30% 95%;
     --popover: 215 50% 12%;
-    --popover-foreground: 45 100% 96%;
-    --primary: 42 90% 50%;
+    --popover-foreground: 40 30% 95%;
+    --primary: 35 35% 50%;
     --primary-foreground: 215 35% 10%;
     --secondary: 215 40% 20%;
-    --secondary-foreground: 45 100% 96%;
+    --secondary-foreground: 40 30% 95%;
     --muted: 215 40% 18%;
     --muted-foreground: 210 15% 65%;
-    --accent: 20 55% 50%;
+    --accent: 35 35% 50%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
     --border: 215 40% 20%;
     --input: 215 40% 20%;
-    --ring: 20 55% 50%;
+    --ring: 35 35% 50%;
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -125,13 +125,13 @@
     @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
   }
 
-  .btn-terracotta {
+  .btn-beige {
     @apply bg-accent text-accent-foreground font-semibold px-6 py-3 rounded-lg transition-all duration-300;
     @apply hover:shadow-lg hover:-translate-y-0.5;
-    box-shadow: var(--shadow-terracotta);
+    box-shadow: var(--shadow-beige);
   }
 
-  .btn-outline-terracotta {
+  .btn-outline-beige {
     @apply border-2 border-accent text-accent font-semibold px-6 py-3 rounded-lg transition-all duration-300;
     @apply hover:bg-accent hover:text-accent-foreground;
   }
@@ -189,12 +189,17 @@
   .gradient-overlay {
     background: var(--gradient-hero);
   }
+
+  .floating-btn {
+    @apply w-14 h-14 rounded-full flex items-center justify-center shadow-lg transition-all duration-300;
+    @apply hover:scale-110 hover:shadow-xl;
+  }
 }
 
 @layer utilities {
-  .text-gradient-terracotta {
+  .text-gradient-beige {
     @apply bg-clip-text text-transparent;
-    background-image: var(--gradient-terracotta);
+    background-image: var(--gradient-beige);
   }
 
   .animate-fade-up {

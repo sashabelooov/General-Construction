@@ -23,6 +23,7 @@ const socialLinks = [
   { icon: "telegram", href: "https://t.me/generalconstruction" },
   { icon: "instagram", href: "https://instagram.com/generalconstruction" },
   { icon: "facebook", href: "https://facebook.com/generalconstruction" },
+  { icon: "youtube", href: "https://youtube.com/generalconstruction" },
 ];
 
 export default function Navbar() {
@@ -39,7 +40,7 @@ export default function Navbar() {
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
             <Link to="/" className="flex items-center gap-3 group">
-              <SkylineLogo className="w-12 h-12 group-hover:scale-105 transition-transform" />
+              <SkylineLogo className="w-16 h-8 group-hover:scale-105 transition-transform" />
               <div className="hidden sm:block">
                 <span className="font-heading font-bold text-xl text-primary">General</span>
                 <span className="font-heading font-bold text-xl text-accent"> Construction</span>
@@ -62,9 +63,9 @@ export default function Navbar() {
             </div>
 
             {/* Right Section */}
-            <div className="hidden lg:flex items-center gap-4">
+            <div className="hidden lg:flex items-center gap-6">
               {/* Social Links */}
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-4">
                 {socialLinks.map((social) => (
                   <a
                     key={social.icon}
@@ -86,6 +87,11 @@ export default function Navbar() {
                     {social.icon === "facebook" && (
                       <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                      </svg>
+                    )}
+                    {social.icon === "youtube" && (
+                      <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
                       </svg>
                     )}
                   </a>
@@ -129,17 +135,16 @@ export default function Navbar() {
               </div>
 
               {/* Phone */}
-              <a href="tel:+998991234567" className="flex items-center gap-2 font-medium text-sm">
-                <Phone className="w-4 h-4 text-accent" />
+              <a href="tel:+998991234567" className="font-medium text-sm">
                 +998 99 123-45-67
               </a>
 
               {/* Contact Button */}
               <button
                 onClick={() => setShowContactForm(true)}
-                className="w-12 h-12 rounded-full bg-accent flex items-center justify-center hover:scale-105 transition-transform shadow-gold"
+                className="w-12 h-12 rounded-full bg-accent flex items-center justify-center hover:scale-105 transition-transform shadow-lg"
               >
-                <Phone className="w-5 h-5 text-primary" />
+                <Phone className="w-5 h-5 text-accent-foreground" />
               </button>
             </div>
 
@@ -187,7 +192,7 @@ export default function Navbar() {
                     setShowContactForm(true);
                     setIsOpen(false);
                   }}
-                  className="btn-terracotta w-full text-center"
+                  className="btn-beige w-full text-center"
                 >
                   Bog'lanish
                 </button>

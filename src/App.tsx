@@ -9,6 +9,7 @@ import About from "./pages/About";
 import News from "./pages/News";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
+import FloatingButtons from "./components/FloatingButtons";
 
 const queryClient = new QueryClient();
 
@@ -21,12 +22,14 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/projects" element={<Projects />} />
+          <Route path="/projects/:id" element={<Projects />} />
           <Route path="/about" element={<About />} />
           <Route path="/news" element={<News />} />
           <Route path="/contact" element={<Contact />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
+        <FloatingButtons />
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

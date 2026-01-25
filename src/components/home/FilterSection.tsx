@@ -1,8 +1,12 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Heart, X, Search, RefreshCcw, ChevronDown, Home, Layers, Building2, Maximize2, Calendar } from "lucide-react";
+import { Heart, Search, RefreshCcw, ChevronDown, Home, Layers, Building2, Maximize2, Calendar } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import ConsultationForm from "@/components/forms/ConsultationForm";
+
+import floorPlan1 from "@/assets/floor-plan-1.jpg";
+import floorPlan2 from "@/assets/floor-plan-2.jpg";
+import floorPlan3 from "@/assets/floor-plan-3.jpg";
 
 interface Apartment {
   id: number;
@@ -16,20 +20,22 @@ interface Apartment {
   isFavorite: boolean;
 }
 
+const floorPlans = [floorPlan1, floorPlan2, floorPlan3];
+
 const allApartments: Apartment[] = [
-  { id: 1, number: "A-101", area: 65, rooms: 2, floor: 3, deliveryYear: "2025", project: "Navruz Residence", image: "/placeholder.svg", isFavorite: false },
-  { id: 2, number: "B-205", area: 85, rooms: 3, floor: 7, deliveryYear: "2025", project: "Grand Tower", image: "/placeholder.svg", isFavorite: false },
-  { id: 3, number: "C-312", area: 120, rooms: 4, floor: 12, deliveryYear: "2024", project: "Oasis Park", image: "/placeholder.svg", isFavorite: false },
-  { id: 4, number: "A-415", area: 45, rooms: 1, floor: 4, deliveryYear: "2025", project: "Navruz Residence", image: "/placeholder.svg", isFavorite: false },
-  { id: 5, number: "B-518", area: 95, rooms: 3, floor: 15, deliveryYear: "2026", project: "Grand Tower", image: "/placeholder.svg", isFavorite: false },
-  { id: 6, number: "D-208", area: 78, rooms: 2, floor: 8, deliveryYear: "2025", project: "Oasis Park", image: "/placeholder.svg", isFavorite: false },
+  { id: 1, number: "1A", area: 57.24, rooms: 2, floor: 1, deliveryYear: "2027", project: "SAADIYAT", image: floorPlan1, isFavorite: false },
+  { id: 2, number: "37", area: 122.79, rooms: 4, floor: 9, deliveryYear: "2026", project: "REGNUM PLAZA", image: floorPlan2, isFavorite: false },
+  { id: 3, number: "195", area: 44.86, rooms: 1, floor: 24, deliveryYear: "2028", project: "C1", image: floorPlan3, isFavorite: false },
+  { id: 4, number: "16", area: 78.84, rooms: 3, floor: 5, deliveryYear: "2028", project: "SAADIYAT", image: floorPlan1, isFavorite: false },
+  { id: 5, number: "42", area: 95.50, rooms: 3, floor: 15, deliveryYear: "2026", project: "REGNUM PLAZA", image: floorPlan2, isFavorite: false },
+  { id: 6, number: "88", area: 68.20, rooms: 2, floor: 8, deliveryYear: "2027", project: "C1", image: floorPlan3, isFavorite: false },
 ];
 
-const projects = ["Barchasi", "Navruz Residence", "Grand Tower", "Oasis Park"];
+const projects = ["Barchasi", "SAADIYAT", "REGNUM PLAZA", "C1"];
 const roomOptions = ["Barchasi", "1", "2", "3", "4+"];
 const floorOptions = ["Barchasi", "1-5", "6-10", "11-15", "16+"];
 const areaOptions = ["Barchasi", "30-50 m²", "50-80 m²", "80-100 m²", "100+ m²"];
-const deliveryOptions = ["Barchasi", "2024", "2025", "2026"];
+const deliveryOptions = ["Barchasi", "2026", "2027", "2028"];
 
 export default function FilterSection() {
   const [apartments, setApartments] = useState<Apartment[]>(allApartments.slice(0, 6));
@@ -210,7 +216,7 @@ export default function FilterSection() {
             <div className="flex items-end gap-2">
               <button
                 onClick={applyFilters}
-                className="btn-gold flex-1 flex items-center justify-center gap-2 py-3"
+                className="btn-beige flex-1 flex items-center justify-center gap-2 py-3"
               >
                 <Search className="w-4 h-4" />
                 Qidirish
@@ -231,7 +237,7 @@ export default function FilterSection() {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
         >
           <AnimatePresence>
             {apartments.map((apartment, index) => (
@@ -243,18 +249,13 @@ export default function FilterSection() {
                 transition={{ delay: index * 0.1 }}
                 className="bg-card rounded-xl overflow-hidden shadow-soft group hover:shadow-medium transition-shadow"
               >
-                {/* Image / Floor Plan */}
-                <div className="relative h-48 bg-muted">
-                  <div className="absolute inset-0 flex items-center justify-center text-muted-foreground">
-                    <div className="text-center">
-                      <svg className="w-16 h-16 mx-auto mb-2 opacity-50" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
-                        <rect x="3" y="3" width="18" height="18" rx="2" />
-                        <line x1="3" y1="9" x2="21" y2="9" />
-                        <line x1="9" y1="21" x2="9" y2="9" />
-                      </svg>
-                      <span className="text-sm">Kadastr rejasi</span>
-                    </div>
-                  </div>
+                {/* Floor Plan Image */}
+                <div className="relative h-52 bg-muted p-4">
+                  <img 
+                    src={apartment.image} 
+                    alt={`Floor plan ${apartment.number}`}
+                    className="w-full h-full object-contain"
+                  />
                   
                   {/* Favorite Button */}
                   <button
@@ -271,34 +272,40 @@ export default function FilterSection() {
 
                 {/* Content */}
                 <div className="p-5">
-                  <div className="flex justify-between items-start mb-4">
-                    <div>
-                      <h3 className="font-heading font-bold text-lg">№{apartment.number}</h3>
-                      <p className="text-sm text-muted-foreground">{apartment.project}</p>
+                  {/* Details */}
+                  <div className="space-y-2 mb-5 text-sm">
+                    <div className="flex justify-between items-center border-b border-dashed border-border pb-2">
+                      <span className="text-muted-foreground">Nomer kvartiry</span>
+                      <span className="font-semibold text-primary">{apartment.number}</span>
                     </div>
-                    <span className="text-accent font-bold text-lg">{apartment.area} m²</span>
-                  </div>
-
-                  <div className="grid grid-cols-3 gap-4 mb-5 text-sm">
-                    <div className="text-center p-2 bg-secondary rounded-lg">
-                      <span className="block text-muted-foreground text-xs">Xonalar</span>
-                      <span className="font-semibold">{apartment.rooms}</span>
+                    <div className="flex justify-between items-center border-b border-dashed border-border pb-2">
+                      <span className="text-muted-foreground">Ploshad</span>
+                      <span className="font-semibold text-primary">{apartment.area} m²</span>
                     </div>
-                    <div className="text-center p-2 bg-secondary rounded-lg">
-                      <span className="block text-muted-foreground text-xs">Qavat</span>
-                      <span className="font-semibold">{apartment.floor}</span>
+                    <div className="flex justify-between items-center border-b border-dashed border-border pb-2">
+                      <span className="text-muted-foreground">Komnat</span>
+                      <span className="font-semibold text-primary">{apartment.rooms}</span>
                     </div>
-                    <div className="text-center p-2 bg-secondary rounded-lg">
-                      <span className="block text-muted-foreground text-xs">Yil</span>
-                      <span className="font-semibold">{apartment.deliveryYear}</span>
+                    <div className="flex justify-between items-center border-b border-dashed border-border pb-2">
+                      <span className="text-muted-foreground">Etaj</span>
+                      <span className="font-semibold text-primary">{apartment.floor}</span>
+                    </div>
+                    <div className="flex justify-between items-center border-b border-dashed border-border pb-2">
+                      <span className="text-muted-foreground">God sdachi</span>
+                      <span className="font-semibold text-primary">{apartment.deliveryYear}</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-muted-foreground">Proekt</span>
+                      <span className="font-semibold text-accent">{apartment.project}</span>
                     </div>
                   </div>
 
                   <button
                     onClick={() => handleRequestInfo(apartment)}
-                    className="btn-navy w-full text-sm"
+                    className="btn-navy w-full text-sm flex items-center justify-center gap-2"
                   >
-                    Batafsil ma'lumot
+                    <Search className="w-4 h-4" />
+                    Uznat podrobnee
                   </button>
                 </div>
               </motion.div>
@@ -314,7 +321,7 @@ export default function FilterSection() {
             viewport={{ once: true }}
             className="text-center mt-10"
           >
-            <button onClick={showMore} className="btn-outline-gold">
+            <button onClick={showMore} className="btn-outline-beige">
               Yana ko'rsatish
             </button>
           </motion.div>

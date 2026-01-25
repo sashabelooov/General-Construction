@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, ArrowRight, Eye } from "lucide-react";
 import { Link } from "react-router-dom";
 
 import heroImage1 from "@/assets/hero-building-1.jpg";
@@ -118,15 +118,16 @@ export default function HeroSection() {
                 {slides[currentSlide].description}
               </p>
               <div className="flex flex-wrap gap-4">
-                <Link to="/projects" className="btn-gold flex items-center gap-2">
+                <Link to="/projects" className="btn-beige flex items-center gap-2">
                   Loyihalarni ko'rish
                   <ArrowRight className="w-5 h-5" />
                 </Link>
                 <Link
-                  to="/contact"
-                  className="btn-outline-gold border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary"
+                  to={`/projects/${slides[currentSlide].id}`}
+                  className="btn-outline-beige border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary flex items-center gap-2"
                 >
-                  Bog'lanish
+                  <Eye className="w-5 h-5" />
+                  Loyihani ko'rish
                 </Link>
               </div>
             </motion.div>
