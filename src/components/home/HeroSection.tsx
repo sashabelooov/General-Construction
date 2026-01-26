@@ -2,41 +2,40 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, ArrowRight, Eye } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useLanguage } from "@/lib/i18n";
 
 import heroImage1 from "@/assets/hero-building-1.jpg";
 import heroImage2 from "@/assets/hero-building-2.jpg";
 import heroImage3 from "@/assets/hero-building-3.jpg";
 
-const slides = [
-  {
-    id: 1,
-    image: heroImage1,
-    title: "Kelajak uyingiz",
-    subtitle: "bugun boshlanadi",
-    description:
-      "Premium sifatli turar-joy majmualari. Zamonaviy dizayn, qulay to'lov shartlari va ishonchli quruvchi.",
-  },
-  {
-    id: 2,
-    image: heroImage2,
-    title: "Hashamatli hayot",
-    subtitle: "eng yaxshi manzilda",
-    description:
-      "Shahar markazida joylashgan zamonaviy uy-joy majmualari. Barcha qulayliklar bir joyda.",
-  },
-  {
-    id: 3,
-    image: heroImage3,
-    title: "Sifat va ishonch",
-    subtitle: "bizning ustuvorligimiz",
-    description:
-      "10+ yillik tajriba, 50+ muvaffaqiyatli loyihalar. Oilangiz uchun eng yaxshi tanlov.",
-  },
-];
-
 export default function HeroSection() {
+  const { t } = useLanguage();
   const [currentSlide, setCurrentSlide] = useState(0);
   const [direction, setDirection] = useState(0);
+
+  const slides = [
+    {
+      id: 1,
+      image: heroImage1,
+      title: t('hero.slide1.title'),
+      subtitle: t('hero.slide1.subtitle'),
+      description: t('hero.slide1.description'),
+    },
+    {
+      id: 2,
+      image: heroImage2,
+      title: t('hero.slide2.title'),
+      subtitle: t('hero.slide2.subtitle'),
+      description: t('hero.slide2.description'),
+    },
+    {
+      id: 3,
+      image: heroImage3,
+      title: t('hero.slide3.title'),
+      subtitle: t('hero.slide3.subtitle'),
+      description: t('hero.slide3.description'),
+    },
+  ];
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -119,7 +118,7 @@ export default function HeroSection() {
               </p>
               <div className="flex flex-wrap gap-4">
                 <Link to="/projects" className="btn-beige flex items-center gap-2">
-                  Loyihalarni ko'rish
+                  {t('hero.viewProjects')}
                   <ArrowRight className="w-5 h-5" />
                 </Link>
                 <Link
@@ -127,7 +126,7 @@ export default function HeroSection() {
                   className="btn-outline-beige border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary flex items-center gap-2"
                 >
                   <Eye className="w-5 h-5" />
-                  Loyihani ko'rish
+                  {t('hero.viewProject')}
                 </Link>
               </div>
             </motion.div>

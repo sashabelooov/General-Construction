@@ -87,7 +87,7 @@ export default function ConsultationForm({ onSuccess, variant = "default" }: Con
         </label>
         <Input
           {...register("phone")}
-          placeholder="+998 __ ___ __ __"
+          placeholder="+1 (___) ___-____"
           className={`input-field ${variant === "hero" ? "bg-card/80 backdrop-blur" : ""}`}
         />
         {errors.phone && (

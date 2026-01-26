@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { MapPin, Calendar, ArrowRight, Building2 } from "lucide-react";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import { useLanguage } from "@/lib/i18n";
 
 import projectImage1 from "@/assets/project-1.jpg";
 import projectImage2 from "@/assets/project-2.jpg";
@@ -12,82 +13,133 @@ import projectImage3 from "@/assets/project-3.jpg";
 const allProjects = [
   {
     id: 1,
-    name: "Navruz Residence",
+    name: "Sunset Villas",
     image: projectImage1,
-    location: "Toshkent, Yunusobod tumani",
-    deliveryDate: "Q4 2025",
+    location: "Los Angeles, Hollywood",
+    deliveryDate: "2027-06-01", // Format: YYYY-MM-DD
     class: "Comfort",
-    status: "Qurilish jarayonida",
+    status: "Under Construction",
     apartments: 240,
     floors: 16,
   },
   {
     id: 2,
-    name: "Grand Tower",
+    name: "Downtown Towers",
     image: projectImage2,
-    location: "Toshkent, Mirzo Ulug'bek tumani",
-    deliveryDate: "Topshirilgan",
+    location: "New York, Manhattan",
+    deliveryDate: null, // Completed projects don't need completion date
     class: "Business",
-    status: "Topshirilgan",
+    status: "Completed",
     apartments: 320,
     floors: 24,
   },
   {
     id: 3,
-    name: "Oasis Park",
+    name: "Riverside Apartments",
     image: projectImage3,
-    location: "Toshkent, Sergeli tumani",
-    deliveryDate: "Q2 2026",
+    location: "Chicago, Downtown",
+    deliveryDate: "2026-06-15",
     class: "Premium",
-    status: "Sotuvda",
+    status: "For Sale",
     apartments: 180,
     floors: 12,
   },
   {
     id: 4,
-    name: "City Center",
+    name: "Skyline Residences",
     image: projectImage1,
-    location: "Toshkent, Shayxontohur tumani",
-    deliveryDate: "Q3 2025",
+    location: "Miami, South Beach",
+    deliveryDate: "2027-09-01",
     class: "Business",
-    status: "Qurilish jarayonida",
+    status: "Under Construction",
     apartments: 150,
     floors: 18,
   },
   {
     id: 5,
-    name: "Green Valley",
+    name: "Oakwood Estates",
     image: projectImage2,
-    location: "Toshkent, Chilonzor tumani",
-    deliveryDate: "Q1 2026",
+    location: "San Francisco, Nob Hill",
+    deliveryDate: "2026-03-15",
     class: "Comfort",
-    status: "Sotuvda",
+    status: "For Sale",
     apartments: 200,
     floors: 14,
   },
   {
     id: 6,
-    name: "Sunrise Heights",
+    name: "Harbor View",
     image: projectImage3,
-    location: "Toshkent, Yakkasaroy tumani",
-    deliveryDate: "Topshirilgan",
+    location: "Seattle, Waterfront",
+    deliveryDate: null,
     class: "Premium",
-    status: "Topshirilgan",
+    status: "Completed",
     apartments: 280,
     floors: 20,
   },
 ];
 
-const statusFilters = ["Barchasi", "Sotuvda", "Qurilish jarayonida", "Topshirilgan"];
-const classFilters = ["Barchasi", "Comfort", "Business", "Premium"];
+const statusFilterKeys = ["all", "forSale", "underConstruction", "completed"] as const;
+const classFilterKeys = ["all", "comfort", "business", "premium"] as const;
 
 export default function Projects() {
-  const [selectedStatus, setSelectedStatus] = useState("Barchasi");
-  const [selectedClass, setSelectedClass] = useState("Barchasi");
+  const { t, language } = useLanguage();
+  const [selectedStatus, setSelectedStatus] = useState("all");
+  const [selectedClass, setSelectedClass] = useState("all");
+
+  const getStatusTranslation = (status: string) => {
+    switch (status) {
+      case "Completed":
+        return t('projects.status.sold');
+      case "For Sale":
+        return t('projects.status.sale');
+      case "Under Construction":
+        return t('projects.status.building');
+      default:
+        return status;
+    }
+  };
+
+  const getClassTranslation = (classType: string) => {
+    switch (classType) {
+      case "Comfort":
+        return t('filter.class.comfort');
+      case "Business":
+        return t('filter.class.business');
+      case "Premium":
+        return t('filter.class.premium');
+      default:
+        return classType;
+    }
+  };
+
+  const formatCompletionDate = (dateString: string | null) => {
+    if (!dateString) return t('projects.status.sold');
+    
+    const date = new Date(dateString);
+    if (language === 'uz') {
+      // Format as DD-MM-YYYY for Uzbek
+      const day = String(date.getDate()).padStart(2, '0');
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const year = date.getFullYear();
+      return `${day}-${month}-${year}`;
+    } else {
+      // For English and Russian, use Q format
+      const quarter = Math.floor((date.getMonth() + 3) / 3);
+      const year = date.getFullYear();
+      return `Q${quarter} ${year}`;
+    }
+  };
 
   const filteredProjects = allProjects.filter((project) => {
-    const statusMatch = selectedStatus === "Barchasi" || project.status === selectedStatus;
-    const classMatch = selectedClass === "Barchasi" || project.class === selectedClass;
+    const statusMatch = selectedStatus === "all" || 
+      (selectedStatus === "forSale" && project.status === "For Sale") ||
+      (selectedStatus === "underConstruction" && project.status === "Under Construction") ||
+      (selectedStatus === "completed" && project.status === "Completed");
+    const classMatch = selectedClass === "all" || 
+      (selectedClass === "comfort" && project.class === "Comfort") ||
+      (selectedClass === "business" && project.class === "Business") ||
+      (selectedClass === "premium" && project.class === "Premium");
     return statusMatch && classMatch;
   });
 
@@ -105,10 +157,10 @@ export default function Projects() {
               className="text-center"
             >
               <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground mb-4">
-                Bizning loyihalar
+                {t('projects.title')}
               </h1>
               <p className="text-primary-foreground/80 text-lg max-w-2xl mx-auto">
-                Zamonaviy me'morchilik va yuqori sifat bilan qurilgan turar-joy majmualarimiz
+                {t('projects.description')}
               </p>
             </motion.div>
           </div>
@@ -118,21 +170,21 @@ export default function Projects() {
         <section className="py-8 bg-secondary sticky top-20 z-30">
           <div className="container-main">
             <div className="flex flex-wrap items-center gap-4">
-              <span className="text-sm font-medium text-muted-foreground">Filtr:</span>
+              <span className="text-sm font-medium text-muted-foreground">{t('filter.label')}</span>
               
               {/* Status Filter */}
               <div className="flex flex-wrap gap-2">
-                {statusFilters.map((filter) => (
+                {statusFilterKeys.map((filterKey) => (
                   <button
-                    key={filter}
-                    onClick={() => setSelectedStatus(filter)}
+                    key={filterKey}
+                    onClick={() => setSelectedStatus(filterKey)}
                     className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
-                      selectedStatus === filter
+                      selectedStatus === filterKey
                         ? "bg-accent text-primary"
                         : "bg-card hover:bg-muted"
                     }`}
                   >
-                    {filter}
+                    {t(`filter.status.${filterKey}`)}
                   </button>
                 ))}
               </div>
@@ -141,17 +193,17 @@ export default function Projects() {
 
               {/* Class Filter */}
               <div className="flex flex-wrap gap-2">
-                {classFilters.map((filter) => (
+                {classFilterKeys.map((filterKey) => (
                   <button
-                    key={filter}
-                    onClick={() => setSelectedClass(filter)}
+                    key={filterKey}
+                    onClick={() => setSelectedClass(filterKey)}
                     className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
-                      selectedClass === filter
+                      selectedClass === filterKey
                         ? "bg-primary text-primary-foreground"
                         : "bg-card hover:bg-muted"
                     }`}
                   >
-                    {filter}
+                    {t(`filter.class.${filterKey}`)}
                   </button>
                 ))}
               </div>
@@ -185,16 +237,16 @@ export default function Projects() {
                         {/* Badges */}
                         <div className="absolute top-4 left-4 flex gap-2">
                           <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                            project.status === "Topshirilgan"
+                            project.status === "Completed"
                               ? "bg-success text-primary-foreground"
-                              : project.status === "Sotuvda"
+                              : project.status === "For Sale"
                               ? "bg-accent text-primary"
                               : "bg-primary text-primary-foreground"
                           }`}>
-                            {project.status}
+                            {getStatusTranslation(project.status)}
                           </span>
                           <span className="px-3 py-1 rounded-full text-xs font-semibold bg-card/90 text-foreground">
-                            {project.class}
+                            {getClassTranslation(project.class)}
                           </span>
                         </div>
 
@@ -223,11 +275,11 @@ export default function Projects() {
                         
                         <div className="flex items-center gap-2 text-muted-foreground mb-4">
                           <Calendar className="w-4 h-4 text-accent" />
-                          <span className="text-sm">{project.deliveryDate}</span>
+                          <span className="text-sm">{formatCompletionDate(project.deliveryDate)}</span>
                         </div>
 
                         <span className="flex items-center gap-2 text-accent font-semibold group-hover:gap-3 transition-all">
-                          Batafsil
+                          {t('projects.more')}
                           <ArrowRight className="w-4 h-4" />
                         </span>
                       </div>
@@ -240,7 +292,7 @@ export default function Projects() {
             {filteredProjects.length === 0 && (
               <div className="text-center py-20">
                 <p className="text-muted-foreground text-lg">
-                  Ushbu filtrlar bo'yicha loyihalar topilmadi
+                  {t('projects.notFound')}
                 </p>
               </div>
             )}

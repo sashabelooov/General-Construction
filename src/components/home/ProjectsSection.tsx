@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
-import { MapPin, Home, ArrowRight } from "lucide-react";
+import { MapPin, Home, ArrowRight, Calendar } from "lucide-react";
 import { useLanguage } from "@/lib/i18n";
 
 import projectImage1 from "@/assets/project-1.jpg";
@@ -10,33 +10,36 @@ import projectImage3 from "@/assets/project-3.jpg";
 const projects = [
   {
     id: 1,
-    name: "Navruz Residence",
+    name: "Sunset Villas",
     image: projectImage1,
-    location: "Toshkent, Yunusobod",
+    location: "Los Angeles, Hollywood",
     totalApartments: 240,
     soldApartments: 180,
-    status: "Qurilish jarayonida",
+    status: "Under Construction",
     class: "Comfort",
+    completionDate: "2027-05-01", // Format: YYYY-MM-DD
   },
   {
     id: 2,
-    name: "Grand Tower",
+    name: "Downtown Towers",
     image: projectImage2,
-    location: "Toshkent, Mirzo Ulug'bek",
+    location: "New York, Manhattan",
     totalApartments: 320,
     soldApartments: 280,
-    status: "Topshirilgan",
+    status: "Completed",
     class: "Business",
+    completionDate: null, // Completed projects don't need completion date
   },
   {
     id: 3,
-    name: "Oasis Park",
+    name: "Riverside Apartments",
     image: projectImage3,
-    location: "Toshkent, Sergeli",
+    location: "Chicago, Downtown",
     totalApartments: 180,
     soldApartments: 45,
-    status: "Sotuvda",
+    status: "For Sale",
     class: "Premium",
+    completionDate: "2026-08-15",
   },
 ];
 
@@ -60,7 +63,7 @@ const itemVariants = {
 };
 
 export default function ProjectsSection() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const navigate = useNavigate();
 
   const handleProjectClick = (projectId: number) => {
@@ -75,14 +78,32 @@ export default function ProjectsSection() {
 
   const getStatusTranslation = (status: string) => {
     switch (status) {
-      case "Topshirilgan":
+      case "Completed":
         return t('projects.status.sold');
-      case "Sotuvda":
+      case "For Sale":
         return t('projects.status.sale');
-      case "Qurilish jarayonida":
+      case "Under Construction":
         return t('projects.status.building');
       default:
         return status;
+    }
+  };
+
+  const formatCompletionDate = (dateString: string | null) => {
+    if (!dateString) return t('projects.status.sold');
+    
+    const date = new Date(dateString);
+    if (language === 'uz') {
+      // Format as DD-MM-YYYY for Uzbek
+      const day = String(date.getDate()).padStart(2, '0');
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const year = date.getFullYear();
+      return `${day}-${month}-${year}`;
+    } else {
+      // For English and Russian, use Q format
+      const quarter = Math.floor((date.getMonth() + 3) / 3);
+      const year = date.getFullYear();
+      return `Q${quarter} ${year}`;
     }
   };
 
@@ -134,9 +155,9 @@ export default function ProjectsSection() {
                 <div className="absolute top-4 left-4">
                   <span
                     className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                      project.status === "Topshirilgan"
+                      project.status === "Completed"
                         ? "bg-success text-primary-foreground"
-                        : project.status === "Sotuvda"
+                        : project.status === "For Sale"
                         ? "bg-accent text-primary"
                         : "bg-primary text-primary-foreground"
                     }`}
@@ -165,10 +186,17 @@ export default function ProjectsSection() {
                   <span className="text-sm">{project.location}</span>
                 </div>
                 
-                <div className="flex items-center gap-2 text-muted-foreground mb-4">
+                <div className="flex items-center gap-2 text-muted-foreground mb-2">
                   <Home className="w-4 h-4 text-accent" />
                   <span className="text-sm">
                     {project.totalApartments} {t('projects.apartment')}
+                  </span>
+                </div>
+
+                <div className="flex items-center gap-2 text-muted-foreground mb-4">
+                  <Calendar className="w-4 h-4 text-accent" />
+                  <span className="text-sm">
+                    {formatCompletionDate(project.completionDate)}
                   </span>
                 </div>
 

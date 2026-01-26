@@ -64,6 +64,56 @@ const translations: Translations = {
     ru: 'Смотреть проект',
     en: 'View Project',
   },
+  'hero.viewProjects': {
+    uz: 'Loyihalarni ko\'rish',
+    ru: 'Смотреть проекты',
+    en: 'View Projects',
+  },
+  'hero.slide1.title': {
+    uz: 'Kelajagingizdagi uy',
+    ru: 'Ваш будущий дом',
+    en: 'Your Future Home',
+  },
+  'hero.slide1.subtitle': {
+    uz: 'bugundan boshlanadi',
+    ru: 'начинается сегодня',
+    en: 'starts today',
+  },
+  'hero.slide1.description': {
+    uz: 'Premium sifatli turar-joy majmualari. Zamonaviy dizayn, qulay to\'lov shartlari va ishonchli quruvchi.',
+    ru: 'Премиум качественные жилые комплексы. Современный дизайн, удобные условия оплаты и надежный застройщик.',
+    en: 'Premium quality residential complexes. Modern design, convenient payment terms and reliable builder.',
+  },
+  'hero.slide2.title': {
+    uz: 'Hashamatli hayot',
+    ru: 'Роскошная жизнь',
+    en: 'Luxurious Life',
+  },
+  'hero.slide2.subtitle': {
+    uz: 'eng yaxshi joyda',
+    ru: 'в лучшем месте',
+    en: 'in the best location',
+  },
+  'hero.slide2.description': {
+    uz: 'Shahar markazida joylashgan zamonaviy turar-joy majmualari. Barcha qulayliklar bir joyda.',
+    ru: 'Современные жилые комплексы, расположенные в центре города. Все удобства в одном месте.',
+    en: 'Modern residential complexes located in the city center. All amenities in one place.',
+  },
+  'hero.slide3.title': {
+    uz: 'Sifat va ishonch',
+    ru: 'Качество и доверие',
+    en: 'Quality and Trust',
+  },
+  'hero.slide3.subtitle': {
+    uz: 'bizning ustuvorligimiz',
+    ru: 'наш приоритет',
+    en: 'our priority',
+  },
+  'hero.slide3.description': {
+    uz: '10+ yillik tajriba, 50+ muvaffaqiyatli loyiha. Oilangiz uchun eng yaxshi tanlov.',
+    ru: '10+ лет опыта, 50+ успешных проектов. Лучший выбор для вашей семьи.',
+    en: '10+ years of experience, 50+ successful projects. The best choice for your family.',
+  },
 
   // Projects Section
   'projects.subtitle': {
@@ -100,6 +150,11 @@ const translations: Translations = {
     uz: 'Barcha loyihalar',
     ru: 'Все проекты',
     en: 'All Projects',
+  },
+  'projects.notFound': {
+    uz: 'Ushbu filtrlar bo\'yicha loyihalar topilmadi',
+    ru: 'Проекты по данным фильтрам не найдены',
+    en: 'No projects found matching these filters',
   },
   'projects.status.sold': {
     uz: 'Topshirilgan',
@@ -162,6 +217,51 @@ const translations: Translations = {
     uz: 'Barchasi',
     ru: 'Все',
     en: 'All',
+  },
+  'filter.label': {
+    uz: 'Filtr:',
+    ru: 'Фильтр:',
+    en: 'Filter:',
+  },
+  'filter.status.all': {
+    uz: 'Barchasi',
+    ru: 'Все',
+    en: 'All',
+  },
+  'filter.status.forSale': {
+    uz: 'Sotuvda',
+    ru: 'В продаже',
+    en: 'For Sale',
+  },
+  'filter.status.underConstruction': {
+    uz: 'Qurilish jarayonida',
+    ru: 'Строится',
+    en: 'Under Construction',
+  },
+  'filter.status.completed': {
+    uz: 'Topshirilgan',
+    ru: 'Сдан',
+    en: 'Completed',
+  },
+  'filter.class.all': {
+    uz: 'Barchasi',
+    ru: 'Все',
+    en: 'All',
+  },
+  'filter.class.comfort': {
+    uz: 'Komfort',
+    ru: 'Комфорт',
+    en: 'Comfort',
+  },
+  'filter.class.business': {
+    uz: 'Biznes',
+    ru: 'Бизнес',
+    en: 'Business',
+  },
+  'filter.class.premium': {
+    uz: 'Premium',
+    ru: 'Премиум',
+    en: 'Premium',
   },
   'filter.search': {
     uz: 'Qidirish',
@@ -310,7 +410,7 @@ const translations: Translations = {
   'about.description': {
     uz: '2014-yildan beri O\'zbekiston qurilish bozorida faoliyat yuritayotgan yetakchi kompaniya. Biz zamonaviy turar-joy majmualari qurish va oilalarga orzularidagi uyni taqdim etish bilan shug\'ullanamiz.',
     ru: 'Ведущая компания на строительном рынке Узбекистана с 2014 года. Мы занимаемся строительством современных жилых комплексов и предоставлением семьям дома их мечты.',
-    en: 'A leading company in the construction market of Uzbekistan since 2014. We are engaged in the construction of modern residential complexes and providing families with their dream home.',
+    en: 'A leading company in the construction market of the USA since 2014. We are engaged in the construction of modern residential complexes and providing families with their dream home.',
   },
   'about.stats.projects': {
     uz: 'Topshirilgan loyihalar',
@@ -481,7 +581,7 @@ const translations: Translations = {
   'footer.company': {
     uz: 'General Construction - O\'zbekistonning yetakchi qurilish kompaniyasi',
     ru: 'General Construction - ведущая строительная компания Узбекистана',
-    en: 'General Construction - leading construction company in Uzbekistan',
+    en: 'General Construction - leading construction company in the USA',
   },
   'footer.quickLinks': {
     uz: 'Tezkor havolalar',
@@ -523,7 +623,7 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [language, setLanguage] = useState<Language>(() => {
     const saved = localStorage.getItem('language');
-    return (saved as Language) || 'uz';
+    return (saved as Language) || 'en';
   });
 
   useEffect(() => {

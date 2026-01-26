@@ -145,8 +145,8 @@ export default function Navbar() {
               </div>
 
               {/* Phone - without icon */}
-              <a href="tel:+998991234567" className="font-medium text-sm">
-                +998 99 123-45-67
+              <a href="tel:+15551234567" className="font-medium text-sm">
+                +1 (555) 123-4567
               </a>
 
               {/* Contact Button - positioned at far right */}
@@ -189,11 +189,11 @@ export default function Navbar() {
                 ))}
                 <div className="pt-4 border-t border-border">
                   <a
-                    href="tel:+998991234567"
+                    href="tel:+15551234567"
                     className="flex items-center gap-2 font-medium text-accent"
                   >
                     <Phone className="w-5 h-5" />
-                    +998 99 123-45-67
+                    +1 (555) 123-4567
                   </a>
                 </div>
                 <button

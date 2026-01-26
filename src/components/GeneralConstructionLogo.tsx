@@ -18,8 +18,8 @@ export default function GeneralConstructionLogo({
       />
       {showText && (
         <div className="hidden sm:block">
-          <span className="font-heading font-bold text-lg text-primary tracking-wide">GENERAL</span>
-          <span className="font-heading font-bold text-lg text-primary tracking-wide block -mt-1">CONSTRUCTION</span>
+          <span className="font-heading font-bold text-lg text-accent tracking-wide">GENERAL</span>
+          <span className="font-heading font-bold text-lg text-accent tracking-wide block -mt-1">CONSTRUCTION</span>
         </div>
       )}
     </div>

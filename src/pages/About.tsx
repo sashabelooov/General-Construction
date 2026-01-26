@@ -4,6 +4,9 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import ConsultationSection from "@/components/home/ConsultationSection";
 import { useLanguage } from "@/lib/i18n";
+import heroImage1 from "@/assets/hero-building-1.jpg";
+import heroImage2 from "@/assets/hero-building-2.jpg";
+import heroImage3 from "@/assets/hero-building-3.jpg";
 
 // Stat icons
 import { Building2, Users, Clock, MapPin } from "lucide-react";
@@ -79,7 +82,7 @@ export default function About() {
                       transition={{ delay: 0.3 + index * 0.1 }}
                       className="flex items-center gap-4"
                     >
-                      <div className="w-14 h-14 rounded-xl bg-accent/20 flex items-center justify-center">
+                      <div className="w-14 h-14 rounded-xl bg-accent/20 flex items-center justify-center overflow-hidden">
                         <stat.icon className="w-7 h-7 text-accent" />
                       </div>
                       <div>
@@ -99,8 +102,12 @@ export default function About() {
                 transition={{ duration: 0.6, delay: 0.2 }}
                 className="relative"
               >
-                <div className="aspect-square rounded-2xl bg-accent/20 flex items-center justify-center">
-                  <Building2 className="w-48 h-48 text-accent/50" />
+                <div className="aspect-square rounded-2xl overflow-hidden">
+                  <img 
+                    src={heroImage2} 
+                    alt="General Construction" 
+                    className="w-full h-full object-cover"
+                  />
                 </div>
                 <div className="absolute -bottom-6 -left-6 w-32 h-32 rounded-xl bg-accent flex items-center justify-center">
                   <span className="font-heading font-bold text-4xl text-primary">10+</span>

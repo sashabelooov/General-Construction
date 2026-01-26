@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
 import { Phone, Mail, MapPin } from "lucide-react";
-import SkylineLogo from "@/components/SkylineLogo";
+import GeneralConstructionLogo from "@/components/GeneralConstructionLogo";
 
 const offices = [
-  { name: "Toshkent shahar", address: "Mirzo Ulug'bek tumani, Buyuk Ipak Yo'li ko'chasi 15" },
-  { name: "Samarqand shahar", address: "Registon ko'chasi 45" },
+  { name: "Manhattan Office", address: "123 Broadway, Manhattan, NY 10001" },
+  { name: "Hollywood Office", address: "456 Sunset Blvd, Hollywood, CA 90028" },
 ];
 
 const quickLinks = [
@@ -31,11 +31,7 @@ export default function Footer() {
             {/* Logo & Description */}
             <div>
               <Link to="/" className="flex items-center gap-3 mb-6">
-                <SkylineLogo className="w-16 h-8 text-primary-foreground" />
-                <div>
-                  <span className="font-heading font-bold text-xl">General</span>
-                  <span className="font-heading font-bold text-xl text-accent"> Construction</span>
-                </div>
+                <GeneralConstructionLogo className="h-12 w-12 object-contain" />
               </Link>
               <p className="text-primary-foreground/70 mb-6 max-w-md">
                 O'zbekistondagi yetakchi qurilish kompaniyasi. 10+ yillik tajriba, 50+ tugatilgan loyihalar.
@@ -66,15 +62,15 @@ export default function Footer() {
                 <h4 className="font-heading font-bold text-lg mb-4">Bog'lanish</h4>
                 <ul className="space-y-3">
                   <li>
-                    <a href="tel:+998991234567" className="flex items-center gap-3 hover:text-accent transition-colors text-primary-foreground/70">
+                    <a href="tel:+15551234567" className="flex items-center gap-3 hover:text-accent transition-colors text-primary-foreground/70">
                       <Phone className="w-4 h-4 text-accent" />
-                      +998 99 123-45-67
+                      +1 (555) 123-4567
                     </a>
                   </li>
                   <li>
-                    <a href="tel:+998712345678" className="flex items-center gap-3 hover:text-accent transition-colors text-primary-foreground/70">
+                    <a href="tel:+15552345678" className="flex items-center gap-3 hover:text-accent transition-colors text-primary-foreground/70">
                       <Phone className="w-4 h-4 text-accent" />
-                      +998 71 234-56-78
+                      +1 (555) 234-5678
                     </a>
                   </li>
                   <li>
