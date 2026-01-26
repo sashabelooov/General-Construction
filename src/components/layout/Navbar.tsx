@@ -1,22 +1,16 @@
-import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Phone, Menu, X, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import ConsultationForm from "@/components/forms/ConsultationForm";
-import SkylineLogo from "@/components/SkylineLogo";
+import GeneralConstructionLogo from "@/components/GeneralConstructionLogo";
+import { useLanguage } from "@/lib/i18n";
 
 const languages = [
-  { code: "uz", label: "O'zbekcha" },
-  { code: "ru", label: "Русский" },
-  { code: "en", label: "English" },
-];
-
-const navLinks = [
-  { href: "/projects", label: "Bizning loyihalar" },
-  { href: "/about", label: "Kompaniya haqida" },
-  { href: "/news", label: "Yangiliklar" },
-  { href: "/contact", label: "Kontakt" },
+  { code: "uz" as const, label: "O'zbekcha" },
+  { code: "ru" as const, label: "Русский" },
+  { code: "en" as const, label: "English" },
 ];
 
 const socialLinks = [
@@ -29,43 +23,59 @@ const socialLinks = [
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
-  const [currentLang, setCurrentLang] = useState("uz");
   const [showContactForm, setShowContactForm] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
+  const { language, setLanguage, t } = useLanguage();
+
+  const navLinks = [
+    { href: "/projects", label: t('nav.projects') },
+    { href: "/about", label: t('nav.about') },
+    { href: "/news", label: t('nav.news') },
+    { href: "/contact", label: t('nav.contact') },
+  ];
+
+  // Close mobile menu on route change
+  useEffect(() => {
+    setIsOpen(false);
+  }, [location.pathname]);
+
+  // Handle navigation with scroll to top
+  const handleNavClick = (href: string) => {
+    setIsOpen(false);
+    navigate(href);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   return (
     <>
       <header className="sticky top-0 z-50 bg-card/95 backdrop-blur-md shadow-soft">
         <nav className="container-main">
           <div className="flex items-center justify-between h-20">
-            {/* Logo */}
-            <Link to="/" className="flex items-center gap-3 group">
-              <SkylineLogo className="w-16 h-8 group-hover:scale-105 transition-transform" />
-              <div className="hidden sm:block">
-                <span className="font-heading font-bold text-xl text-primary">General</span>
-                <span className="font-heading font-bold text-xl text-accent"> Construction</span>
-              </div>
+            {/* Logo - moved more to left on tablet */}
+            <Link to="/" className="flex items-center group mr-auto lg:mr-0" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+              <GeneralConstructionLogo className="h-12 w-12 object-contain group-hover:scale-105 transition-transform" />
             </Link>
 
-            {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center gap-8">
+            {/* Desktop Navigation - increased gap */}
+            <div className="hidden lg:flex items-center gap-10 mx-auto">
               {navLinks.map((link) => (
-                <Link
+                <button
                   key={link.href}
-                  to={link.href}
+                  onClick={() => handleNavClick(link.href)}
                   className={`nav-link text-sm font-medium ${
                     location.pathname === link.href ? "text-accent" : ""
                   }`}
                 >
                   {link.label}
-                </Link>
+                </button>
               ))}
             </div>
 
-            {/* Right Section */}
-            <div className="hidden lg:flex items-center gap-6">
-              {/* Social Links */}
-              <div className="flex items-center gap-4">
+            {/* Right Section - pushed to right corner */}
+            <div className="hidden lg:flex items-center gap-6 ml-auto">
+              {/* Social Links - increased spacing */}
+              <div className="flex items-center gap-5">
                 {socialLinks.map((social) => (
                   <a
                     key={social.icon}
@@ -104,7 +114,7 @@ export default function Navbar() {
                   onClick={() => setLangOpen(!langOpen)}
                   className="flex items-center gap-1 px-3 py-2 rounded-lg bg-secondary text-sm font-medium hover:bg-muted transition-colors"
                 >
-                  {languages.find((l) => l.code === currentLang)?.code.toUpperCase()}
+                  {language.toUpperCase()}
                   <ChevronDown className={`w-4 h-4 transition-transform ${langOpen ? "rotate-180" : ""}`} />
                 </button>
                 <AnimatePresence>
@@ -119,11 +129,11 @@ export default function Navbar() {
                         <button
                           key={lang.code}
                           onClick={() => {
-                            setCurrentLang(lang.code);
+                            setLanguage(lang.code);
                             setLangOpen(false);
                           }}
                           className={`w-full px-4 py-2 text-left text-sm hover:bg-secondary transition-colors ${
-                            currentLang === lang.code ? "bg-secondary text-accent" : ""
+                            language === lang.code ? "bg-secondary text-accent" : ""
                           }`}
                         >
                           {lang.label}
@@ -134,15 +144,15 @@ export default function Navbar() {
                 </AnimatePresence>
               </div>
 
-              {/* Phone */}
+              {/* Phone - without icon */}
               <a href="tel:+998991234567" className="font-medium text-sm">
                 +998 99 123-45-67
               </a>
 
-              {/* Contact Button */}
+              {/* Contact Button - positioned at far right */}
               <button
                 onClick={() => setShowContactForm(true)}
-                className="w-12 h-12 rounded-full bg-accent flex items-center justify-center hover:scale-105 transition-transform shadow-lg"
+                className="w-12 h-12 rounded-full bg-accent flex items-center justify-center hover:scale-105 transition-transform shadow-lg ml-2"
               >
                 <Phone className="w-5 h-5 text-accent-foreground" />
               </button>
@@ -169,14 +179,13 @@ export default function Navbar() {
             >
               <div className="container-main py-6 space-y-4">
                 {navLinks.map((link) => (
-                  <Link
+                  <button
                     key={link.href}
-                    to={link.href}
-                    onClick={() => setIsOpen(false)}
-                    className="block py-2 font-medium hover:text-accent transition-colors"
+                    onClick={() => handleNavClick(link.href)}
+                    className="block w-full text-left py-2 font-medium hover:text-accent transition-colors"
                   >
                     {link.label}
-                  </Link>
+                  </button>
                 ))}
                 <div className="pt-4 border-t border-border">
                   <a
@@ -194,7 +203,7 @@ export default function Navbar() {
                   }}
                   className="btn-beige w-full text-center"
                 >
-                  Bog'lanish
+                  {t('nav.connect')}
                 </button>
               </div>
             </motion.div>
@@ -206,7 +215,7 @@ export default function Navbar() {
       <Dialog open={showContactForm} onOpenChange={setShowContactForm}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle className="font-heading text-2xl">Biz bilan bog'laning</DialogTitle>
+            <DialogTitle className="font-heading text-2xl">{t('nav.connect')}</DialogTitle>
           </DialogHeader>
           <ConsultationForm onSuccess={() => setShowContactForm(false)} />
         </DialogContent>

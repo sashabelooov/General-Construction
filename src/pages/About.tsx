@@ -1,36 +1,50 @@
 import { motion } from "framer-motion";
-import { Building2, Users, Award, MapPin } from "lucide-react";
+import { Handshake, Award, Lightbulb, HeartHandshake } from "lucide-react";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import ConsultationSection from "@/components/home/ConsultationSection";
+import { useLanguage } from "@/lib/i18n";
 
-const stats = [
-  { icon: Building2, value: "50+", label: "Topshirilgan loyihalar" },
-  { icon: Users, value: "5000+", label: "Baxtli oilalar" },
-  { icon: Award, value: "10+", label: "Yillik tajriba" },
-  { icon: MapPin, value: "1M+", label: "Kv.m qurilgan maydon" },
-];
-
-const values = [
-  {
-    title: "Sifat",
-    description: "Biz har bir loyihada eng yuqori sifat standartlariga rioya qilamiz. Eng yaxshi materiallar va zamonaviy texnologiyalardan foydalanamiz.",
-  },
-  {
-    title: "Ishonch",
-    description: "10 yillik tajriba davomida minglab oilalarning ishonchini qozondik. Har bir va'damizni bajaramiz.",
-  },
-  {
-    title: "Innovatsiya",
-    description: "Zamonaviy me'morchilik yechimlari va aqlli uy texnologiyalarini joriy etamiz.",
-  },
-  {
-    title: "Mijoz uchun",
-    description: "Mijozlarimizning qulayligi va mamnuniyati bizning asosiy maqsadimiz. 24/7 qo'llab-quvvatlash xizmati.",
-  },
-];
+// Stat icons
+import { Building2, Users, Clock, MapPin } from "lucide-react";
 
 export default function About() {
+  const { t } = useLanguage();
+
+  const stats = [
+    { icon: Building2, value: "50+", label: t('about.stats.projects') },
+    { icon: Users, value: "5000+", label: t('about.stats.families') },
+    { icon: Clock, value: "10+", label: t('about.stats.experience') },
+    { icon: MapPin, value: "1M+", label: t('about.stats.area') },
+  ];
+
+  const values = [
+    {
+      title: t('about.values.quality'),
+      description: t('about.values.qualityDesc'),
+      icon: Award,
+      color: "bg-blue-100 text-blue-600",
+    },
+    {
+      title: t('about.values.trust'),
+      description: t('about.values.trustDesc'),
+      icon: Handshake,
+      color: "bg-green-100 text-green-600",
+    },
+    {
+      title: t('about.values.innovation'),
+      description: t('about.values.innovationDesc'),
+      icon: Lightbulb,
+      color: "bg-amber-100 text-amber-600",
+    },
+    {
+      title: t('about.values.customer'),
+      description: t('about.values.customerDesc'),
+      icon: HeartHandshake,
+      color: "bg-rose-100 text-rose-600",
+    },
+  ];
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
@@ -46,14 +60,13 @@ export default function About() {
                 transition={{ duration: 0.6 }}
               >
                 <span className="text-accent font-semibold text-sm uppercase tracking-wider mb-4 block">
-                  Kompaniya haqida
+                  {t('about.subtitle')}
                 </span>
                 <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground mb-6">
                   General Construction
                 </h1>
                 <p className="text-primary-foreground/80 text-lg mb-8 leading-relaxed">
-                  2014-yildan beri O'zbekiston qurilish bozorida faoliyat yuritayotgan yetakchi kompaniya. 
-                  Biz zamonaviy turar-joy majmualari qurish va oilalarga orzularidagi uyni taqdim etish bilan shug'ullanamiz.
+                  {t('about.description')}
                 </p>
                 
                 {/* Stats */}
@@ -97,7 +110,7 @@ export default function About() {
           </div>
         </section>
 
-        {/* Values */}
+        {/* Values - with icons instead of numbers */}
         <section className="py-20">
           <div className="container-main">
             <motion.div
@@ -107,9 +120,9 @@ export default function About() {
               className="text-center mb-16"
             >
               <span className="text-accent font-semibold text-sm uppercase tracking-wider mb-3 block">
-                Bizning qadriyatlarimiz
+                {t('about.values.subtitle')}
               </span>
-              <h2 className="section-title">Nima uchun bizni tanlashadi?</h2>
+              <h2 className="section-title">{t('about.values.title')}</h2>
             </motion.div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -122,10 +135,9 @@ export default function About() {
                   transition={{ delay: index * 0.1 }}
                   className="bg-card rounded-2xl p-8 shadow-soft hover:shadow-medium transition-shadow text-center"
                 >
-                  <div className="w-16 h-16 rounded-full bg-accent/10 flex items-center justify-center mx-auto mb-6">
-                    <span className="font-heading font-bold text-2xl text-accent">
-                      {index + 1}
-                    </span>
+                  {/* Icon instead of number */}
+                  <div className={`w-20 h-20 rounded-full ${value.color} flex items-center justify-center mx-auto mb-6`}>
+                    <value.icon className="w-10 h-10" />
                   </div>
                   <h3 className="font-heading font-bold text-xl mb-4">{value.title}</h3>
                   <p className="text-muted-foreground">{value.description}</p>
@@ -144,10 +156,9 @@ export default function About() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
               >
-                <h2 className="section-title mb-6">Bizning missiyamiz</h2>
+                <h2 className="section-title mb-6">{t('about.mission.title')}</h2>
                 <p className="text-muted-foreground text-lg mb-6 leading-relaxed">
-                  Har bir oilaga qulay va sifatli turar-joy taqdim etish. Biz zamonaviy qurilish texnologiyalari 
-                  va innovatsion yechimlardan foydalanib, mijozlarimizga eng yaxshi natijalarni kafolatlaymiz.
+                  {t('about.mission.text')}
                 </p>
                 <p className="text-muted-foreground text-lg leading-relaxed">
                   Kompaniyamiz jamoasi 200 dan ortiq malakali mutaxassislardan iborat bo'lib, 

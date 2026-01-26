@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { MapPin, Home, ArrowRight } from "lucide-react";
+import { useLanguage } from "@/lib/i18n";
 
 import projectImage1 from "@/assets/project-1.jpg";
 import projectImage2 from "@/assets/project-2.jpg";
@@ -59,6 +60,32 @@ const itemVariants = {
 };
 
 export default function ProjectsSection() {
+  const { t } = useLanguage();
+  const navigate = useNavigate();
+
+  const handleProjectClick = (projectId: number) => {
+    navigate(`/projects/${projectId}`);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleAllProjectsClick = () => {
+    navigate('/projects');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const getStatusTranslation = (status: string) => {
+    switch (status) {
+      case "Topshirilgan":
+        return t('projects.status.sold');
+      case "Sotuvda":
+        return t('projects.status.sale');
+      case "Qurilish jarayonida":
+        return t('projects.status.building');
+      default:
+        return status;
+    }
+  };
+
   return (
     <section className="py-20 bg-background">
       <div className="container-main">
@@ -70,13 +97,13 @@ export default function ProjectsSection() {
           className="text-center mb-16"
         >
           <span className="text-accent font-semibold text-sm uppercase tracking-wider mb-3 block">
-            Bizning loyihalar
+            {t('projects.subtitle')}
           </span>
           <h2 className="section-title">
-            Premium turar-joy majmualari
+            {t('projects.title')}
           </h2>
           <p className="section-subtitle mx-auto">
-            Zamonaviy me'morchilik, qulay infrastruktura va ishonchli sifat bilan ajralib turuvchi loyihalarimiz
+            {t('projects.description')}
           </p>
         </motion.div>
 
@@ -94,7 +121,7 @@ export default function ProjectsSection() {
               variants={itemVariants}
               className="card-project group"
             >
-              {/* Image */}
+              {/* Image - removed progress bar */}
               <div className="relative h-64 overflow-hidden">
                 <img
                   src={project.image}
@@ -114,7 +141,7 @@ export default function ProjectsSection() {
                         : "bg-primary text-primary-foreground"
                     }`}
                   >
-                    {project.status}
+                    {getStatusTranslation(project.status)}
                   </span>
                 </div>
 
@@ -125,27 +152,14 @@ export default function ProjectsSection() {
                   </span>
                 </div>
 
-                {/* Progress Bar */}
-                <div className="absolute bottom-0 left-0 right-0 p-4">
-                  <div className="flex justify-between text-primary-foreground text-sm mb-2">
-                    <span>Sotilgan</span>
-                    <span>{Math.round((project.soldApartments / project.totalApartments) * 100)}%</span>
-                  </div>
-                  <div className="h-2 bg-primary-foreground/30 rounded-full overflow-hidden">
-                    <div
-                      className="h-full bg-accent rounded-full transition-all duration-1000"
-                      style={{
-                        width: `${(project.soldApartments / project.totalApartments) * 100}%`,
-                      }}
-                    />
-                  </div>
+                {/* Project Name on Image */}
+                <div className="absolute bottom-4 left-4 right-4">
+                  <h3 className="font-heading font-bold text-xl text-primary-foreground mb-1">{project.name}</h3>
                 </div>
               </div>
 
               {/* Content */}
               <div className="p-6">
-                <h3 className="font-heading font-bold text-xl mb-3">{project.name}</h3>
-                
                 <div className="flex items-center gap-2 text-muted-foreground mb-2">
                   <MapPin className="w-4 h-4 text-accent" />
                   <span className="text-sm">{project.location}</span>
@@ -154,17 +168,17 @@ export default function ProjectsSection() {
                 <div className="flex items-center gap-2 text-muted-foreground mb-4">
                   <Home className="w-4 h-4 text-accent" />
                   <span className="text-sm">
-                    {project.soldApartments}/{project.totalApartments} xonadon
+                    {project.totalApartments} {t('projects.apartment')}
                   </span>
                 </div>
 
-                <Link
-                  to={`/projects/${project.id}`}
+                <button
+                  onClick={() => handleProjectClick(project.id)}
                   className="flex items-center gap-2 text-accent font-semibold hover:gap-3 transition-all"
                 >
-                  Batafsil
+                  {t('projects.more')}
                   <ArrowRight className="w-4 h-4" />
-                </Link>
+                </button>
               </div>
             </motion.div>
           ))}
@@ -177,10 +191,10 @@ export default function ProjectsSection() {
           viewport={{ once: true }}
           className="text-center mt-12"
         >
-          <Link to="/projects" className="btn-navy inline-flex items-center gap-2">
-            Barcha loyihalar
+          <button onClick={handleAllProjectsClick} className="btn-navy inline-flex items-center gap-2">
+            {t('projects.all')}
             <ArrowRight className="w-5 h-5" />
-          </Link>
+          </button>
         </motion.div>
       </div>
     </section>

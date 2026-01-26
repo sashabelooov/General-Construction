@@ -1,0 +1,510 @@
+import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+
+type Language = 'uz' | 'ru' | 'en';
+
+interface Translations {
+  [key: string]: {
+    uz: string;
+    ru: string;
+    en: string;
+  };
+}
+
+const translations: Translations = {
+  // Navbar
+  'nav.projects': {
+    uz: 'Bizning loyihalar',
+    ru: 'Наши проекты',
+    en: 'Our Projects',
+  },
+  'nav.about': {
+    uz: 'Kompaniya haqida',
+    ru: 'О компании',
+    en: 'About Us',
+  },
+  'nav.news': {
+    uz: 'Yangiliklar',
+    ru: 'Новости',
+    en: 'News',
+  },
+  'nav.contact': {
+    uz: 'Kontakt',
+    ru: 'Контакты',
+    en: 'Contact',
+  },
+  'nav.connect': {
+    uz: "Bog'lanish",
+    ru: 'Связаться',
+    en: 'Contact Us',
+  },
+
+  // Hero Section
+  'hero.subtitle': {
+    uz: 'Premium turar-joy majmualari',
+    ru: 'Премиум жилые комплексы',
+    en: 'Premium Residential Complexes',
+  },
+  'hero.title': {
+    uz: "Orzuingizdagi uyni biz bilan toping",
+    ru: 'Найдите дом своей мечты с нами',
+    en: 'Find Your Dream Home With Us',
+  },
+  'hero.description': {
+    uz: "Zamonaviy me'morchilik, qulay infrastruktura va ishonchli sifat. Biz har bir oila uchun mukammal uy yaratamiz.",
+    ru: 'Современная архитектура, удобная инфраструктура и надежное качество. Мы создаем идеальный дом для каждой семьи.',
+    en: 'Modern architecture, convenient infrastructure and reliable quality. We create the perfect home for every family.',
+  },
+  'hero.consultation': {
+    uz: 'Konsultatsiya olish',
+    ru: 'Получить консультацию',
+    en: 'Get Consultation',
+  },
+  'hero.viewProject': {
+    uz: 'Loyihani ko\'rish',
+    ru: 'Смотреть проект',
+    en: 'View Project',
+  },
+
+  // Projects Section
+  'projects.subtitle': {
+    uz: 'Bizning loyihalar',
+    ru: 'Наши проекты',
+    en: 'Our Projects',
+  },
+  'projects.title': {
+    uz: 'Premium turar-joy majmualari',
+    ru: 'Премиум жилые комплексы',
+    en: 'Premium Residential Complexes',
+  },
+  'projects.description': {
+    uz: "Zamonaviy me'morchilik, qulay infrastruktura va ishonchli sifat bilan ajralib turuvchi loyihalarimiz",
+    ru: 'Наши проекты отличаются современной архитектурой, удобной инфраструктурой и надежным качеством',
+    en: 'Our projects featuring modern architecture, convenient infrastructure and reliable quality',
+  },
+  'projects.sold': {
+    uz: 'Sotilgan',
+    ru: 'Продано',
+    en: 'Sold',
+  },
+  'projects.apartment': {
+    uz: 'xonadon',
+    ru: 'квартир',
+    en: 'apartments',
+  },
+  'projects.more': {
+    uz: 'Batafsil',
+    ru: 'Подробнее',
+    en: 'Details',
+  },
+  'projects.all': {
+    uz: 'Barcha loyihalar',
+    ru: 'Все проекты',
+    en: 'All Projects',
+  },
+  'projects.status.sold': {
+    uz: 'Topshirilgan',
+    ru: 'Сдан',
+    en: 'Completed',
+  },
+  'projects.status.sale': {
+    uz: 'Sotuvda',
+    ru: 'В продаже',
+    en: 'For Sale',
+  },
+  'projects.status.building': {
+    uz: 'Qurilish jarayonida',
+    ru: 'Строится',
+    en: 'Under Construction',
+  },
+
+  // Filter Section
+  'filter.subtitle': {
+    uz: 'Xonadon tanlash',
+    ru: 'Выбор квартиры',
+    en: 'Choose Apartment',
+  },
+  'filter.title': {
+    uz: 'O\'zingizga mos uyni toping',
+    ru: 'Найдите подходящую квартиру',
+    en: 'Find Your Perfect Apartment',
+  },
+  'filter.description': {
+    uz: 'Filtrlar yordamida o\'zingizga mos xonadonni oson toping',
+    ru: 'Легко найдите подходящую квартиру с помощью фильтров',
+    en: 'Easily find the right apartment with filters',
+  },
+  'filter.rooms': {
+    uz: 'Xonalar',
+    ru: 'Комнаты',
+    en: 'Rooms',
+  },
+  'filter.floor': {
+    uz: 'Qavat',
+    ru: 'Этаж',
+    en: 'Floor',
+  },
+  'filter.project': {
+    uz: 'Loyiha',
+    ru: 'Проект',
+    en: 'Project',
+  },
+  'filter.area': {
+    uz: 'Maydon',
+    ru: 'Площадь',
+    en: 'Area',
+  },
+  'filter.delivery': {
+    uz: 'Topshirish',
+    ru: 'Сдача',
+    en: 'Delivery',
+  },
+  'filter.all': {
+    uz: 'Barchasi',
+    ru: 'Все',
+    en: 'All',
+  },
+  'filter.search': {
+    uz: 'Qidirish',
+    ru: 'Поиск',
+    en: 'Search',
+  },
+  'filter.clear': {
+    uz: 'Tozalash',
+    ru: 'Очистить',
+    en: 'Clear',
+  },
+  'filter.showMore': {
+    uz: 'Yana ko\'rsatish',
+    ru: 'Показать еще',
+    en: 'Show More',
+  },
+  'filter.learnMore': {
+    uz: 'Batafsil',
+    ru: 'Подробнее',
+    en: 'Learn More',
+  },
+  'filter.apartmentNumber': {
+    uz: 'Kvartira raqami',
+    ru: 'Номер квартиры',
+    en: 'Apartment #',
+  },
+  'filter.apartmentArea': {
+    uz: 'Maydon',
+    ru: 'Площадь',
+    en: 'Area',
+  },
+  'filter.apartmentRooms': {
+    uz: 'Xonalar',
+    ru: 'Комнат',
+    en: 'Rooms',
+  },
+  'filter.apartmentFloor': {
+    uz: 'Qavat',
+    ru: 'Этаж',
+    en: 'Floor',
+  },
+  'filter.apartmentDelivery': {
+    uz: 'Topshirish yili',
+    ru: 'Год сдачи',
+    en: 'Delivery Year',
+  },
+  'filter.apartmentProject': {
+    uz: 'Loyiha',
+    ru: 'Проект',
+    en: 'Project',
+  },
+
+  // Consultation Section
+  'consultation.subtitle': {
+    uz: 'Bepul konsultatsiya',
+    ru: 'Бесплатная консультация',
+    en: 'Free Consultation',
+  },
+  'consultation.title': {
+    uz: 'Mutaxassis konsultatsiyasini oling',
+    ru: 'Получите консультацию специалиста',
+    en: 'Get Expert Consultation',
+  },
+  'consultation.description': {
+    uz: 'Bizning mutaxassislarimiz sizga eng yaxshi variantni tanlashda yordam berishadi',
+    ru: 'Наши специалисты помогут вам выбрать лучший вариант',
+    en: 'Our experts will help you choose the best option',
+  },
+  'consultation.name': {
+    uz: 'Ismingiz',
+    ru: 'Ваше имя',
+    en: 'Your Name',
+  },
+  'consultation.phone': {
+    uz: 'Telefon raqamingiz',
+    ru: 'Ваш телефон',
+    en: 'Your Phone',
+  },
+  'consultation.submit': {
+    uz: 'Yuborish',
+    ru: 'Отправить',
+    en: 'Submit',
+  },
+  'consultation.sending': {
+    uz: 'Yuborilmoqda...',
+    ru: 'Отправка...',
+    en: 'Sending...',
+  },
+  'consultation.success': {
+    uz: 'So\'rovingiz qabul qilindi! Tez orada siz bilan bog\'lanamiz.',
+    ru: 'Ваша заявка принята! Мы свяжемся с вами в ближайшее время.',
+    en: 'Your request has been received! We will contact you soon.',
+  },
+
+  // About Page
+  'about.subtitle': {
+    uz: 'Kompaniya haqida',
+    ru: 'О компании',
+    en: 'About Company',
+  },
+  'about.description': {
+    uz: '2014-yildan beri O\'zbekiston qurilish bozorida faoliyat yuritayotgan yetakchi kompaniya. Biz zamonaviy turar-joy majmualari qurish va oilalarga orzularidagi uyni taqdim etish bilan shug\'ullanamiz.',
+    ru: 'Ведущая компания на строительном рынке Узбекистана с 2014 года. Мы занимаемся строительством современных жилых комплексов и предоставлением семьям дома их мечты.',
+    en: 'A leading company in the construction market of Uzbekistan since 2014. We are engaged in the construction of modern residential complexes and providing families with their dream home.',
+  },
+  'about.stats.projects': {
+    uz: 'Topshirilgan loyihalar',
+    ru: 'Сданных проектов',
+    en: 'Completed Projects',
+  },
+  'about.stats.families': {
+    uz: 'Baxtli oilalar',
+    ru: 'Счастливых семей',
+    en: 'Happy Families',
+  },
+  'about.stats.experience': {
+    uz: 'Yillik tajriba',
+    ru: 'Лет опыта',
+    en: 'Years of Experience',
+  },
+  'about.stats.area': {
+    uz: 'Kv.m qurilgan maydon',
+    ru: 'Кв.м построенной площади',
+    en: 'Sq.m Built Area',
+  },
+  'about.values.subtitle': {
+    uz: 'Bizning qadriyatlarimiz',
+    ru: 'Наши ценности',
+    en: 'Our Values',
+  },
+  'about.values.title': {
+    uz: 'Nima uchun bizni tanlashadi?',
+    ru: 'Почему выбирают нас?',
+    en: 'Why Do People Choose Us?',
+  },
+  'about.values.quality': {
+    uz: 'Sifat',
+    ru: 'Качество',
+    en: 'Quality',
+  },
+  'about.values.qualityDesc': {
+    uz: 'Biz har bir loyihada eng yuqori sifat standartlariga rioya qilamiz.',
+    ru: 'Мы соблюдаем высочайшие стандарты качества в каждом проекте.',
+    en: 'We adhere to the highest quality standards in every project.',
+  },
+  'about.values.trust': {
+    uz: 'Ishonch',
+    ru: 'Доверие',
+    en: 'Trust',
+  },
+  'about.values.trustDesc': {
+    uz: '10 yillik tajriba davomida minglab oilalarning ishonchini qozondik.',
+    ru: 'За 10 лет опыта мы заслужили доверие тысяч семей.',
+    en: 'Over 10 years of experience, we have earned the trust of thousands of families.',
+  },
+  'about.values.innovation': {
+    uz: 'Innovatsiya',
+    ru: 'Инновации',
+    en: 'Innovation',
+  },
+  'about.values.innovationDesc': {
+    uz: 'Zamonaviy me\'morchilik yechimlari va aqlli uy texnologiyalarini joriy etamiz.',
+    ru: 'Мы внедряем современные архитектурные решения и технологии умного дома.',
+    en: 'We implement modern architectural solutions and smart home technologies.',
+  },
+  'about.values.customer': {
+    uz: 'Mijoz uchun',
+    ru: 'Для клиента',
+    en: 'Customer Focus',
+  },
+  'about.values.customerDesc': {
+    uz: 'Mijozlarimizning qulayligi va mamnuniyati bizning asosiy maqsadimiz.',
+    ru: 'Комфорт и удовлетворенность наших клиентов - наша главная цель.',
+    en: 'The comfort and satisfaction of our customers is our main goal.',
+  },
+  'about.mission.title': {
+    uz: 'Bizning missiyamiz',
+    ru: 'Наша миссия',
+    en: 'Our Mission',
+  },
+  'about.mission.text': {
+    uz: 'Har bir oilaga qulay va sifatli turar-joy taqdim etish.',
+    ru: 'Предоставить каждой семье комфортное и качественное жилье.',
+    en: 'To provide every family with comfortable and quality housing.',
+  },
+
+  // News Page
+  'news.title': {
+    uz: 'Yangiliklar',
+    ru: 'Новости',
+    en: 'News',
+  },
+  'news.description': {
+    uz: 'Kompaniyamiz va loyihalarimiz haqida so\'nggi yangiliklar',
+    ru: 'Последние новости о нашей компании и проектах',
+    en: 'Latest news about our company and projects',
+  },
+  'news.all': {
+    uz: 'Barchasi',
+    ru: 'Все',
+    en: 'All',
+  },
+  'news.category.news': {
+    uz: 'Yangiliklar',
+    ru: 'Новости',
+    en: 'News',
+  },
+  'news.category.sales': {
+    uz: 'Aksiyalar',
+    ru: 'Акции',
+    en: 'Sales',
+  },
+  'news.more': {
+    uz: 'Ko\'proq',
+    ru: 'Подробнее',
+    en: 'More',
+  },
+  'news.notFound': {
+    uz: 'Ushbu kategoriya bo\'yicha yangiliklar topilmadi',
+    ru: 'Новости по данной категории не найдены',
+    en: 'No news found in this category',
+  },
+  'news.backToNews': {
+    uz: 'Yangiliklarга qaytish',
+    ru: 'Вернуться к новостям',
+    en: 'Back to News',
+  },
+  'news.relatedNews': {
+    uz: 'Boshqa yangiliklar',
+    ru: 'Другие новости',
+    en: 'Related News',
+  },
+  'news.shareNews': {
+    uz: 'Ulashish',
+    ru: 'Поделиться',
+    en: 'Share',
+  },
+
+  // Contact Page
+  'contact.title': {
+    uz: 'Biz bilan bog\'laning',
+    ru: 'Свяжитесь с нами',
+    en: 'Contact Us',
+  },
+  'contact.description': {
+    uz: 'Savollaringiz bormi? Biz bilan bog\'laning!',
+    ru: 'Есть вопросы? Свяжитесь с нами!',
+    en: 'Have questions? Contact us!',
+  },
+  'contact.office': {
+    uz: 'Bosh ofis',
+    ru: 'Головной офис',
+    en: 'Head Office',
+  },
+  'contact.salesOffice': {
+    uz: 'Sotuv ofisi',
+    ru: 'Офис продаж',
+    en: 'Sales Office',
+  },
+  'contact.phone': {
+    uz: 'Telefon',
+    ru: 'Телефон',
+    en: 'Phone',
+  },
+  'contact.email': {
+    uz: 'Elektron pochta',
+    ru: 'Электронная почта',
+    en: 'Email',
+  },
+
+  // Footer
+  'footer.company': {
+    uz: 'General Construction - O\'zbekistonning yetakchi qurilish kompaniyasi',
+    ru: 'General Construction - ведущая строительная компания Узбекистана',
+    en: 'General Construction - leading construction company in Uzbekistan',
+  },
+  'footer.quickLinks': {
+    uz: 'Tezkor havolalar',
+    ru: 'Быстрые ссылки',
+    en: 'Quick Links',
+  },
+  'footer.contactUs': {
+    uz: 'Bog\'lanish',
+    ru: 'Контакты',
+    en: 'Contact Us',
+  },
+  'footer.rights': {
+    uz: 'Barcha huquqlar himoyalangan',
+    ru: 'Все права защищены',
+    en: 'All rights reserved',
+  },
+
+  // Common
+  'common.loading': {
+    uz: 'Yuklanmoqda...',
+    ru: 'Загрузка...',
+    en: 'Loading...',
+  },
+  'common.error': {
+    uz: 'Xatolik yuz berdi',
+    ru: 'Произошла ошибка',
+    en: 'An error occurred',
+  },
+};
+
+interface LanguageContextType {
+  language: Language;
+  setLanguage: (lang: Language) => void;
+  t: (key: string) => string;
+}
+
+const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
+
+export function LanguageProvider({ children }: { children: ReactNode }) {
+  const [language, setLanguage] = useState<Language>(() => {
+    const saved = localStorage.getItem('language');
+    return (saved as Language) || 'uz';
+  });
+
+  useEffect(() => {
+    localStorage.setItem('language', language);
+  }, [language]);
+
+  const t = (key: string): string => {
+    const translation = translations[key];
+    if (!translation) {
+      console.warn(`Translation not found for key: ${key}`);
+      return key;
+    }
+    return translation[language];
+  };
+
+  return (
+    <LanguageContext.Provider value={{ language, setLanguage, t }}>
+      {children}
+    </LanguageContext.Provider>
+  );
+}
+
+export function useLanguage() {
+  const context = useContext(LanguageContext);
+  if (context === undefined) {
+    throw new Error('useLanguage must be used within a LanguageProvider');
+  }
+  return context;
+}

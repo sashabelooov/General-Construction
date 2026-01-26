@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Heart, Search, RefreshCcw, ChevronDown, Home, Layers, Building2, Maximize2, Calendar } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import ConsultationForm from "@/components/forms/ConsultationForm";
+import { useLanguage } from "@/lib/i18n";
 
 import floorPlan1 from "@/assets/floor-plan-1.jpg";
 import floorPlan2 from "@/assets/floor-plan-2.jpg";
@@ -20,8 +21,6 @@ interface Apartment {
   isFavorite: boolean;
 }
 
-const floorPlans = [floorPlan1, floorPlan2, floorPlan3];
-
 const allApartments: Apartment[] = [
   { id: 1, number: "1A", area: 57.24, rooms: 2, floor: 1, deliveryYear: "2027", project: "SAADIYAT", image: floorPlan1, isFavorite: false },
   { id: 2, number: "37", area: 122.79, rooms: 4, floor: 9, deliveryYear: "2026", project: "REGNUM PLAZA", image: floorPlan2, isFavorite: false },
@@ -38,6 +37,7 @@ const areaOptions = ["Barchasi", "30-50 m²", "50-80 m²", "80-100 m²", "100+ m
 const deliveryOptions = ["Barchasi", "2026", "2027", "2028"];
 
 export default function FilterSection() {
+  const { t } = useLanguage();
   const [apartments, setApartments] = useState<Apartment[]>(allApartments.slice(0, 6));
   const [visibleCount, setVisibleCount] = useState(6);
   const [showContactForm, setShowContactForm] = useState(false);
@@ -109,28 +109,28 @@ export default function FilterSection() {
           className="text-center mb-12"
         >
           <span className="text-accent font-semibold text-sm uppercase tracking-wider mb-3 block">
-            Xonadon tanlash
+            {t('filter.subtitle')}
           </span>
           <h2 className="section-title">
-            O'zingizga mos uyni toping
+            {t('filter.title')}
           </h2>
           <p className="section-subtitle mx-auto">
-            Filtrlar yordamida o'zingizga mos xonadonni oson toping
+            {t('filter.description')}
           </p>
         </motion.div>
 
-        {/* Filters */}
+        {/* Filters - Fixed overflow issue */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="bg-card rounded-2xl p-6 shadow-medium mb-10"
+          className="bg-card rounded-2xl p-6 shadow-medium mb-10 overflow-visible"
         >
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-7 gap-4 items-end">
             {/* Rooms Filter */}
             <div className="relative">
               <label className="text-sm text-muted-foreground mb-2 block flex items-center gap-2">
-                <Home className="w-4 h-4" /> Xonalar
+                <Home className="w-4 h-4" /> {t('filter.rooms')}
               </label>
               <select
                 value={selectedRooms}
@@ -138,7 +138,7 @@ export default function FilterSection() {
                 className="filter-select w-full appearance-none cursor-pointer"
               >
                 {roomOptions.map((opt) => (
-                  <option key={opt} value={opt}>{opt}</option>
+                  <option key={opt} value={opt}>{opt === "Barchasi" ? t('filter.all') : opt}</option>
                 ))}
               </select>
               <ChevronDown className="absolute right-3 bottom-3 w-4 h-4 text-muted-foreground pointer-events-none" />
@@ -147,7 +147,7 @@ export default function FilterSection() {
             {/* Floor Filter */}
             <div className="relative">
               <label className="text-sm text-muted-foreground mb-2 block flex items-center gap-2">
-                <Layers className="w-4 h-4" /> Qavat
+                <Layers className="w-4 h-4" /> {t('filter.floor')}
               </label>
               <select
                 value={selectedFloor}
@@ -155,7 +155,7 @@ export default function FilterSection() {
                 className="filter-select w-full appearance-none cursor-pointer"
               >
                 {floorOptions.map((opt) => (
-                  <option key={opt} value={opt}>{opt}</option>
+                  <option key={opt} value={opt}>{opt === "Barchasi" ? t('filter.all') : opt}</option>
                 ))}
               </select>
               <ChevronDown className="absolute right-3 bottom-3 w-4 h-4 text-muted-foreground pointer-events-none" />
@@ -164,7 +164,7 @@ export default function FilterSection() {
             {/* Project Filter */}
             <div className="relative">
               <label className="text-sm text-muted-foreground mb-2 block flex items-center gap-2">
-                <Building2 className="w-4 h-4" /> Loyiha
+                <Building2 className="w-4 h-4" /> {t('filter.project')}
               </label>
               <select
                 value={selectedProject}
@@ -172,7 +172,7 @@ export default function FilterSection() {
                 className="filter-select w-full appearance-none cursor-pointer"
               >
                 {projects.map((opt) => (
-                  <option key={opt} value={opt}>{opt}</option>
+                  <option key={opt} value={opt}>{opt === "Barchasi" ? t('filter.all') : opt}</option>
                 ))}
               </select>
               <ChevronDown className="absolute right-3 bottom-3 w-4 h-4 text-muted-foreground pointer-events-none" />
@@ -181,7 +181,7 @@ export default function FilterSection() {
             {/* Area Filter */}
             <div className="relative">
               <label className="text-sm text-muted-foreground mb-2 block flex items-center gap-2">
-                <Maximize2 className="w-4 h-4" /> Maydon
+                <Maximize2 className="w-4 h-4" /> {t('filter.area')}
               </label>
               <select
                 value={selectedArea}
@@ -189,7 +189,7 @@ export default function FilterSection() {
                 className="filter-select w-full appearance-none cursor-pointer"
               >
                 {areaOptions.map((opt) => (
-                  <option key={opt} value={opt}>{opt}</option>
+                  <option key={opt} value={opt}>{opt === "Barchasi" ? t('filter.all') : opt}</option>
                 ))}
               </select>
               <ChevronDown className="absolute right-3 bottom-3 w-4 h-4 text-muted-foreground pointer-events-none" />
@@ -198,7 +198,7 @@ export default function FilterSection() {
             {/* Delivery Filter */}
             <div className="relative">
               <label className="text-sm text-muted-foreground mb-2 block flex items-center gap-2">
-                <Calendar className="w-4 h-4" /> Topshirish
+                <Calendar className="w-4 h-4" /> {t('filter.delivery')}
               </label>
               <select
                 value={selectedDelivery}
@@ -206,29 +206,29 @@ export default function FilterSection() {
                 className="filter-select w-full appearance-none cursor-pointer"
               >
                 {deliveryOptions.map((opt) => (
-                  <option key={opt} value={opt}>{opt}</option>
+                  <option key={opt} value={opt}>{opt === "Barchasi" ? t('filter.all') : opt}</option>
                 ))}
               </select>
               <ChevronDown className="absolute right-3 bottom-3 w-4 h-4 text-muted-foreground pointer-events-none" />
             </div>
 
-            {/* Action Buttons */}
-            <div className="flex items-end gap-2">
-              <button
-                onClick={applyFilters}
-                className="btn-beige flex-1 flex items-center justify-center gap-2 py-3"
-              >
-                <Search className="w-4 h-4" />
-                Qidirish
-              </button>
-              <button
-                onClick={clearFilters}
-                className="p-3 rounded-lg border border-border hover:bg-muted transition-colors"
-                title="Tozalash"
-              >
-                <RefreshCcw className="w-5 h-5" />
-              </button>
-            </div>
+            {/* Search Button */}
+            <button
+              onClick={applyFilters}
+              className="btn-beige flex items-center justify-center gap-2 py-3 h-[42px]"
+            >
+              <Search className="w-4 h-4" />
+              {t('filter.search')}
+            </button>
+
+            {/* Refresh Button - Fixed to stay within container */}
+            <button
+              onClick={clearFilters}
+              className="p-3 h-[42px] rounded-lg border border-border hover:bg-muted transition-colors flex items-center justify-center"
+              title={t('filter.clear')}
+            >
+              <RefreshCcw className="w-5 h-5" />
+            </button>
           </div>
         </motion.div>
 
@@ -275,27 +275,27 @@ export default function FilterSection() {
                   {/* Details */}
                   <div className="space-y-2 mb-5 text-sm">
                     <div className="flex justify-between items-center border-b border-dashed border-border pb-2">
-                      <span className="text-muted-foreground">Nomer kvartiry</span>
+                      <span className="text-muted-foreground">{t('filter.apartmentNumber')}</span>
                       <span className="font-semibold text-primary">{apartment.number}</span>
                     </div>
                     <div className="flex justify-between items-center border-b border-dashed border-border pb-2">
-                      <span className="text-muted-foreground">Ploshad</span>
+                      <span className="text-muted-foreground">{t('filter.apartmentArea')}</span>
                       <span className="font-semibold text-primary">{apartment.area} m²</span>
                     </div>
                     <div className="flex justify-between items-center border-b border-dashed border-border pb-2">
-                      <span className="text-muted-foreground">Komnat</span>
+                      <span className="text-muted-foreground">{t('filter.apartmentRooms')}</span>
                       <span className="font-semibold text-primary">{apartment.rooms}</span>
                     </div>
                     <div className="flex justify-between items-center border-b border-dashed border-border pb-2">
-                      <span className="text-muted-foreground">Etaj</span>
+                      <span className="text-muted-foreground">{t('filter.apartmentFloor')}</span>
                       <span className="font-semibold text-primary">{apartment.floor}</span>
                     </div>
                     <div className="flex justify-between items-center border-b border-dashed border-border pb-2">
-                      <span className="text-muted-foreground">God sdachi</span>
+                      <span className="text-muted-foreground">{t('filter.apartmentDelivery')}</span>
                       <span className="font-semibold text-primary">{apartment.deliveryYear}</span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-muted-foreground">Proekt</span>
+                      <span className="text-muted-foreground">{t('filter.apartmentProject')}</span>
                       <span className="font-semibold text-accent">{apartment.project}</span>
                     </div>
                   </div>
@@ -305,7 +305,7 @@ export default function FilterSection() {
                     className="btn-navy w-full text-sm flex items-center justify-center gap-2"
                   >
                     <Search className="w-4 h-4" />
-                    Uznat podrobnee
+                    {t('filter.learnMore')}
                   </button>
                 </div>
               </motion.div>
@@ -322,7 +322,7 @@ export default function FilterSection() {
             className="text-center mt-10"
           >
             <button onClick={showMore} className="btn-outline-beige">
-              Yana ko'rsatish
+              {t('filter.showMore')}
             </button>
           </motion.div>
         )}
@@ -333,7 +333,7 @@ export default function FilterSection() {
             <DialogHeader>
               <DialogTitle className="font-heading text-xl">
                 {selectedApartment && (
-                  <>№{selectedApartment.number} xonadoni haqida so'rov</>
+                  <>№{selectedApartment.number} {t('filter.apartmentNumber')}</>
                 )}
               </DialogTitle>
             </DialogHeader>
