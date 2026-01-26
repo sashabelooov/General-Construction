@@ -7,7 +7,7 @@ import ConsultationSection from "@/components/home/ConsultationSection";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-white">
       <Navbar />
       <main>
         <HeroSection />

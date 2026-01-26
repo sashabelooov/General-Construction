@@ -221,14 +221,54 @@ const translations: Translations = {
     en: 'Free Consultation',
   },
   'consultation.title': {
-    uz: 'Mutaxassis konsultatsiyasini oling',
-    ru: 'Получите консультацию специалиста',
-    en: 'Get Expert Consultation',
+    uz: 'Bepul konsultatsiya',
+    ru: 'Бесплатная консультация',
+    en: 'Free Consultation',
   },
   'consultation.description': {
-    uz: 'Bizning mutaxassislarimiz sizga eng yaxshi variantni tanlashda yordam berishadi',
-    ru: 'Наши специалисты помогут вам выбрать лучший вариант',
-    en: 'Our experts will help you choose the best option',
+    uz: 'Professional mutaxassislarimiz sizga mos uy tanlashda yordam beradi. Bepul konsultatsiya olish uchun formani to\'ldiring yoki qo\'ng\'iroq qiling.',
+    ru: 'Наши профессиональные специалисты помогут вам выбрать подходящий дом. Заполните форму или позвоните для получения бесплатной консультации.',
+    en: 'Our professional experts will help you choose the right home. Fill out the form or call for a free consultation.',
+  },
+  'consultation.quickResponse': {
+    uz: 'Tez javob',
+    ru: 'Быстрый ответ',
+    en: 'Quick Response',
+  },
+  'consultation.quickResponseDesc': {
+    uz: '15 daqiqa ichida qo\'ng\'iroq',
+    ru: 'Звонок в течение 15 минут',
+    en: 'Call within 15 minutes',
+  },
+  'consultation.freeAdvice': {
+    uz: 'Bepul maslahat',
+    ru: 'Бесплатная консультация',
+    en: 'Free Consultation',
+  },
+  'consultation.freeAdviceDesc': {
+    uz: 'Hech qanday to\'lovsiz',
+    ru: 'Без каких-либо платежей',
+    en: 'No payment required',
+  },
+  'consultation.support247': {
+    uz: '24/7 qo\'llab-quvvatlash',
+    ru: 'Поддержка 24/7',
+    en: '24/7 Support',
+  },
+  'consultation.support247Desc': {
+    uz: 'Har doim aloqadamiz',
+    ru: 'Всегда на связи',
+    en: 'Always in touch',
+  },
+  'consultation.formTitle': {
+    uz: 'So\'rov qoldiring',
+    ru: 'Оставьте заявку',
+    en: 'Leave a Request',
+  },
+  'consultation.formDesc': {
+    uz: 'Ma\'lumotlaringizni qoldiring, tez orada bog\'lanamiz',
+    ru: 'Оставьте свои данные, мы свяжемся с вами в ближайшее время',
+    en: 'Leave your details, we will contact you soon',
   },
   'consultation.name': {
     uz: 'Ismingiz',
@@ -254,6 +294,11 @@ const translations: Translations = {
     uz: 'So\'rovingiz qabul qilindi! Tez orada siz bilan bog\'lanamiz.',
     ru: 'Ваша заявка принята! Мы свяжемся с вами в ближайшее время.',
     en: 'Your request has been received! We will contact you soon.',
+  },
+  'consultation.successTitle': {
+    uz: 'Rahmat!',
+    ru: 'Спасибо!',
+    en: 'Thank you!',
   },
 
   // About Page
