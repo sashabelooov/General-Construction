@@ -22,15 +22,15 @@ interface Apartment {
 }
 
 const allApartments: Apartment[] = [
-  { id: 1, number: "1A", area: 57.24, rooms: 2, floor: 1, deliveryYear: "2027", project: "SAADIYAT", image: floorPlan1, isFavorite: false },
-  { id: 2, number: "37", area: 122.79, rooms: 4, floor: 9, deliveryYear: "2026", project: "REGNUM PLAZA", image: floorPlan2, isFavorite: false },
-  { id: 3, number: "195", area: 44.86, rooms: 1, floor: 24, deliveryYear: "2028", project: "C1", image: floorPlan3, isFavorite: false },
-  { id: 4, number: "16", area: 78.84, rooms: 3, floor: 5, deliveryYear: "2028", project: "SAADIYAT", image: floorPlan1, isFavorite: false },
-  { id: 5, number: "42", area: 95.50, rooms: 3, floor: 15, deliveryYear: "2026", project: "REGNUM PLAZA", image: floorPlan2, isFavorite: false },
-  { id: 6, number: "88", area: 68.20, rooms: 2, floor: 8, deliveryYear: "2027", project: "C1", image: floorPlan3, isFavorite: false },
+  { id: 1, number: "1A", area: 57.24, rooms: 2, floor: 1, deliveryYear: "2027", project: "Sunset Heights", image: floorPlan1, isFavorite: false },
+  { id: 2, number: "37", area: 122.79, rooms: 4, floor: 9, deliveryYear: "2026", project: "Grand Plaza", image: floorPlan2, isFavorite: false },
+  { id: 3, number: "195", area: 44.86, rooms: 1, floor: 24, deliveryYear: "2028", project: "Harbor View", image: floorPlan3, isFavorite: false },
+  { id: 4, number: "16", area: 78.84, rooms: 3, floor: 5, deliveryYear: "2028", project: "Sunset Heights", image: floorPlan1, isFavorite: false },
+  { id: 5, number: "42", area: 95.50, rooms: 3, floor: 15, deliveryYear: "2026", project: "Grand Plaza", image: floorPlan2, isFavorite: false },
+  { id: 6, number: "88", area: 68.20, rooms: 2, floor: 8, deliveryYear: "2027", project: "Harbor View", image: floorPlan3, isFavorite: false },
 ];
 
-const projects = ["Barchasi", "SAADIYAT", "REGNUM PLAZA", "C1"];
+const projects = ["Barchasi", "Sunset Heights", "Grand Plaza", "Harbor View"];
 const roomOptions = ["Barchasi", "1", "2", "3", "4+"];
 const floorOptions = ["Barchasi", "1-5", "6-10", "11-15", "16+"];
 const areaOptions = ["Barchasi", "30-50 m²", "50-80 m²", "80-100 m²", "100+ m²"];

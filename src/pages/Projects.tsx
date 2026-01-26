@@ -149,17 +149,17 @@ export default function Projects() {
       
       <main>
         {/* Hero */}
-        <section className="bg-primary py-20">
+        <section className="bg-primary py-12 md:py-20">
           <div className="container-main">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               className="text-center"
             >
-              <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground mb-4">
+              <h1 className="font-heading text-3xl md:text-5xl lg:text-6xl font-bold text-primary-foreground mb-3 md:mb-4">
                 {t('projects.title')}
               </h1>
-              <p className="text-primary-foreground/80 text-lg max-w-2xl mx-auto">
+              <p className="text-primary-foreground/80 text-base md:text-lg max-w-2xl mx-auto">
                 {t('projects.description')}
               </p>
             </motion.div>
@@ -167,18 +167,19 @@ export default function Projects() {
         </section>
 
         {/* Filters */}
-        <section className="py-8 bg-secondary sticky top-20 z-30">
+        <section className="py-3 md:py-6 bg-secondary sticky top-20 z-30">
           <div className="container-main">
-            <div className="flex flex-wrap items-center gap-4">
-              <span className="text-sm font-medium text-muted-foreground">{t('filter.label')}</span>
+            <div className="flex flex-col md:flex-row md:flex-wrap md:items-center gap-2 md:gap-4">
+              <span className="text-xs md:text-sm font-medium text-muted-foreground hidden md:inline-block">{t('filter.label')}</span>
               
               {/* Status Filter */}
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-1.5 md:gap-2 w-full md:w-auto">
+                <span className="text-xs md:text-sm font-medium text-muted-foreground md:hidden mr-1">{t('filter.label')}</span>
                 {statusFilterKeys.map((filterKey) => (
                   <button
                     key={filterKey}
                     onClick={() => setSelectedStatus(filterKey)}
-                    className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                    className={`px-2.5 md:px-4 py-1.5 md:py-2 rounded-full text-xs md:text-sm font-medium transition-all ${
                       selectedStatus === filterKey
                         ? "bg-accent text-primary"
                         : "bg-card hover:bg-muted"
@@ -189,15 +190,15 @@ export default function Projects() {
                 ))}
               </div>
 
-              <div className="h-6 w-px bg-border hidden sm:block" />
+              <div className="h-4 md:h-6 w-px bg-border hidden sm:block" />
 
               {/* Class Filter */}
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-1.5 md:gap-2 w-full md:w-auto">
                 {classFilterKeys.map((filterKey) => (
                   <button
                     key={filterKey}
                     onClick={() => setSelectedClass(filterKey)}
-                    className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                    className={`px-2.5 md:px-4 py-1.5 md:py-2 rounded-full text-xs md:text-sm font-medium transition-all ${
                       selectedClass === filterKey
                         ? "bg-primary text-primary-foreground"
                         : "bg-card hover:bg-muted"
@@ -212,7 +213,7 @@ export default function Projects() {
         </section>
 
         {/* Projects Grid */}
-        <section className="py-16">
+        <section className="py-8 md:py-16">
           <div className="container-main">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {filteredProjects.map((project, index) => (
