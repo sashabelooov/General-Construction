@@ -121,13 +121,6 @@ export default function HeroSection() {
                   {t('hero.viewProjects')}
                   <ArrowRight className="w-5 h-5" />
                 </Link>
-                <Link
-                  to={`/projects/${slides[currentSlide].id}`}
-                  className="btn-outline-beige border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary flex items-center gap-2"
-                >
-                  <Eye className="w-5 h-5" />
-                  {t('hero.viewProject')}
-                </Link>
               </div>
             </motion.div>
           </AnimatePresence>
@@ -138,11 +131,10 @@ export default function HeroSection() {
               <button
                 key={index}
                 onClick={() => goToSlide(index)}
-                className={`h-1 rounded-full transition-all duration-300 ${
-                  index === currentSlide
+                className={`h-1 rounded-full transition-all duration-300 ${index === currentSlide
                     ? "w-12 bg-accent"
                     : "w-6 bg-primary-foreground/40 hover:bg-primary-foreground/60"
-                }`}
+                  }`}
               />
             ))}
           </div>

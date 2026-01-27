@@ -10,6 +10,7 @@ import About from "./pages/About";
 import News from "./pages/News";
 import NewsDetail from "./pages/NewsDetail";
 import Contact from "./pages/Contact";
+import ProjectDetail from "./pages/ProjectDetail";
 import NotFound from "./pages/NotFound";
 import FloatingButtons from "./components/FloatingButtons";
 
@@ -25,7 +26,7 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/projects" element={<Projects />} />
-            <Route path="/projects/:id" element={<Projects />} />
+            <Route path="/projects/:id" element={<ProjectDetail />} />
             <Route path="/about" element={<About />} />
             <Route path="/news" element={<News />} />
             <Route path="/news/:id" element={<NewsDetail />} />
