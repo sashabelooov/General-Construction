@@ -69,7 +69,10 @@ export default function FloatingButtons() {
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ delay: 0.5 }}
-          onClick={() => setShowChatBox(!showChatBox)}
+          onClick={() => {
+            setShowChatBox(!showChatBox);
+            setShowContactForm(false);
+          }}
           className="floating-btn bg-primary text-primary-foreground"
           aria-label="Xabar yuborish"
         >
@@ -80,7 +83,10 @@ export default function FloatingButtons() {
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ delay: 0.7 }}
-          onClick={() => setShowContactForm(true)}
+          onClick={() => {
+            setShowContactForm(true);
+            setShowChatBox(false);
+          }}
           className="floating-btn bg-accent text-accent-foreground"
           aria-label="Telefon qilish"
         >
@@ -121,15 +127,15 @@ export default function FloatingButtons() {
                 >
                   <div
                     className={`max-w-[80%] rounded-2xl px-4 py-3 ${msg.sender === "user"
-                        ? "bg-primary text-primary-foreground rounded-br-sm"
-                        : "bg-muted/60 text-foreground rounded-bl-sm"
+                      ? "bg-primary text-primary-foreground rounded-br-sm"
+                      : "bg-muted/60 text-foreground rounded-bl-sm"
                       }`}
                   >
                     <p className="text-sm leading-relaxed">{msg.text}</p>
                     <p
                       className={`text-xs mt-1 ${msg.sender === "user"
-                          ? "text-primary-foreground/70"
-                          : "text-muted-foreground"
+                        ? "text-primary-foreground/70"
+                        : "text-muted-foreground"
                         }`}
                     >
                       {msg.timestamp}
