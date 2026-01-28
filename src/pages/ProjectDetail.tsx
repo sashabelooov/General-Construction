@@ -356,13 +356,21 @@ export default function ProjectDetail() {
                 <section className="py-16 md:py-24 bg-secondary">
                     <div className="container-main">
                         <motion.div
-                            initial={{ opacity: 0, y: 30 }}
+                            initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                         >
-                            <h2 className="font-heading text-3xl md:text-4xl font-bold mb-12 text-center">
-                                {t('filter.title')}
-                            </h2>
+                            <div className="text-center mb-12">
+                                <span className="text-accent font-semibold text-sm uppercase tracking-wider mb-3 block">
+                                    {t('filter.subtitle')}
+                                </span>
+                                <h2 className="section-title">
+                                    {t('filter.title')}
+                                </h2>
+                                <p className="section-subtitle mx-auto">
+                                    {t('filter.description')}
+                                </p>
+                            </div>
 
                             {/* Filters */}
                             <div className="bg-card rounded-2xl p-6 shadow-medium mb-10">
@@ -573,6 +581,6 @@ export default function ProjectDetail() {
                     <ConsultationForm onSuccess={() => setShowContactForm(false)} />
                 </DialogContent>
             </Dialog>
-        </div>
+        </div >
     );
 }
