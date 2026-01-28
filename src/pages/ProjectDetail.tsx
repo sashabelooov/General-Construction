@@ -6,13 +6,13 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import ConsultationForm from "@/components/forms/ConsultationForm";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { getProjectById } from "@/lib/projectData";
+import { getProjectById, projectsData } from "@/lib/projectData";
 import { useLanguage } from "@/lib/i18n";
 
-const roomOptions = ["Barchasi", "1", "2", "3", "4", "5"];
+const roomOptions = ["Barchasi", "1", "2", "3", "4+"];
 const floorOptions = ["Barchasi", "1-5", "6-10", "11-15", "16+"];
-const areaOptions = ["Barchasi", "30-50 m²", "50-80 m²", "80-120 m²", "120+ m²"];
-const deliveryOptions = ["Barchasi", "2024", "2026", "2027", "2028"];
+const areaOptions = ["Barchasi", "30-50 m²", "50-80 m²", "80-100 m²", "100+ m²"];
+const deliveryOptions = ["Barchasi", "2026", "2027", "2028"];
 
 export default function ProjectDetail() {
     const { id } = useParams();
@@ -21,13 +21,16 @@ export default function ProjectDetail() {
     const [showContactForm, setShowContactForm] = useState(false);
     const [currentAmenityIndex, setCurrentAmenityIndex] = useState(0);
 
+    const project = getProjectById(parseInt(id || "0"));
+    const allApartmentsGlobal = projectsData.flatMap((p) => p.availableApartments);
+
     // Filter states
     const [selectedRooms, setSelectedRooms] = useState("Barchasi");
+    const [selectedProject, setSelectedProject] = useState(project?.name || "Barchasi");
     const [selectedFloor, setSelectedFloor] = useState("Barchasi");
     const [selectedArea, setSelectedArea] = useState("Barchasi");
     const [selectedDelivery, setSelectedDelivery] = useState("Barchasi");
 
-    const project = getProjectById(parseInt(id || "0"));
     const [filteredApartments, setFilteredApartments] = useState(project?.availableApartments || []);
 
     useEffect(() => {
@@ -56,11 +59,29 @@ export default function ProjectDetail() {
     };
 
     const applyFilters = () => {
-        if (!project) return;
-        let filtered = [...project.availableApartments];
+        let filtered = [...allApartmentsGlobal];
 
+        if (selectedProject !== "Barchasi") {
+            filtered = filtered.filter((apt) => apt.project === selectedProject);
+        }
         if (selectedRooms !== "Barchasi") {
-            filtered = filtered.filter((apt) => apt.rooms === parseInt(selectedRooms));
+            if (selectedRooms === "4+") {
+                filtered = filtered.filter((apt) => apt.rooms >= 4);
+            } else {
+                filtered = filtered.filter((apt) => apt.rooms === parseInt(selectedRooms));
+            }
+        }
+        if (selectedFloor !== "Barchasi") {
+            if (selectedFloor === "1-5") filtered = filtered.filter((apt) => apt.floor >= 1 && apt.floor <= 5);
+            else if (selectedFloor === "6-10") filtered = filtered.filter((apt) => apt.floor >= 6 && apt.floor <= 10);
+            else if (selectedFloor === "11-15") filtered = filtered.filter((apt) => apt.floor >= 11 && apt.floor <= 15);
+            else if (selectedFloor === "16+") filtered = filtered.filter((apt) => apt.floor >= 16);
+        }
+        if (selectedArea !== "Barchasi") {
+            if (selectedArea === "30-50 m²") filtered = filtered.filter((apt) => apt.area >= 30 && apt.area <= 50);
+            else if (selectedArea === "50-80 m²") filtered = filtered.filter((apt) => apt.area >= 50 && apt.area <= 80);
+            else if (selectedArea === "80-100 m²") filtered = filtered.filter((apt) => apt.area >= 80 && apt.area <= 100);
+            else if (selectedArea === "100+ m²") filtered = filtered.filter((apt) => apt.area >= 100);
         }
         if (selectedDelivery !== "Barchasi") {
             filtered = filtered.filter((apt) => apt.deliveryYear === selectedDelivery);
@@ -71,6 +92,7 @@ export default function ProjectDetail() {
 
     const clearFilters = () => {
         setSelectedRooms("Barchasi");
+        setSelectedProject(project?.name || "Barchasi");
         setSelectedFloor("Barchasi");
         setSelectedArea("Barchasi");
         setSelectedDelivery("Barchasi");
@@ -379,14 +401,22 @@ export default function ProjectDetail() {
                                         <ChevronDown className="absolute right-3 bottom-3 w-4 h-4 text-muted-foreground pointer-events-none" />
                                     </div>
 
-                                    {/* Project Filter - Hidden since we're on a project detail page */}
-                                    <div className="relative hidden">
+                                    {/* Project Filter */}
+                                    <div className="relative">
                                         <label className="text-sm text-muted-foreground mb-2 block flex items-center gap-2">
                                             <Building2 className="w-4 h-4" /> {t('filter.project')}
                                         </label>
-                                        <select className="filter-select w-full appearance-none cursor-pointer">
-                                            <option>{project.name}</option>
+                                        <select
+                                            value={selectedProject}
+                                            onChange={(e) => setSelectedProject(e.target.value)}
+                                            className="filter-select w-full appearance-none cursor-pointer"
+                                        >
+                                            <option value="Barchasi">{t('filter.all')}</option>
+                                            {projectsData.map((p: any) => (
+                                                <option key={p.id} value={p.name}>{p.name}</option>
+                                            ))}
                                         </select>
+                                        <ChevronDown className="absolute right-3 bottom-3 w-4 h-4 text-muted-foreground pointer-events-none" />
                                     </div>
 
                                     {/* Area Filter */}
