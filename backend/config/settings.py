@@ -108,7 +108,11 @@ SPECTACULAR_SETTINGS = {
 }
 
 # CORS: allow local Vite dev server by default
-CORS_ALLOWED_ORIGINS = ["http://localhost:5173"]
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",
+    "http://localhost:8080",
+    "http://127.0.0.1:8080",
+]
 
 # Jazzmin basic branding (you can tweak later)
 JAZZMIN_SETTINGS = {

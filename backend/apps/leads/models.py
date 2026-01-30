@@ -30,6 +30,10 @@ class Lead(TimeStampedModel):
     status = models.CharField(max_length=16, choices=Status.choices, default=Status.NEW)
     note = models.TextField(blank=True, default="")
 
+    class Meta:
+        verbose_name = "So'rov"
+        verbose_name_plural = "So'rovlar"
+
     def __str__(self) -> str:
         return f"{self.name} ({self.phone})"
 
@@ -51,6 +55,10 @@ class Conversation(TimeStampedModel):
     customer_name = models.CharField(max_length=255, blank=True, default="")
     customer_phone = models.CharField(max_length=64, blank=True, default="")
 
+    class Meta:
+        verbose_name = "Suhbat"
+        verbose_name_plural = "Suhbatlar"
+
     def __str__(self) -> str:
         return f"Conversation #{self.pk} ({self.lead.name})"
 
@@ -70,6 +78,8 @@ class Message(TimeStampedModel):
 
     class Meta:
         ordering = ["created_at", "id"]
+        verbose_name = "Xabar"
+        verbose_name_plural = "Xabarlar"
 
     def __str__(self) -> str:
         return f"{self.sender_type}: {self.text[:40]}"

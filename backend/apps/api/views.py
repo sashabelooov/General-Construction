@@ -15,25 +15,24 @@ from apps.api.serializers import (
 class ProjectViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
-    filterset_fields = ["status", "project_class"]
-    search_fields = ["name", "location"]
-    ordering_fields = ["delivery_date", "created_at"]
+    filterset_fields = ["segment"]
+    search_fields = ["title", "location_name"]
+    ordering_fields = ["completion_date", "created_at"]
 
 
 class ApartmentViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Apartment.objects.select_related("project").all()
     serializer_class = ApartmentSerializer
-    filterset_fields = ["project", "rooms", "floor", "delivery_year", "is_available"]
-    search_fields = ["number", "project__name"]
-    ordering_fields = ["area_m2", "floor", "rooms", "created_at"]
+    filterset_fields = ["project", "rooms", "floor", "delivery_year"]
+    search_fields = ["number", "project__title"]
+    ordering_fields = ["area", "floor", "rooms", "created_at"]
 
 
 class NewsPostViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = NewsPost.objects.filter(is_published=True).all()
+    queryset = NewsPost.objects.all()
     serializer_class = NewsPostSerializer
-    filterset_fields = ["category"]
-    search_fields = ["title_uz", "title_ru", "title_en"]
-    ordering_fields = ["published_at", "created_at"]
+    search_fields = ["title_uz", "title_ru", "title_en", "author_name"]
+    ordering_fields = ["date_of_creation", "created_at"]
 
 
 class LeadViewSet(mixins.CreateModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
@@ -43,4 +42,3 @@ class LeadViewSet(mixins.CreateModelMixin, mixins.RetrieveModelMixin, viewsets.G
         if self.action == "create":
             return LeadCreateSerializer
         return LeadSerializer
-

@@ -45,5 +45,6 @@ class SiteSettings(TimeStampedModel):
         return "Site Settings"
 
     class Meta:
-        verbose_name_plural = "Site settings"
+        verbose_name = "Sayt sozlamalari"
+        verbose_name_plural = "Sayt sozlamalari"
 
