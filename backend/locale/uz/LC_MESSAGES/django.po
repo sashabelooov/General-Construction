@@ -1,0 +1,458 @@
+# Uzbek translations for General Construction Admin
+# Copyright (C) 2024 General Construction
+# This file is distributed under the same license as the General Construction package.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: General Construction 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-01 00:00+0000\n"
+"PO-Revision-Date: 2024-01-01 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: Uzbek\n"
+"Language: uz\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+# Languages
+msgid "English"
+msgstr "Inglizcha"
+
+msgid "Russian"
+msgstr "Ruscha"
+
+msgid "Uzbek"
+msgstr "O'zbekcha"
+
+# Common fields
+msgid "Created at"
+msgstr "Yaratilgan sana"
+
+msgid "Updated at"
+msgstr "Yangilangan sana"
+
+msgid "Image"
+msgstr "Rasm"
+
+msgid "Title"
+msgstr "Sarlavha"
+
+msgid "Name"
+msgstr "Ism"
+
+msgid "Status"
+msgstr "Holat"
+
+msgid "Type"
+msgstr "Tur"
+
+msgid "Phone"
+msgstr "Telefon"
+
+msgid "Note"
+msgstr "Izoh"
+
+msgid "Text"
+msgstr "Matn"
+
+msgid "Link"
+msgstr "Havola"
+
+# Content App - Amenity
+msgid "Amenity"
+msgstr "Qulaylik"
+
+msgid "Amenities"
+msgstr "Qulayliklar"
+
+msgid "Name (Uzbek)"
+msgstr "Nomi (O'zbekcha)"
+
+msgid "Name (Russian)"
+msgstr "Nomi (Ruscha)"
+
+msgid "Name (English)"
+msgstr "Nomi (Inglizcha)"
+
+# Content App - Project
+msgid "Project"
+msgstr "Loyiha"
+
+msgid "Projects"
+msgstr "Loyihalar"
+
+msgid "Slug"
+msgstr "Slug"
+
+msgid "Segment"
+msgstr "Segment"
+
+msgid "Location Name"
+msgstr "Joylashuv nomi"
+
+msgid "Number of Houses"
+msgstr "Uylar soni"
+
+msgid "Completion Date"
+msgstr "Tugash sanasi"
+
+# Project Status choices
+msgid "Under Construction"
+msgstr "Qurilmoqda"
+
+msgid "Completed"
+msgstr "Tugallangan"
+
+msgid "For Sale"
+msgstr "Sotuvda"
+
+msgid "Will Start"
+msgstr "Boshlanadi"
+
+# Project Segment choices
+msgid "Premium"
+msgstr "Premium"
+
+msgid "Business"
+msgstr "Biznes"
+
+msgid "Comfort"
+msgstr "Komfort"
+
+# Content App - Apartment
+msgid "Apartment"
+msgstr "Xonadon"
+
+msgid "Apartments"
+msgstr "Xonadonlar"
+
+msgid "Delivery Year"
+msgstr "Topshirish yili"
+
+msgid "Area"
+msgstr "Maydon"
+
+msgid "Rooms"
+msgstr "Xonalar"
+
+msgid "Floor"
+msgstr "Qavat"
+
+msgid "Number"
+msgstr "Raqam"
+
+# Content App - ProjectDetail
+msgid "Project Detail"
+msgstr "Loyiha tafsiloti"
+
+msgid "Project Details"
+msgstr "Loyiha tafsilotlari"
+
+msgid "Header Image 1"
+msgstr "Sarlavha rasmi 1"
+
+msgid "Header Image 2"
+msgstr "Sarlavha rasmi 2"
+
+msgid "Header Image 3"
+msgstr "Sarlavha rasmi 3"
+
+msgid "Header Image 4"
+msgstr "Sarlavha rasmi 4"
+
+msgid "Header Image 5"
+msgstr "Sarlavha rasmi 5"
+
+msgid "About Description"
+msgstr "Tavsif"
+
+msgid "About Description (Uzbek)"
+msgstr "Tavsif (O'zbekcha)"
+
+msgid "About Description (Russian)"
+msgstr "Tavsif (Ruscha)"
+
+msgid "About Description (English)"
+msgstr "Tavsif (Inglizcha)"
+
+msgid "About Image"
+msgstr "Tavsif rasmi"
+
+msgid "Latitude"
+msgstr "Kenglik"
+
+msgid "Longitude"
+msgstr "Uzunlik"
+
+msgid "Architecture Description"
+msgstr "Arxitektura tavsifi"
+
+msgid "Architecture Description (Uzbek)"
+msgstr "Arxitektura tavsifi (O'zbekcha)"
+
+msgid "Architecture Description (Russian)"
+msgstr "Arxitektura tavsifi (Ruscha)"
+
+msgid "Architecture Description (English)"
+msgstr "Arxitektura tavsifi (Inglizcha)"
+
+msgid "Architecture Image 1"
+msgstr "Arxitektura rasmi 1"
+
+msgid "Architecture Image 2"
+msgstr "Arxitektura rasmi 2"
+
+msgid "Architecture Image 3"
+msgstr "Arxitektura rasmi 3"
+
+msgid "Interior Description"
+msgstr "Interyerning tavsifi"
+
+msgid "Interior Description (Uzbek)"
+msgstr "Interyerning tavsifi (O'zbekcha)"
+
+msgid "Interior Description (Russian)"
+msgstr "Interyerning tavsifi (Ruscha)"
+
+msgid "Interior Description (English)"
+msgstr "Interyerning tavsifi (Inglizcha)"
+
+msgid "Interior Image"
+msgstr "Interyer rasmi"
+
+msgid "Premium Amenities"
+msgstr "Premium qulayliklar"
+
+# News App
+msgid "News Post"
+msgstr "Yangilik"
+
+msgid "News Posts"
+msgstr "Yangiliklar"
+
+msgid "Date of Creation"
+msgstr "Yaratilgan sana"
+
+msgid "For showing in frontend"
+msgstr "Saytda ko'rsatish uchun"
+
+msgid "Author Name"
+msgstr "Muallif ismi"
+
+msgid "Title (Uzbek)"
+msgstr "Sarlavha (O'zbekcha)"
+
+msgid "Title (Russian)"
+msgstr "Sarlavha (Ruscha)"
+
+msgid "Title (English)"
+msgstr "Sarlavha (Inglizcha)"
+
+msgid "Description"
+msgstr "Tavsif"
+
+msgid "Description (Uzbek)"
+msgstr "Tavsif (O'zbekcha)"
+
+msgid "Description (Russian)"
+msgstr "Tavsif (Ruscha)"
+
+msgid "Description (English)"
+msgstr "Tavsif (Inglizcha)"
+
+msgid "Additional Information"
+msgstr "Qo'shimcha ma'lumot"
+
+msgid "Additional Information (Uzbek)"
+msgstr "Qo'shimcha ma'lumot (O'zbekcha)"
+
+msgid "Additional Information (Russian)"
+msgstr "Qo'shimcha ma'lumot (Ruscha)"
+
+msgid "Additional Information (English)"
+msgstr "Qo'shimcha ma'lumot (Inglizcha)"
+
+# Leads App
+msgid "Lead"
+msgstr "So'rov"
+
+msgid "Leads"
+msgstr "So'rovlar"
+
+msgid "Source Page"
+msgstr "Manba sahifa"
+
+msgid "Consultation"
+msgstr "Konsultatsiya"
+
+msgid "Contact"
+msgstr "Aloqa"
+
+msgid "New"
+msgstr "Yangi"
+
+msgid "In Progress"
+msgstr "Jarayonda"
+
+msgid "Done"
+msgstr "Bajarildi"
+
+msgid "Conversation"
+msgstr "Suhbat"
+
+msgid "Conversations"
+msgstr "Suhbatlar"
+
+msgid "Assigned To"
+msgstr "Tayinlangan"
+
+msgid "Customer Name"
+msgstr "Mijoz ismi"
+
+msgid "Customer Phone"
+msgstr "Mijoz telefoni"
+
+msgid "Open"
+msgstr "Ochiq"
+
+msgid "Closed"
+msgstr "Yopiq"
+
+msgid "Message"
+msgstr "Xabar"
+
+msgid "Messages"
+msgstr "Xabarlar"
+
+msgid "Sender Type"
+msgstr "Yuboruvchi turi"
+
+msgid "Sender User"
+msgstr "Yuboruvchi foydalanuvchi"
+
+msgid "Customer"
+msgstr "Mijoz"
+
+msgid "Consultant"
+msgstr "Konsultant"
+
+msgid "System"
+msgstr "Tizim"
+
+# Site Settings App
+msgid "Site Settings"
+msgstr "Sayt sozlamalari"
+
+msgid "Company Name"
+msgstr "Kompaniya nomi"
+
+msgid "Primary Phone"
+msgstr "Asosiy telefon"
+
+msgid "Secondary Phone"
+msgstr "Qo'shimcha telefon"
+
+msgid "Email"
+msgstr "Elektron pochta"
+
+msgid "Address (Uzbek)"
+msgstr "Manzil (O'zbekcha)"
+
+msgid "Address (Russian)"
+msgstr "Manzil (Ruscha)"
+
+msgid "Address (English)"
+msgstr "Manzil (Inglizcha)"
+
+msgid "Office Hours (Uzbek)"
+msgstr "Ish vaqti (O'zbekcha)"
+
+msgid "Office Hours (Russian)"
+msgstr "Ish vaqti (Ruscha)"
+
+msgid "Office Hours (English)"
+msgstr "Ish vaqti (Inglizcha)"
+
+msgid "Map Embed URL"
+msgstr "Xarita URL"
+
+msgid "Telegram URL"
+msgstr "Telegram havolasi"
+
+msgid "Instagram URL"
+msgstr "Instagram havolasi"
+
+msgid "Facebook URL"
+msgstr "Facebook havolasi"
+
+msgid "YouTube URL"
+msgstr "YouTube havolasi"
+
+msgid "Footer Text (Uzbek)"
+msgstr "Pastki matn (O'zbekcha)"
+
+msgid "Footer Text (Russian)"
+msgstr "Pastki matn (Ruscha)"
+
+msgid "Footer Text (English)"
+msgstr "Pastki matn (Inglizcha)"
+
+# Admin fieldsets
+msgid "Header Images"
+msgstr "Sarlavha rasmlari"
+
+msgid "First image is required, other 4 are optional."
+msgstr "Birinchi rasm majburiy, qolgan 4tasi ixtiyoriy."
+
+msgid "About the Project"
+msgstr "Loyiha haqida"
+
+msgid "Location"
+msgstr "Joylashuv"
+
+msgid "Architecture"
+msgstr "Arxitektura"
+
+msgid "Architecture description and all 3 images are required."
+msgstr "Arxitektura tavsifi va barcha 3ta rasm majburiy."
+
+msgid "Interior Space & Amenities"
+msgstr "Interyer va qulayliklar"
+
+msgid "General Info"
+msgstr "Umumiy ma'lumot"
+
+msgid "Timestamps"
+msgstr "Vaqt belgilari"
+
+msgid "Content"
+msgstr "Kontent"
+
+msgid "Extra Info"
+msgstr "Qo'shimcha"
+
+msgid "Details"
+msgstr "Tafsilotlar"
+
+msgid "Customer Info"
+msgstr "Mijoz ma'lumotlari"
+
+msgid "Company Info"
+msgstr "Kompaniya ma'lumotlari"
+
+msgid "Address"
+msgstr "Manzil"
+
+msgid "Office Hours"
+msgstr "Ish vaqti"
+
+msgid "Map"
+msgstr "Xarita"
+
+msgid "Social Links"
+msgstr "Ijtimoiy tarmoqlar"
+
+msgid "Footer"
+msgstr "Pastki qism"

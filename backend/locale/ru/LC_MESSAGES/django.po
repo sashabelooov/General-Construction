@@ -1,0 +1,458 @@
+# Russian translations for General Construction Admin
+# Copyright (C) 2024 General Construction
+# This file is distributed under the same license as the General Construction package.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: General Construction 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-01 00:00+0000\n"
+"PO-Revision-Date: 2024-01-01 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: Russian\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+
+# Languages
+msgid "English"
+msgstr "Английский"
+
+msgid "Russian"
+msgstr "Русский"
+
+msgid "Uzbek"
+msgstr "Узбекский"
+
+# Common fields
+msgid "Created at"
+msgstr "Дата создания"
+
+msgid "Updated at"
+msgstr "Дата обновления"
+
+msgid "Image"
+msgstr "Изображение"
+
+msgid "Title"
+msgstr "Заголовок"
+
+msgid "Name"
+msgstr "Имя"
+
+msgid "Status"
+msgstr "Статус"
+
+msgid "Type"
+msgstr "Тип"
+
+msgid "Phone"
+msgstr "Телефон"
+
+msgid "Note"
+msgstr "Заметка"
+
+msgid "Text"
+msgstr "Текст"
+
+msgid "Link"
+msgstr "Ссылка"
+
+# Content App - Amenity
+msgid "Amenity"
+msgstr "Удобство"
+
+msgid "Amenities"
+msgstr "Удобства"
+
+msgid "Name (Uzbek)"
+msgstr "Название (Узбекский)"
+
+msgid "Name (Russian)"
+msgstr "Название (Русский)"
+
+msgid "Name (English)"
+msgstr "Название (Английский)"
+
+# Content App - Project
+msgid "Project"
+msgstr "Проект"
+
+msgid "Projects"
+msgstr "Проекты"
+
+msgid "Slug"
+msgstr "Слаг"
+
+msgid "Segment"
+msgstr "Сегмент"
+
+msgid "Location Name"
+msgstr "Название локации"
+
+msgid "Number of Houses"
+msgstr "Количество домов"
+
+msgid "Completion Date"
+msgstr "Дата завершения"
+
+# Project Status choices
+msgid "Under Construction"
+msgstr "Строится"
+
+msgid "Completed"
+msgstr "Завершён"
+
+msgid "For Sale"
+msgstr "На продажу"
+
+msgid "Will Start"
+msgstr "Скоро начнётся"
+
+# Project Segment choices
+msgid "Premium"
+msgstr "Премиум"
+
+msgid "Business"
+msgstr "Бизнес"
+
+msgid "Comfort"
+msgstr "Комфорт"
+
+# Content App - Apartment
+msgid "Apartment"
+msgstr "Квартира"
+
+msgid "Apartments"
+msgstr "Квартиры"
+
+msgid "Delivery Year"
+msgstr "Год сдачи"
+
+msgid "Area"
+msgstr "Площадь"
+
+msgid "Rooms"
+msgstr "Комнаты"
+
+msgid "Floor"
+msgstr "Этаж"
+
+msgid "Number"
+msgstr "Номер"
+
+# Content App - ProjectDetail
+msgid "Project Detail"
+msgstr "Детали проекта"
+
+msgid "Project Details"
+msgstr "Детали проектов"
+
+msgid "Header Image 1"
+msgstr "Изображение заголовка 1"
+
+msgid "Header Image 2"
+msgstr "Изображение заголовка 2"
+
+msgid "Header Image 3"
+msgstr "Изображение заголовка 3"
+
+msgid "Header Image 4"
+msgstr "Изображение заголовка 4"
+
+msgid "Header Image 5"
+msgstr "Изображение заголовка 5"
+
+msgid "About Description"
+msgstr "Описание"
+
+msgid "About Description (Uzbek)"
+msgstr "Описание (Узбекский)"
+
+msgid "About Description (Russian)"
+msgstr "Описание (Русский)"
+
+msgid "About Description (English)"
+msgstr "Описание (Английский)"
+
+msgid "About Image"
+msgstr "Изображение описания"
+
+msgid "Latitude"
+msgstr "Широта"
+
+msgid "Longitude"
+msgstr "Долгота"
+
+msgid "Architecture Description"
+msgstr "Описание архитектуры"
+
+msgid "Architecture Description (Uzbek)"
+msgstr "Описание архитектуры (Узбекский)"
+
+msgid "Architecture Description (Russian)"
+msgstr "Описание архитектуры (Русский)"
+
+msgid "Architecture Description (English)"
+msgstr "Описание архитектуры (Английский)"
+
+msgid "Architecture Image 1"
+msgstr "Изображение архитектуры 1"
+
+msgid "Architecture Image 2"
+msgstr "Изображение архитектуры 2"
+
+msgid "Architecture Image 3"
+msgstr "Изображение архитектуры 3"
+
+msgid "Interior Description"
+msgstr "Описание интерьера"
+
+msgid "Interior Description (Uzbek)"
+msgstr "Описание интерьера (Узбекский)"
+
+msgid "Interior Description (Russian)"
+msgstr "Описание интерьера (Русский)"
+
+msgid "Interior Description (English)"
+msgstr "Описание интерьера (Английский)"
+
+msgid "Interior Image"
+msgstr "Изображение интерьера"
+
+msgid "Premium Amenities"
+msgstr "Премиум удобства"
+
+# News App
+msgid "News Post"
+msgstr "Новость"
+
+msgid "News Posts"
+msgstr "Новости"
+
+msgid "Date of Creation"
+msgstr "Дата публикации"
+
+msgid "For showing in frontend"
+msgstr "Для отображения на сайте"
+
+msgid "Author Name"
+msgstr "Имя автора"
+
+msgid "Title (Uzbek)"
+msgstr "Заголовок (Узбекский)"
+
+msgid "Title (Russian)"
+msgstr "Заголовок (Русский)"
+
+msgid "Title (English)"
+msgstr "Заголовок (Английский)"
+
+msgid "Description"
+msgstr "Описание"
+
+msgid "Description (Uzbek)"
+msgstr "Описание (Узбекский)"
+
+msgid "Description (Russian)"
+msgstr "Описание (Русский)"
+
+msgid "Description (English)"
+msgstr "Описание (Английский)"
+
+msgid "Additional Information"
+msgstr "Дополнительная информация"
+
+msgid "Additional Information (Uzbek)"
+msgstr "Дополнительная информация (Узбекский)"
+
+msgid "Additional Information (Russian)"
+msgstr "Дополнительная информация (Русский)"
+
+msgid "Additional Information (English)"
+msgstr "Дополнительная информация (Английский)"
+
+# Leads App
+msgid "Lead"
+msgstr "Заявка"
+
+msgid "Leads"
+msgstr "Заявки"
+
+msgid "Source Page"
+msgstr "Источник"
+
+msgid "Consultation"
+msgstr "Консультация"
+
+msgid "Contact"
+msgstr "Контакт"
+
+msgid "New"
+msgstr "Новая"
+
+msgid "In Progress"
+msgstr "В работе"
+
+msgid "Done"
+msgstr "Выполнено"
+
+msgid "Conversation"
+msgstr "Диалог"
+
+msgid "Conversations"
+msgstr "Диалоги"
+
+msgid "Assigned To"
+msgstr "Назначено"
+
+msgid "Customer Name"
+msgstr "Имя клиента"
+
+msgid "Customer Phone"
+msgstr "Телефон клиента"
+
+msgid "Open"
+msgstr "Открыт"
+
+msgid "Closed"
+msgstr "Закрыт"
+
+msgid "Message"
+msgstr "Сообщение"
+
+msgid "Messages"
+msgstr "Сообщения"
+
+msgid "Sender Type"
+msgstr "Тип отправителя"
+
+msgid "Sender User"
+msgstr "Пользователь-отправитель"
+
+msgid "Customer"
+msgstr "Клиент"
+
+msgid "Consultant"
+msgstr "Консультант"
+
+msgid "System"
+msgstr "Система"
+
+# Site Settings App
+msgid "Site Settings"
+msgstr "Настройки сайта"
+
+msgid "Company Name"
+msgstr "Название компании"
+
+msgid "Primary Phone"
+msgstr "Основной телефон"
+
+msgid "Secondary Phone"
+msgstr "Дополнительный телефон"
+
+msgid "Email"
+msgstr "Электронная почта"
+
+msgid "Address (Uzbek)"
+msgstr "Адрес (Узбекский)"
+
+msgid "Address (Russian)"
+msgstr "Адрес (Русский)"
+
+msgid "Address (English)"
+msgstr "Адрес (Английский)"
+
+msgid "Office Hours (Uzbek)"
+msgstr "Часы работы (Узбекский)"
+
+msgid "Office Hours (Russian)"
+msgstr "Часы работы (Русский)"
+
+msgid "Office Hours (English)"
+msgstr "Часы работы (Английский)"
+
+msgid "Map Embed URL"
+msgstr "URL карты"
+
+msgid "Telegram URL"
+msgstr "Ссылка на Telegram"
+
+msgid "Instagram URL"
+msgstr "Ссылка на Instagram"
+
+msgid "Facebook URL"
+msgstr "Ссылка на Facebook"
+
+msgid "YouTube URL"
+msgstr "Ссылка на YouTube"
+
+msgid "Footer Text (Uzbek)"
+msgstr "Текст подвала (Узбекский)"
+
+msgid "Footer Text (Russian)"
+msgstr "Текст подвала (Русский)"
+
+msgid "Footer Text (English)"
+msgstr "Текст подвала (Английский)"
+
+# Admin fieldsets
+msgid "Header Images"
+msgstr "Изображения заголовка"
+
+msgid "First image is required, other 4 are optional."
+msgstr "Первое изображение обязательно, остальные 4 — по желанию."
+
+msgid "About the Project"
+msgstr "О проекте"
+
+msgid "Location"
+msgstr "Местоположение"
+
+msgid "Architecture"
+msgstr "Архитектура"
+
+msgid "Architecture description and all 3 images are required."
+msgstr "Описание архитектуры и все 3 изображения обязательны."
+
+msgid "Interior Space & Amenities"
+msgstr "Интерьер и удобства"
+
+msgid "General Info"
+msgstr "Общая информация"
+
+msgid "Timestamps"
+msgstr "Временные метки"
+
+msgid "Content"
+msgstr "Содержимое"
+
+msgid "Extra Info"
+msgstr "Дополнительно"
+
+msgid "Details"
+msgstr "Детали"
+
+msgid "Customer Info"
+msgstr "Информация о клиенте"
+
+msgid "Company Info"
+msgstr "Информация о компании"
+
+msgid "Address"
+msgstr "Адрес"
+
+msgid "Office Hours"
+msgstr "Часы работы"
+
+msgid "Map"
+msgstr "Карта"
+
+msgid "Social Links"
+msgstr "Социальные сети"
+
+msgid "Footer"
+msgstr "Подвал сайта"

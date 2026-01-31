@@ -1,4 +1,6 @@
 from django.contrib import admin
+from django.utils.translation import gettext_lazy as _
+
 from apps.news.models import NewsPost
 
 
@@ -11,7 +13,7 @@ class NewsPostAdmin(admin.ModelAdmin):
 
     fieldsets = (
         (None, {"fields": ("title", "title_uz", "title_ru", "title_en", "author_name", "date_of_creation")}),
-        ("Content", {"fields": ("description", "description_uz", "description_ru", "description_en", "image")}),
-        ("Extra Info", {"fields": ("additional_information", "additional_information_uz", "additional_information_ru", "additional_information_en", "link")}),
-        ("Timestamps", {"fields": ("created_at", "updated_at")}),
+        (_("Content"), {"fields": ("description", "description_uz", "description_ru", "description_en", "image")}),
+        (_("Extra Info"), {"fields": ("additional_information", "additional_information_uz", "additional_information_ru", "additional_information_en", "link")}),
+        (_("Timestamps"), {"fields": ("created_at", "updated_at")}),
     )
