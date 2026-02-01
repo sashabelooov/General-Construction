@@ -114,6 +114,11 @@ const translations: Translations = {
     ru: '10+ лет опыта, 50+ успешных проектов. Лучший выбор для вашей семьи.',
     en: '10+ years of experience, 50+ successful projects. The best choice for your family.',
   },
+  'hero.projectDescription': {
+    uz: 'Zamonaviy turar-joy majmuasi. Premium sifat va qulay to\'lov shartlari.',
+    ru: 'Современный жилой комплекс. Премиум качество и удобные условия оплаты.',
+    en: 'Modern residential complex. Premium quality and convenient payment terms.',
+  },
 
   // Projects Section
   'projects.subtitle': {

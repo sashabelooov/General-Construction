@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_BASE_URL = "http://127.0.0.1:8001/api/v1";
+const API_BASE_URL = "http://127.0.0.1:8000/api/v1";
 
 const apiClient = axios.create({
     baseURL: API_BASE_URL,
@@ -29,6 +29,20 @@ export interface Apartment {
     floor: number;
     number: string;
     image_url: string | null;
+    project_id: number;
+    project_title: string;
+}
+
+export interface LeadCreate {
+    type: "consultation" | "contact";
+    name: string;
+    phone: string;
+    source_page?: string;
+}
+
+export interface LeadResponse {
+    id: number;
+    conversation_id: number;
 }
 
 export interface ProjectDetail {
@@ -100,7 +114,10 @@ export const api = {
     news: {
         list: () => apiClient.get<PaginatedResponse<NewsPost> | NewsPost[]>("/news/").then(res => extractData<NewsPost>(res)),
         get: (id: number | string) => apiClient.get<NewsPost>(`/news/${id}/`).then(res => res.data),
-    }
+    },
+    leads: {
+        create: (data: LeadCreate) => apiClient.post<LeadResponse>("/leads/", data).then(res => res.data),
+    },
 };
 
 export default apiClient;

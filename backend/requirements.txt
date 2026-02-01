@@ -1,3 +1,4 @@
+# Django Core
 Django>=5.0,<6.0
 djangorestframework>=3.15,<4.0
 django-filter>=24.2,<26.0
@@ -5,3 +6,20 @@ drf-spectacular>=0.27,<1.0
 django-cors-headers>=4.3,<5.0
 Pillow>=10.3,<12.0
 django-jazzmin>=3.0,<4.0
+
+# WebSocket Support
+channels>=4.0,<5.0
+channels-redis>=4.0,<5.0  # For production (use Redis as channel layer)
+
+# Security
+django-ratelimit>=4.0,<5.0  # Rate limiting for views
+django-csp>=3.0,<4.0  # Content Security Policy
+django-axes>=6.0,<7.0  # Login attempt monitoring and blocking
+
+# Production
+gunicorn>=21.0,<23.0
+uvicorn>=0.24,<1.0  # ASGI server for WebSocket support
+whitenoise>=6.0,<7.0  # Static file serving
+
+# Database (for production)
+psycopg2-binary>=2.9,<3.0  # PostgreSQL adapter

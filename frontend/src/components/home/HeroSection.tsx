@@ -1,49 +1,69 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronLeft, ChevronRight, ArrowRight, Eye } from "lucide-react";
+import { ChevronLeft, ChevronRight, ArrowRight, Loader2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useLanguage } from "@/lib/i18n";
+import { api, Project } from "@/lib/api";
 
 import heroImage1 from "@/assets/hero-building-1.jpg";
-import heroImage2 from "@/assets/hero-building-2.jpg";
-import heroImage3 from "@/assets/hero-building-3.jpg";
+
+interface Slide {
+  id: number;
+  image: string;
+  title: string;
+  subtitle: string;
+  description: string;
+}
 
 export default function HeroSection() {
   const { t } = useLanguage();
   const [currentSlide, setCurrentSlide] = useState(0);
   const [direction, setDirection] = useState(0);
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const slides = [
-    {
-      id: 1,
-      image: heroImage1,
-      title: t('hero.slide1.title'),
-      subtitle: t('hero.slide1.subtitle'),
-      description: t('hero.slide1.description'),
-    },
-    {
-      id: 2,
-      image: heroImage2,
-      title: t('hero.slide2.title'),
-      subtitle: t('hero.slide2.subtitle'),
-      description: t('hero.slide2.description'),
-    },
-    {
-      id: 3,
-      image: heroImage3,
-      title: t('hero.slide3.title'),
-      subtitle: t('hero.slide3.subtitle'),
-      description: t('hero.slide3.description'),
-    },
-  ];
+  // Fetch projects from API
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const data = await api.projects.list();
+        setProjects(data);
+      } catch (error) {
+        console.error("Failed to fetch projects:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchProjects();
+  }, []);
+
+  // Generate slides from projects - use project images for carousel
+  const slides: Slide[] = projects.length > 0
+    ? projects.map((project) => ({
+        id: project.id,
+        image: project.detail?.image1_url || project.image_url || heroImage1,
+        title: project.title,
+        subtitle: project.location_name,
+        description: t('hero.projectDescription'),
+      }))
+    : [
+        {
+          id: 1,
+          image: heroImage1,
+          title: t('hero.slide1.title'),
+          subtitle: t('hero.slide1.subtitle'),
+          description: t('hero.slide1.description'),
+        },
+      ];
 
   useEffect(() => {
+    if (slides.length === 0) return;
     const timer = setInterval(() => {
       setDirection(1);
       setCurrentSlide((prev) => (prev + 1) % slides.length);
     }, 6000);
     return () => clearInterval(timer);
-  }, []);
+  }, [slides.length]);
 
   const goToSlide = (index: number) => {
     setDirection(index > currentSlide ? 1 : -1);
@@ -75,6 +95,20 @@ export default function HeroSection() {
     }),
   };
 
+  // Show loading state
+  if (loading) {
+    return (
+      <section className="relative h-[90vh] min-h-[600px] overflow-hidden bg-primary flex items-center justify-center">
+        <Loader2 className="w-12 h-12 text-accent animate-spin" />
+      </section>
+    );
+  }
+
+  // Ensure we have at least one slide
+  if (slides.length === 0) {
+    return null;
+  }
+
   return (
     <section className="relative h-[90vh] min-h-[600px] overflow-hidden">
       {/* Background Images */}
@@ -90,8 +124,8 @@ export default function HeroSection() {
           className="absolute inset-0"
         >
           <img
-            src={slides[currentSlide].image}
-            alt={slides[currentSlide].title}
+            src={slides[currentSlide]?.image || heroImage1}
+            alt={slides[currentSlide]?.title || "Project"}
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/60 to-transparent" />
@@ -110,11 +144,11 @@ export default function HeroSection() {
               transition={{ duration: 0.5 }}
             >
               <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-primary-foreground mb-4">
-                {slides[currentSlide].title}
-                <span className="block text-accent">{slides[currentSlide].subtitle}</span>
+                {slides[currentSlide]?.title || ""}
+                <span className="block text-accent">{slides[currentSlide]?.subtitle || ""}</span>
               </h1>
               <p className="text-primary-foreground/80 text-lg md:text-xl mb-8 max-w-lg">
-                {slides[currentSlide].description}
+                {slides[currentSlide]?.description || ""}
               </p>
               <div className="flex flex-wrap gap-4">
                 <Link to="/projects" className="btn-beige flex items-center gap-2">

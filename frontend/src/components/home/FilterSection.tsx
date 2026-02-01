@@ -1,81 +1,110 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Heart, Search, RefreshCcw, ChevronDown, Home, Layers, Building2, Maximize2, Calendar } from "lucide-react";
+import { Heart, Search, RefreshCcw, ChevronDown, Home, Layers, Building2, Maximize2, Calendar, Loader2 } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import ConsultationForm from "@/components/forms/ConsultationForm";
 import { useLanguage } from "@/lib/i18n";
+import { api, Apartment as ApiApartment, Project } from "@/lib/api";
 
 import floorPlan1 from "@/assets/floor-plan-1.jpg";
-import floorPlan2 from "@/assets/floor-plan-2.jpg";
-import floorPlan3 from "@/assets/floor-plan-3.jpg";
 
-interface Apartment {
-  id: number;
-  number: string;
-  area: number;
-  rooms: number;
-  floor: number;
-  deliveryYear: string;
-  project: string;
-  image: string;
+interface DisplayApartment extends ApiApartment {
   isFavorite: boolean;
 }
 
-const allApartments: Apartment[] = [
-  { id: 1, number: "1A", area: 57.24, rooms: 2, floor: 1, deliveryYear: "2027", project: "Sunset Heights", image: floorPlan1, isFavorite: false },
-  { id: 2, number: "37", area: 122.79, rooms: 4, floor: 9, deliveryYear: "2026", project: "Grand Plaza", image: floorPlan2, isFavorite: false },
-  { id: 3, number: "195", area: 44.86, rooms: 1, floor: 24, deliveryYear: "2028", project: "Harbor View", image: floorPlan3, isFavorite: false },
-  { id: 4, number: "16", area: 78.84, rooms: 3, floor: 5, deliveryYear: "2028", project: "Sunset Heights", image: floorPlan1, isFavorite: false },
-  { id: 5, number: "42", area: 95.50, rooms: 3, floor: 15, deliveryYear: "2026", project: "Grand Plaza", image: floorPlan2, isFavorite: false },
-  { id: 6, number: "88", area: 68.20, rooms: 2, floor: 8, deliveryYear: "2027", project: "Harbor View", image: floorPlan3, isFavorite: false },
-];
-
-const projects = ["Barchasi", "Sunset Heights", "Grand Plaza", "Harbor View"];
-const roomOptions = ["Barchasi", "1", "2", "3", "4+"];
-const floorOptions = ["Barchasi", "1-5", "6-10", "11-15", "16+"];
-const areaOptions = ["Barchasi", "30-50 m²", "50-80 m²", "80-100 m²", "100+ m²"];
-const deliveryOptions = ["Barchasi", "2026", "2027", "2028"];
+const roomOptions = ["all", "1", "2", "3", "4+"];
+const floorOptions = ["all", "1-5", "6-10", "11-15", "16+"];
+const areaOptions = ["all", "30-50", "50-80", "80-100", "100+"];
 
 export default function FilterSection() {
   const { t } = useLanguage();
-  const [apartments, setApartments] = useState<Apartment[]>(allApartments.slice(0, 6));
-  const [visibleCount, setVisibleCount] = useState(6);
+  const [apartments, setApartments] = useState<DisplayApartment[]>([]);
+  const [allApartments, setAllApartments] = useState<DisplayApartment[]>([]);
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [visibleCount, setVisibleCount] = useState(8);
   const [showContactForm, setShowContactForm] = useState(false);
-  const [selectedApartment, setSelectedApartment] = useState<Apartment | null>(null);
-  
+  const [selectedApartment, setSelectedApartment] = useState<DisplayApartment | null>(null);
+
   // Filter states
-  const [selectedProject, setSelectedProject] = useState("Barchasi");
-  const [selectedRooms, setSelectedRooms] = useState("Barchasi");
-  const [selectedFloor, setSelectedFloor] = useState("Barchasi");
-  const [selectedArea, setSelectedArea] = useState("Barchasi");
-  const [selectedDelivery, setSelectedDelivery] = useState("Barchasi");
+  const [selectedProject, setSelectedProject] = useState("all");
+  const [selectedRooms, setSelectedRooms] = useState("all");
+  const [selectedFloor, setSelectedFloor] = useState("all");
+  const [selectedArea, setSelectedArea] = useState("all");
+  const [selectedDelivery, setSelectedDelivery] = useState("all");
+
+  // Fetch apartments and projects from API
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [apartmentsData, projectsData] = await Promise.all([
+          api.apartments.list(),
+          api.projects.list(),
+        ]);
+
+        // Add isFavorite to apartments
+        const apartmentsWithFavorite = apartmentsData.map((apt) => ({
+          ...apt,
+          isFavorite: false,
+        }));
+
+        setAllApartments(apartmentsWithFavorite);
+        setApartments(apartmentsWithFavorite.slice(0, visibleCount));
+        setProjects(projectsData);
+      } catch (error) {
+        console.error("Failed to fetch data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
+
+  // Get unique delivery years from apartments
+  const deliveryYears = [...new Set(allApartments.map((apt) => apt.delivery_year.toString()))].sort();
 
   const applyFilters = () => {
     let filtered = [...allApartments];
 
-    if (selectedProject !== "Barchasi") {
-      filtered = filtered.filter((apt) => apt.project === selectedProject);
+    if (selectedProject !== "all") {
+      filtered = filtered.filter((apt) => apt.project_id.toString() === selectedProject);
     }
-    if (selectedRooms !== "Barchasi") {
+    if (selectedRooms !== "all") {
       if (selectedRooms === "4+") {
         filtered = filtered.filter((apt) => apt.rooms >= 4);
       } else {
         filtered = filtered.filter((apt) => apt.rooms === parseInt(selectedRooms));
       }
     }
-    if (selectedDelivery !== "Barchasi") {
-      filtered = filtered.filter((apt) => apt.deliveryYear === selectedDelivery);
+    if (selectedFloor !== "all") {
+      const [min, max] = selectedFloor.split("-").map((v) => (v.includes("+") ? 999 : parseInt(v)));
+      if (selectedFloor.includes("+")) {
+        filtered = filtered.filter((apt) => apt.floor >= parseInt(selectedFloor));
+      } else {
+        filtered = filtered.filter((apt) => apt.floor >= min && apt.floor <= max);
+      }
+    }
+    if (selectedArea !== "all") {
+      const [min, max] = selectedArea.split("-").map((v) => (v.includes("+") ? 9999 : parseFloat(v)));
+      if (selectedArea.includes("+")) {
+        filtered = filtered.filter((apt) => apt.area >= parseFloat(selectedArea));
+      } else {
+        filtered = filtered.filter((apt) => apt.area >= min && apt.area <= max);
+      }
+    }
+    if (selectedDelivery !== "all") {
+      filtered = filtered.filter((apt) => apt.delivery_year.toString() === selectedDelivery);
     }
 
     setApartments(filtered.slice(0, visibleCount));
   };
 
   const clearFilters = () => {
-    setSelectedProject("Barchasi");
-    setSelectedRooms("Barchasi");
-    setSelectedFloor("Barchasi");
-    setSelectedArea("Barchasi");
-    setSelectedDelivery("Barchasi");
+    setSelectedProject("all");
+    setSelectedRooms("all");
+    setSelectedFloor("all");
+    setSelectedArea("all");
+    setSelectedDelivery("all");
     setApartments(allApartments.slice(0, visibleCount));
   };
 
@@ -85,15 +114,27 @@ export default function FilterSection() {
         apt.id === id ? { ...apt, isFavorite: !apt.isFavorite } : apt
       )
     );
+    setAllApartments((prev) =>
+      prev.map((apt) =>
+        apt.id === id ? { ...apt, isFavorite: !apt.isFavorite } : apt
+      )
+    );
   };
 
   const showMore = () => {
-    const newCount = visibleCount + 3;
+    const newCount = visibleCount + 4;
     setVisibleCount(newCount);
-    setApartments(allApartments.slice(0, newCount));
+    // Re-apply filters with new count
+    applyFilters();
   };
 
-  const handleRequestInfo = (apartment: Apartment) => {
+  useEffect(() => {
+    if (allApartments.length > 0) {
+      applyFilters();
+    }
+  }, [visibleCount]);
+
+  const handleRequestInfo = (apartment: DisplayApartment) => {
     setSelectedApartment(apartment);
     setShowContactForm(true);
   };
@@ -119,7 +160,7 @@ export default function FilterSection() {
           </p>
         </motion.div>
 
-        {/* Filters - Fixed overflow issue */}
+        {/* Filters */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -138,7 +179,7 @@ export default function FilterSection() {
                 className="filter-select w-full appearance-none cursor-pointer"
               >
                 {roomOptions.map((opt) => (
-                  <option key={opt} value={opt}>{opt === "Barchasi" ? t('filter.all') : opt}</option>
+                  <option key={opt} value={opt}>{opt === "all" ? t('filter.all') : opt}</option>
                 ))}
               </select>
               <ChevronDown className="absolute right-3 bottom-3 w-4 h-4 text-muted-foreground pointer-events-none" />
@@ -155,7 +196,7 @@ export default function FilterSection() {
                 className="filter-select w-full appearance-none cursor-pointer"
               >
                 {floorOptions.map((opt) => (
-                  <option key={opt} value={opt}>{opt === "Barchasi" ? t('filter.all') : opt}</option>
+                  <option key={opt} value={opt}>{opt === "all" ? t('filter.all') : opt}</option>
                 ))}
               </select>
               <ChevronDown className="absolute right-3 bottom-3 w-4 h-4 text-muted-foreground pointer-events-none" />
@@ -171,8 +212,9 @@ export default function FilterSection() {
                 onChange={(e) => setSelectedProject(e.target.value)}
                 className="filter-select w-full appearance-none cursor-pointer"
               >
-                {projects.map((opt) => (
-                  <option key={opt} value={opt}>{opt === "Barchasi" ? t('filter.all') : opt}</option>
+                <option value="all">{t('filter.all')}</option>
+                {projects.map((project) => (
+                  <option key={project.id} value={project.id.toString()}>{project.title}</option>
                 ))}
               </select>
               <ChevronDown className="absolute right-3 bottom-3 w-4 h-4 text-muted-foreground pointer-events-none" />
@@ -189,7 +231,9 @@ export default function FilterSection() {
                 className="filter-select w-full appearance-none cursor-pointer"
               >
                 {areaOptions.map((opt) => (
-                  <option key={opt} value={opt}>{opt === "Barchasi" ? t('filter.all') : opt}</option>
+                  <option key={opt} value={opt}>
+                    {opt === "all" ? t('filter.all') : `${opt} m²`}
+                  </option>
                 ))}
               </select>
               <ChevronDown className="absolute right-3 bottom-3 w-4 h-4 text-muted-foreground pointer-events-none" />
@@ -205,8 +249,9 @@ export default function FilterSection() {
                 onChange={(e) => setSelectedDelivery(e.target.value)}
                 className="filter-select w-full appearance-none cursor-pointer"
               >
-                {deliveryOptions.map((opt) => (
-                  <option key={opt} value={opt}>{opt === "Barchasi" ? t('filter.all') : opt}</option>
+                <option value="all">{t('filter.all')}</option>
+                {deliveryYears.map((year) => (
+                  <option key={year} value={year}>{year}</option>
                 ))}
               </select>
               <ChevronDown className="absolute right-3 bottom-3 w-4 h-4 text-muted-foreground pointer-events-none" />
@@ -221,7 +266,7 @@ export default function FilterSection() {
               {t('filter.search')}
             </button>
 
-            {/* Refresh Button - Fixed to stay within container */}
+            {/* Refresh Button */}
             <button
               onClick={clearFilters}
               className="p-3 h-[42px] rounded-lg border border-border hover:bg-muted transition-colors flex items-center justify-center"
@@ -232,89 +277,99 @@ export default function FilterSection() {
           </div>
         </motion.div>
 
-        {/* Apartments Grid */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
-        >
-          <AnimatePresence>
-            {apartments.map((apartment, index) => (
-              <motion.div
-                key={apartment.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ delay: index * 0.1 }}
-                className="bg-card rounded-xl overflow-hidden shadow-soft group hover:shadow-medium transition-shadow"
-              >
-                {/* Floor Plan Image */}
-                <div className="relative h-52 bg-muted p-4">
-                  <img 
-                    src={apartment.image} 
-                    alt={`Floor plan ${apartment.number}`}
-                    className="w-full h-full object-contain"
-                  />
-                  
-                  {/* Favorite Button */}
-                  <button
-                    onClick={() => toggleFavorite(apartment.id)}
-                    className={`absolute top-4 right-4 w-10 h-10 rounded-full flex items-center justify-center transition-all ${
-                      apartment.isFavorite
-                        ? "bg-destructive text-primary-foreground"
-                        : "bg-card/90 text-muted-foreground hover:bg-destructive hover:text-primary-foreground"
-                    }`}
-                  >
-                    <Heart className={`w-5 h-5 ${apartment.isFavorite ? "fill-current" : ""}`} />
-                  </button>
-                </div>
+        {/* Loading State */}
+        {loading ? (
+          <div className="flex justify-center py-12">
+            <Loader2 className="w-8 h-8 text-accent animate-spin" />
+          </div>
+        ) : apartments.length === 0 ? (
+          <div className="text-center py-12">
+            <p className="text-muted-foreground">{t('projects.notFound')}</p>
+          </div>
+        ) : (
+          /* Apartments Grid */
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+          >
+            <AnimatePresence>
+              {apartments.map((apartment, index) => (
+                <motion.div
+                  key={apartment.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  transition={{ delay: index * 0.05 }}
+                  className="bg-card rounded-xl overflow-hidden shadow-soft group hover:shadow-medium transition-shadow"
+                >
+                  {/* Floor Plan Image */}
+                  <div className="relative h-52 bg-muted p-4">
+                    <img
+                      src={apartment.image_url || floorPlan1}
+                      alt={`Floor plan ${apartment.number}`}
+                      className="w-full h-full object-contain"
+                    />
 
-                {/* Content */}
-                <div className="p-5">
-                  {/* Details */}
-                  <div className="space-y-2 mb-5 text-sm">
-                    <div className="flex justify-between items-center border-b border-dashed border-border pb-2">
-                      <span className="text-muted-foreground">{t('filter.apartmentNumber')}</span>
-                      <span className="font-semibold text-primary">{apartment.number}</span>
-                    </div>
-                    <div className="flex justify-between items-center border-b border-dashed border-border pb-2">
-                      <span className="text-muted-foreground">{t('filter.apartmentArea')}</span>
-                      <span className="font-semibold text-primary">{apartment.area} m²</span>
-                    </div>
-                    <div className="flex justify-between items-center border-b border-dashed border-border pb-2">
-                      <span className="text-muted-foreground">{t('filter.apartmentRooms')}</span>
-                      <span className="font-semibold text-primary">{apartment.rooms}</span>
-                    </div>
-                    <div className="flex justify-between items-center border-b border-dashed border-border pb-2">
-                      <span className="text-muted-foreground">{t('filter.apartmentFloor')}</span>
-                      <span className="font-semibold text-primary">{apartment.floor}</span>
-                    </div>
-                    <div className="flex justify-between items-center border-b border-dashed border-border pb-2">
-                      <span className="text-muted-foreground">{t('filter.apartmentDelivery')}</span>
-                      <span className="font-semibold text-primary">{apartment.deliveryYear}</span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-muted-foreground">{t('filter.apartmentProject')}</span>
-                      <span className="font-semibold text-accent">{apartment.project}</span>
-                    </div>
+                    {/* Favorite Button */}
+                    <button
+                      onClick={() => toggleFavorite(apartment.id)}
+                      className={`absolute top-4 right-4 w-10 h-10 rounded-full flex items-center justify-center transition-all ${apartment.isFavorite
+                          ? "bg-destructive text-primary-foreground"
+                          : "bg-card/90 text-muted-foreground hover:bg-destructive hover:text-primary-foreground"
+                        }`}
+                    >
+                      <Heart className={`w-5 h-5 ${apartment.isFavorite ? "fill-current" : ""}`} />
+                    </button>
                   </div>
 
-                  <button
-                    onClick={() => handleRequestInfo(apartment)}
-                    className="btn-navy w-full text-sm flex items-center justify-center gap-2"
-                  >
-                    <Search className="w-4 h-4" />
-                    {t('filter.learnMore')}
-                  </button>
-                </div>
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </motion.div>
+                  {/* Content */}
+                  <div className="p-5">
+                    {/* Details */}
+                    <div className="space-y-2 mb-5 text-sm">
+                      <div className="flex justify-between items-center border-b border-dashed border-border pb-2">
+                        <span className="text-muted-foreground">{t('filter.apartmentNumber')}</span>
+                        <span className="font-semibold text-primary">{apartment.number}</span>
+                      </div>
+                      <div className="flex justify-between items-center border-b border-dashed border-border pb-2">
+                        <span className="text-muted-foreground">{t('filter.apartmentArea')}</span>
+                        <span className="font-semibold text-primary">{apartment.area} m²</span>
+                      </div>
+                      <div className="flex justify-between items-center border-b border-dashed border-border pb-2">
+                        <span className="text-muted-foreground">{t('filter.apartmentRooms')}</span>
+                        <span className="font-semibold text-primary">{apartment.rooms}</span>
+                      </div>
+                      <div className="flex justify-between items-center border-b border-dashed border-border pb-2">
+                        <span className="text-muted-foreground">{t('filter.apartmentFloor')}</span>
+                        <span className="font-semibold text-primary">{apartment.floor}</span>
+                      </div>
+                      <div className="flex justify-between items-center border-b border-dashed border-border pb-2">
+                        <span className="text-muted-foreground">{t('filter.apartmentDelivery')}</span>
+                        <span className="font-semibold text-primary">{apartment.delivery_year}</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-muted-foreground">{t('filter.apartmentProject')}</span>
+                        <span className="font-semibold text-accent">{apartment.project_title}</span>
+                      </div>
+                    </div>
+
+                    <button
+                      onClick={() => handleRequestInfo(apartment)}
+                      className="btn-navy w-full text-sm flex items-center justify-center gap-2"
+                    >
+                      <Search className="w-4 h-4" />
+                      {t('filter.learnMore')}
+                    </button>
+                  </div>
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </motion.div>
+        )}
 
         {/* Show More Button */}
-        {visibleCount < allApartments.length && (
+        {!loading && apartments.length > 0 && apartments.length < allApartments.length && (
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
@@ -333,11 +388,14 @@ export default function FilterSection() {
             <DialogHeader>
               <DialogTitle className="font-heading text-xl">
                 {selectedApartment && (
-                  <>№{selectedApartment.number} {t('filter.apartmentNumber')}</>
+                  <>№{selectedApartment.number} - {selectedApartment.project_title}</>
                 )}
               </DialogTitle>
             </DialogHeader>
-            <ConsultationForm onSuccess={() => setShowContactForm(false)} />
+            <ConsultationForm
+              onSuccess={() => setShowContactForm(false)}
+              apartmentId={selectedApartment?.id}
+            />
           </DialogContent>
         </Dialog>
       </div>

@@ -33,6 +33,8 @@ class AmenitySerializer(serializers.ModelSerializer):
 
 class ApartmentSerializer(serializers.ModelSerializer):
     image_url = serializers.SerializerMethodField()
+    project_id = serializers.IntegerField(source='project.id', read_only=True)
+    project_title = serializers.CharField(source='project.title', read_only=True)
 
     class Meta:
         model = Apartment
@@ -44,6 +46,8 @@ class ApartmentSerializer(serializers.ModelSerializer):
             "floor",
             "number",
             "image_url",
+            "project_id",
+            "project_title",
         ]
 
     def get_image_url(self, obj: Apartment):
@@ -187,9 +191,46 @@ class NewsPostSerializer(serializers.ModelSerializer):
 class LeadCreateSerializer(serializers.ModelSerializer):
     conversation_id = serializers.IntegerField(read_only=True)
 
+    # Uzbekistan phone operator codes
+    UZBEKISTAN_OPERATOR_CODES = [
+        '90', '91', '93', '94', '95', '97', '98', '99',  # Mobile operators
+        '33', '55', '71', '78',  # Other operators
+    ]
+
     class Meta:
         model = Lead
-        fields = ["id", "type", "name", "phone", "source_page", "conversation_id"]
+        fields = ["id", "type", "name", "phone", "source_page", "apartment", "conversation_id"]
+
+    def validate_phone(self, value):
+        """Validate Uzbekistan phone numbers."""
+        import re
+
+        # Remove all non-digit characters except +
+        cleaned = re.sub(r'[^\d+]', '', value)
+
+        # Check if it starts with +998
+        if not cleaned.startswith('+998'):
+            raise serializers.ValidationError(
+                "Phone number must start with +998 (Uzbekistan country code)"
+            )
+
+        # Remove +998 prefix
+        number_without_prefix = cleaned[4:]
+
+        # Check if it has exactly 9 digits after the country code
+        if len(number_without_prefix) != 9:
+            raise serializers.ValidationError(
+                "Phone number must have 9 digits after +998"
+            )
+
+        # Check if the operator code is valid
+        operator_code = number_without_prefix[:2]
+        if operator_code not in self.UZBEKISTAN_OPERATOR_CODES:
+            raise serializers.ValidationError(
+                f"Invalid operator code. Valid codes: {', '.join(self.UZBEKISTAN_OPERATOR_CODES)}"
+            )
+
+        return cleaned
 
     def create(self, validated_data):
         lead = super().create(validated_data)

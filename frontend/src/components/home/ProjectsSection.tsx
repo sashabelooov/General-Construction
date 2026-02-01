@@ -1,47 +1,11 @@
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Link, useNavigate } from "react-router-dom";
-import { MapPin, Home, ArrowRight, Calendar } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { MapPin, Home, ArrowRight, Calendar, Loader2 } from "lucide-react";
 import { useLanguage } from "@/lib/i18n";
+import { api, Project } from "@/lib/api";
 
 import projectImage1 from "@/assets/project-1.jpg";
-import projectImage2 from "@/assets/project-2.jpg";
-import projectImage3 from "@/assets/project-3.jpg";
-
-const projects = [
-  {
-    id: 1,
-    name: "Sunset Villas",
-    image: projectImage1,
-    location: "Los Angeles, Hollywood",
-    totalApartments: 240,
-    soldApartments: 180,
-    status: "Under Construction",
-    class: "Comfort",
-    completionDate: "2027-05-01", // Format: YYYY-MM-DD
-  },
-  {
-    id: 2,
-    name: "Downtown Towers",
-    image: projectImage2,
-    location: "New York, Manhattan",
-    totalApartments: 320,
-    soldApartments: 280,
-    status: "Completed",
-    class: "Business",
-    completionDate: null, // Completed projects don't need completion date
-  },
-  {
-    id: 3,
-    name: "Riverside Apartments",
-    image: projectImage3,
-    location: "Chicago, Downtown",
-    totalApartments: 180,
-    soldApartments: 45,
-    status: "For Sale",
-    class: "Premium",
-    completionDate: "2026-08-15",
-  },
-];
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -65,6 +29,24 @@ const itemVariants = {
 export default function ProjectsSection() {
   const { t, language } = useLanguage();
   const navigate = useNavigate();
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  // Fetch projects from API
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const data = await api.projects.list();
+        // Take first 3 projects for homepage
+        setProjects(data.slice(0, 3));
+      } catch (error) {
+        console.error("Failed to fetch projects:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchProjects();
+  }, []);
 
   const handleProjectClick = (projectId: number) => {
     navigate(`/projects/${projectId}`);
@@ -78,20 +60,48 @@ export default function ProjectsSection() {
 
   const getStatusTranslation = (status: string) => {
     switch (status) {
-      case "Completed":
+      case "completed":
         return t('projects.status.sold');
-      case "For Sale":
+      case "for_sale":
         return t('projects.status.sale');
-      case "Under Construction":
+      case "under_construction":
+        return t('projects.status.building');
+      case "will_start":
         return t('projects.status.building');
       default:
         return status;
     }
   };
 
+  const getStatusBadgeClass = (status: string) => {
+    switch (status) {
+      case "completed":
+        return "bg-success text-primary-foreground";
+      case "for_sale":
+        return "bg-accent text-primary";
+      case "under_construction":
+      case "will_start":
+      default:
+        return "bg-primary text-primary-foreground";
+    }
+  };
+
+  const getSegmentTranslation = (segment: string) => {
+    switch (segment) {
+      case "comfort":
+        return t('filter.class.comfort');
+      case "business":
+        return t('filter.class.business');
+      case "premium":
+        return t('filter.class.premium');
+      default:
+        return segment;
+    }
+  };
+
   const formatCompletionDate = (dateString: string | null) => {
     if (!dateString) return t('projects.status.sold');
-    
+
     const date = new Date(dateString);
     if (language === 'uz') {
       // Format as DD-MM-YYYY for Uzbek
@@ -128,89 +138,94 @@ export default function ProjectsSection() {
           </p>
         </motion.div>
 
-        {/* Projects Grid */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-        >
-          {projects.map((project) => (
-            <motion.div
-              key={project.id}
-              variants={itemVariants}
-              className="card-project group"
-            >
-              {/* Image - removed progress bar */}
-              <div className="relative h-64 overflow-hidden">
-                <img
-                  src={project.image}
-                  alt={project.name}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent" />
-                
-                {/* Status Badge */}
-                <div className="absolute top-4 left-4">
-                  <span
-                    className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                      project.status === "Completed"
-                        ? "bg-success text-primary-foreground"
-                        : project.status === "For Sale"
-                        ? "bg-accent text-primary"
-                        : "bg-primary text-primary-foreground"
-                    }`}
+        {/* Loading State */}
+        {loading ? (
+          <div className="flex justify-center py-12">
+            <Loader2 className="w-8 h-8 text-accent animate-spin" />
+          </div>
+        ) : projects.length === 0 ? (
+          <div className="text-center py-12">
+            <p className="text-muted-foreground">{t('projects.notFound')}</p>
+          </div>
+        ) : (
+          /* Projects Grid */
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          >
+            {projects.map((project) => (
+              <motion.div
+                key={project.id}
+                variants={itemVariants}
+                className="card-project group"
+              >
+                {/* Image */}
+                <div className="relative h-64 overflow-hidden">
+                  <img
+                    src={project.image_url || project.detail?.image1_url || projectImage1}
+                    alt={project.title}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent" />
+
+                  {/* Status Badge */}
+                  <div className="absolute top-4 left-4">
+                    <span
+                      className={`px-3 py-1 rounded-full text-xs font-semibold ${getStatusBadgeClass(project.status)}`}
+                    >
+                      {getStatusTranslation(project.status)}
+                    </span>
+                  </div>
+
+                  {/* Segment Badge */}
+                  <div className="absolute top-4 right-4">
+                    <span className="px-3 py-1 rounded-full text-xs font-semibold bg-card/90 text-foreground">
+                      {getSegmentTranslation(project.segment)}
+                    </span>
+                  </div>
+
+                  {/* Project Name on Image */}
+                  <div className="absolute bottom-4 left-4 right-4">
+                    <h3 className="font-heading font-bold text-xl text-primary-foreground mb-1">{project.title}</h3>
+                  </div>
+                </div>
+
+                {/* Content */}
+                <div className="p-6">
+                  <div className="flex items-center gap-2 text-muted-foreground mb-2">
+                    <MapPin className="w-4 h-4 text-accent" />
+                    <span className="text-sm">{project.location_name}</span>
+                  </div>
+
+                  <div className="flex items-center gap-2 text-muted-foreground mb-2">
+                    <Home className="w-4 h-4 text-accent" />
+                    <span className="text-sm">
+                      {project.number_of_houses} {t('projects.apartment')}
+                    </span>
+                  </div>
+
+                  <div className="flex items-center gap-2 text-muted-foreground mb-4">
+                    <Calendar className="w-4 h-4 text-accent" />
+                    <span className="text-sm">
+                      {formatCompletionDate(project.completion_date)}
+                    </span>
+                  </div>
+
+                  <button
+                    onClick={() => handleProjectClick(project.id)}
+                    className="flex items-center gap-2 text-accent font-semibold hover:gap-3 transition-all"
                   >
-                    {getStatusTranslation(project.status)}
-                  </span>
+                    {t('projects.more')}
+                    <ArrowRight className="w-4 h-4" />
+                  </button>
                 </div>
-
-                {/* Class Badge */}
-                <div className="absolute top-4 right-4">
-                  <span className="px-3 py-1 rounded-full text-xs font-semibold bg-card/90 text-foreground">
-                    {project.class}
-                  </span>
-                </div>
-
-                {/* Project Name on Image */}
-                <div className="absolute bottom-4 left-4 right-4">
-                  <h3 className="font-heading font-bold text-xl text-primary-foreground mb-1">{project.name}</h3>
-                </div>
-              </div>
-
-              {/* Content */}
-              <div className="p-6">
-                <div className="flex items-center gap-2 text-muted-foreground mb-2">
-                  <MapPin className="w-4 h-4 text-accent" />
-                  <span className="text-sm">{project.location}</span>
-                </div>
-                
-                <div className="flex items-center gap-2 text-muted-foreground mb-2">
-                  <Home className="w-4 h-4 text-accent" />
-                  <span className="text-sm">
-                    {project.totalApartments} {t('projects.apartment')}
-                  </span>
-                </div>
-
-                <div className="flex items-center gap-2 text-muted-foreground mb-4">
-                  <Calendar className="w-4 h-4 text-accent" />
-                  <span className="text-sm">
-                    {formatCompletionDate(project.completionDate)}
-                  </span>
-                </div>
-
-                <button
-                  onClick={() => handleProjectClick(project.id)}
-                  className="flex items-center gap-2 text-accent font-semibold hover:gap-3 transition-all"
-                >
-                  {t('projects.more')}
-                  <ArrowRight className="w-4 h-4" />
-                </button>
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
+              </motion.div>
+            ))}
+          </motion.div>
+        )}
 
         {/* View All Button */}
         <motion.div
