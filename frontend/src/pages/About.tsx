@@ -1,5 +1,6 @@
-import { motion } from "framer-motion";
-import { Handshake, Award, Lightbulb, HeartHandshake } from "lucide-react";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Handshake, Award, Lightbulb, HeartHandshake, ChevronLeft, ChevronRight } from "lucide-react";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import ConsultationSection from "@/components/home/ConsultationSection";
@@ -8,11 +9,70 @@ import heroImage1 from "@/assets/hero-building-1.jpg";
 import heroImage2 from "@/assets/hero-building-2.jpg";
 import heroImage3 from "@/assets/hero-building-3.jpg";
 
+// About carousel images
+import aboutImage1 from "@/assets/about_1.jpg";
+import aboutImage2 from "@/assets/about_2.jpg";
+import aboutImage3 from "@/assets/about_3.jpg";
+import aboutImage4 from "@/assets/about_4.jpg";
+import aboutImage5 from "@/assets/about_5.jpg";
+import aboutImage6 from "@/assets/about_6.jpg";
+import aboutImage7 from "@/assets/about_7.jpg";
+import aboutImage8 from "@/assets/about_8.jpg";
+import aboutImage9 from "@/assets/about_9.jpg";
+import aboutImage10 from "@/assets/about_10.jpg";
+import aboutImage11 from "@/assets/about_11.jpg";
+
 // Stat icons
 import { Building2, Users, Clock, MapPin } from "lucide-react";
 
+const aboutCarouselImages = [
+  aboutImage1, aboutImage2, aboutImage3, aboutImage4, aboutImage5,
+  aboutImage6, aboutImage7, aboutImage8, aboutImage9, aboutImage10, aboutImage11
+];
+
 export default function About() {
   const { t } = useLanguage();
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [direction, setDirection] = useState(0);
+
+  // Auto-slide for carousel
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setDirection(1);
+      setCurrentSlide((prev) => (prev + 1) % aboutCarouselImages.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const goToSlide = (index: number) => {
+    setDirection(index > currentSlide ? 1 : -1);
+    setCurrentSlide(index);
+  };
+
+  const prevSlide = () => {
+    setDirection(-1);
+    setCurrentSlide((prev) => (prev - 1 + aboutCarouselImages.length) % aboutCarouselImages.length);
+  };
+
+  const nextSlide = () => {
+    setDirection(1);
+    setCurrentSlide((prev) => (prev + 1) % aboutCarouselImages.length);
+  };
+
+  const slideVariants = {
+    enter: (direction: number) => ({
+      x: direction > 0 ? "100%" : "-100%",
+      opacity: 0,
+    }),
+    center: {
+      x: 0,
+      opacity: 1,
+    },
+    exit: (direction: number) => ({
+      x: direction < 0 ? "100%" : "-100%",
+      opacity: 0,
+    }),
+  };
 
   const stats = [
     { icon: Building2, value: "50+", label: t('about.stats.projects') },
@@ -54,7 +114,7 @@ export default function About() {
       
       <main>
         {/* Hero */}
-        <section className="bg-primary py-20 lg:py-32">
+        <section className="bg-primary pt-6 pb-16 lg:pt-8 lg:pb-20">
           <div className="container-main">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <motion.div
@@ -102,13 +162,53 @@ export default function About() {
                 transition={{ duration: 0.6, delay: 0.2 }}
                 className="relative"
               >
-                <div className="aspect-square rounded-2xl overflow-hidden">
-                  <img 
-                    src={heroImage2} 
-                    alt="General Construction" 
-                    className="w-full h-full object-cover"
-                  />
+                {/* Carousel */}
+                <div className="aspect-square rounded-2xl overflow-hidden relative">
+                  <AnimatePresence initial={false} custom={direction}>
+                    <motion.img
+                      key={currentSlide}
+                      src={aboutCarouselImages[currentSlide]}
+                      alt={`About General Construction ${currentSlide + 1}`}
+                      custom={direction}
+                      variants={slideVariants}
+                      initial="enter"
+                      animate="center"
+                      exit="exit"
+                      transition={{ duration: 0.5, ease: "easeInOut" }}
+                      className="absolute inset-0 w-full h-full object-cover"
+                    />
+                  </AnimatePresence>
+
+                  {/* Navigation Arrows */}
+                  <button
+                    onClick={prevSlide}
+                    className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-card/30 backdrop-blur-sm flex items-center justify-center text-primary-foreground hover:bg-card/50 transition-colors z-10"
+                  >
+                    <ChevronLeft className="w-5 h-5" />
+                  </button>
+                  <button
+                    onClick={nextSlide}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-card/30 backdrop-blur-sm flex items-center justify-center text-primary-foreground hover:bg-card/50 transition-colors z-10"
+                  >
+                    <ChevronRight className="w-5 h-5" />
+                  </button>
+
+                  {/* Slide Indicators */}
+                  <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+                    {aboutCarouselImages.map((_, index) => (
+                      <button
+                        key={index}
+                        onClick={() => goToSlide(index)}
+                        className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                          index === currentSlide
+                            ? "w-6 bg-accent"
+                            : "bg-primary-foreground/50 hover:bg-primary-foreground/70"
+                        }`}
+                      />
+                    ))}
+                  </div>
                 </div>
+
                 <div className="absolute -bottom-6 -left-6 w-32 h-32 rounded-xl bg-accent flex items-center justify-center">
                   <span className="font-heading font-bold text-4xl text-primary">10+</span>
                 </div>
