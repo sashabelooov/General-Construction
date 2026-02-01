@@ -230,22 +230,29 @@ export default function ProjectDetail() {
                 {/* Location Map */}
                 {project.detail && (
                     <section className="py-16">
-                        <div className="container-main text-center">
-                            <h2 className="font-heading text-3xl md:text-4xl font-bold mb-8">Location</h2>
-                            <div className="bg-muted rounded-2xl p-8 flex flex-col items-center justify-center min-h-[300px]">
-                                <MapPin className="w-12 h-12 text-accent mb-4" />
-                                <p className="text-xl font-bold">{project.location_name}</p>
-                                <p className="text-muted-foreground mt-2">
-                                    Coordinates: {project.detail.latitude}, {project.detail.longitude}
-                                </p>
-                                <a
-                                    href={`https://www.google.com/maps/search/?api=1&query=${project.detail.latitude},${project.detail.longitude}`}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="btn-beige mt-6"
-                                >
-                                    Open in Google Maps
-                                </a>
+                        <div className="container-main">
+                            <h2 className="font-heading text-3xl md:text-4xl font-bold mb-8 text-center">Location</h2>
+                            <div className="bg-muted rounded-2xl overflow-hidden">
+                                <div className="p-6 flex items-center gap-4 border-b border-border">
+                                    <MapPin className="w-8 h-8 text-accent" />
+                                    <div>
+                                        <p className="text-xl font-bold">{project.location_name}</p>
+                                        <p className="text-muted-foreground text-sm">
+                                            {project.detail.latitude}, {project.detail.longitude}
+                                        </p>
+                                    </div>
+                                </div>
+                                <iframe
+                                    src={`https://maps.google.com/maps?q=${project.detail.latitude},${project.detail.longitude}&z=15&output=embed`}
+                                    width="100%"
+                                    height="450"
+                                    style={{ border: 0 }}
+                                    allowFullScreen
+                                    loading="lazy"
+                                    referrerPolicy="no-referrer-when-downgrade"
+                                    title="Project Location Map"
+                                    className="w-full"
+                                />
                             </div>
                         </div>
                     </section>
@@ -379,8 +386,8 @@ export default function ProjectDetail() {
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                             {filteredApartments.map((apt) => (
                                 <div key={apt.id} className="bg-card rounded-xl overflow-hidden shadow-soft hover:shadow-medium transition-shadow">
-                                    <div className="relative h-48 bg-muted p-4">
-                                        <img src={apt.image_url || ""} alt={`Apt ${apt.number}`} className="w-full h-full object-contain" />
+                                    <div className="relative h-48 bg-muted overflow-hidden">
+                                        <img src={apt.image_url || ""} alt={`Apt ${apt.number}`} className="w-full h-full object-cover" />
                                     </div>
                                     <div className="p-5">
                                         <div className="space-y-2 mb-5 text-sm">

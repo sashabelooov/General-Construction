@@ -305,11 +305,11 @@ export default function FilterSection() {
                   className="bg-card rounded-xl overflow-hidden shadow-soft group hover:shadow-medium transition-shadow"
                 >
                   {/* Floor Plan Image */}
-                  <div className="relative h-52 bg-muted p-4">
+                  <div className="relative h-52 bg-muted overflow-hidden">
                     <img
                       src={apartment.image_url || floorPlan1}
                       alt={`Floor plan ${apartment.number}`}
-                      className="w-full h-full object-contain"
+                      className="w-full h-full object-cover"
                     />
 
                     {/* Favorite Button */}

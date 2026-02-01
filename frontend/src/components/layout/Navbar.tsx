@@ -53,8 +53,8 @@ export default function Navbar() {
         <nav className="container-main">
           <div className="flex items-center justify-between h-20">
             {/* Logo - moved more to left on tablet */}
-            <Link to="/" className="flex items-center group mr-auto lg:mr-0" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-              <GeneralConstructionLogo className="h-12 w-12 object-contain group-hover:scale-105 transition-transform" />
+            <Link to="/" className="flex items-center group -ml-2 lg:-ml-4" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+              <GeneralConstructionLogo className="h-7 md:h-8 w-auto max-w-[130px] md:max-w-[150px] object-contain group-hover:scale-105 transition-transform" />
             </Link>
 
             {/* Desktop Navigation - increased gap */}

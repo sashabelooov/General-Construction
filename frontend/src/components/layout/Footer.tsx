@@ -31,7 +31,7 @@ export default function Footer() {
             {/* Logo & Description */}
             <div>
               <Link to="/" className="flex items-center gap-3 mb-6">
-                <GeneralConstructionLogo className="h-12 w-12 object-contain" />
+                <GeneralConstructionLogo className="h-8 w-auto max-w-[160px] object-contain" />
               </Link>
               <p className="text-primary-foreground/70 mb-6 max-w-md">
                 O'zbekistondagi yetakchi qurilish kompaniyasi. 10+ yillik tajriba, 50+ tugatilgan loyihalar.

@@ -6,7 +6,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = "change-me"
 DEBUG = True
-ALLOWED_HOSTS: list[str] = ["localhost", "127.0.0.1"]
+ALLOWED_HOSTS: list[str] = ["localhost", "127.0.0.1", "192.168.48.2", "*"]
 
 INSTALLED_APPS = [
     # Admin theme (must be before django.contrib.admin)
@@ -133,7 +133,9 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     "http://localhost:8080",
     "http://127.0.0.1:8080",
+    "http://192.168.48.2:8080",
 ]
+CORS_ALLOW_ALL_ORIGINS = DEBUG  # Allow all origins in development
 
 # Jazzmin basic branding (you can tweak later)
 JAZZMIN_SETTINGS = {

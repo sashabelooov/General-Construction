@@ -108,8 +108,8 @@ class ProjectDetail(TimeStampedModel):
     about_image = models.ImageField(_("About Image"), upload_to="projects/details/about/")
 
     # Location
-    latitude = models.DecimalField(_("Latitude"), max_digits=9, decimal_places=6)
-    longitude = models.DecimalField(_("Longitude"), max_digits=9, decimal_places=6)
+    latitude = models.DecimalField(_("Latitude"), max_digits=13, decimal_places=10)
+    longitude = models.DecimalField(_("Longitude"), max_digits=13, decimal_places=10)
 
     # Architecture
     architecture_description = models.TextField(_("Architecture Description"))
