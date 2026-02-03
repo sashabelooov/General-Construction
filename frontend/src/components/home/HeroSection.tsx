@@ -1,11 +1,17 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronLeft, ChevronRight, ArrowRight, Loader2 } from "lucide-react";
+import { ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useLanguage } from "@/lib/i18n";
-import { api, Project } from "@/lib/api";
 
-import heroImage1 from "@/assets/hero-building-1.jpg";
+// About images for carousel
+import aboutImage1 from "@/assets/about_1.jpg";
+import aboutImage2 from "@/assets/about_2.jpg";
+import aboutImage3 from "@/assets/about_3.jpg";
+import aboutImage5 from "@/assets/about_5.jpg";
+import aboutImage9 from "@/assets/about_9.jpg";
+
+const heroImages = [aboutImage1, aboutImage2, aboutImage3, aboutImage5, aboutImage9];
 
 interface Slide {
   id: number;
@@ -19,42 +25,15 @@ export default function HeroSection() {
   const { t } = useLanguage();
   const [currentSlide, setCurrentSlide] = useState(0);
   const [direction, setDirection] = useState(0);
-  const [projects, setProjects] = useState<Project[]>([]);
-  const [loading, setLoading] = useState(true);
 
-  // Fetch projects from API
-  useEffect(() => {
-    const fetchProjects = async () => {
-      try {
-        const data = await api.projects.list();
-        setProjects(data);
-      } catch (error) {
-        console.error("Failed to fetch projects:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchProjects();
-  }, []);
-
-  // Generate slides from projects - use project images for carousel
-  const slides: Slide[] = projects.length > 0
-    ? projects.map((project) => ({
-        id: project.id,
-        image: project.detail?.image1_url || project.image_url || heroImage1,
-        title: project.title,
-        subtitle: project.location_name,
-        description: t('hero.projectDescription'),
-      }))
-    : [
-        {
-          id: 1,
-          image: heroImage1,
-          title: t('hero.slide1.title'),
-          subtitle: t('hero.slide1.subtitle'),
-          description: t('hero.slide1.description'),
-        },
-      ];
+  // Static slides using about images
+  const slides: Slide[] = heroImages.map((image, index) => ({
+    id: index + 1,
+    image: image,
+    title: t('hero.slide1.title'),
+    subtitle: t('hero.slide1.subtitle'),
+    description: t('hero.slide1.description'),
+  }));
 
   useEffect(() => {
     if (slides.length === 0) return;
@@ -95,20 +74,6 @@ export default function HeroSection() {
     }),
   };
 
-  // Show loading state
-  if (loading) {
-    return (
-      <section className="relative h-[90vh] min-h-[600px] overflow-hidden bg-primary flex items-center justify-center">
-        <Loader2 className="w-12 h-12 text-accent animate-spin" />
-      </section>
-    );
-  }
-
-  // Ensure we have at least one slide
-  if (slides.length === 0) {
-    return null;
-  }
-
   return (
     <section className="relative h-[90vh] min-h-[600px] overflow-hidden">
       {/* Background Images */}
@@ -124,8 +89,8 @@ export default function HeroSection() {
           className="absolute inset-0"
         >
           <img
-            src={slides[currentSlide]?.image || heroImage1}
-            alt={slides[currentSlide]?.title || "Project"}
+            src={slides[currentSlide]?.image}
+            alt={slides[currentSlide]?.title || "General Construction"}
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/60 to-transparent" />

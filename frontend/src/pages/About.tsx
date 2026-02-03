@@ -210,7 +210,7 @@ export default function About() {
                 </div>
 
                 <div className="absolute -bottom-6 -left-6 w-32 h-32 rounded-xl bg-accent flex items-center justify-center">
-                  <span className="font-heading font-bold text-4xl text-primary">10+</span>
+                  <span className="font-heading font-bold text-4xl text-primary">4+</span>
                 </div>
               </motion.div>
             </div>

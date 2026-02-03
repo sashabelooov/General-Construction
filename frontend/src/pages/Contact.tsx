@@ -8,7 +8,7 @@ const offices = [
   {
     name: "Head Office - Manhattan",
     address: "123 Broadway, Manhattan, NY 10001",
-    phone: "+1 (555) 123-4567",
+    phone: "+998 (78) 555-55-44",
     email: "manhattan@generalconstruction.com",
     hours: "Mon-Fri: 09:00 - 18:00",
     mapUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3024.2219!2d-74.006015!3d40.712728!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25a316c6b4b91%3A0x20b3c62f9b8c5b8f!2sBroadway%2C%20New%20York%2C%20NY%2C%20USA!5e0!3m2!1sen!2s!4v1635959481000!5m2!1sen!2s",
@@ -16,7 +16,7 @@ const offices = [
   {
     name: "Los Angeles Branch",
     address: "456 Sunset Blvd, Hollywood, CA 90028",
-    phone: "+1 (555) 234-5678",
+    phone: "+998 (78) 555-55-44",
     email: "losangeles@generalconstruction.com",
     hours: "Mon-Fri: 09:00 - 18:00",
     mapUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3305.732!2d-118.328661!3d34.092809!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2c75ddc3d5c1%3A0x8dc3396f7c9c6b0!2sSunset%20Blvd%2C%20Los%20Angeles%2C%20CA%2C%20USA!5e0!3m2!1sen!2s!4v1635959481000!5m2!1sen!2s",
@@ -27,9 +27,9 @@ const contactMethods = [
   {
     icon: Phone,
     title: "Phone",
-    value: "+1 (555) 123-4567",
+    value: "+998 (78) 555-55-44",
     description: "Mon-Fri: 09:00 - 18:00",
-    href: "tel:+15551234567",
+    href: "tel:+998785555544",
   },
   {
     icon: Mail,

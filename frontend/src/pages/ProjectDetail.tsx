@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { MapPin, Building2, Home, ChevronLeft, ChevronRight, ChevronDown, Maximize2, Calendar, Search, RefreshCcw, Heart, Layers } from "lucide-react";
+import { MapPin, Building2, Home, ChevronLeft, ChevronRight, ChevronDown, Maximize2, Calendar, Search, RefreshCcw, Heart, Layers, Play, X } from "lucide-react";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import ConsultationForm from "@/components/forms/ConsultationForm";
@@ -20,6 +20,7 @@ export default function ProjectDetail() {
     const { t, language } = useLanguage();
     const [showContactForm, setShowContactForm] = useState(false);
     const [currentAmenityIndex, setCurrentAmenityIndex] = useState(0);
+    const [showVideoModal, setShowVideoModal] = useState(false);
 
     const [project, setProject] = useState<Project | null>(null);
     const [loading, setLoading] = useState(true);
@@ -225,6 +226,108 @@ export default function ProjectDetail() {
                             </div>
                         </div>
                     </section>
+                )}
+
+                {/* Video Section - Construction Progress */}
+                <section className="py-16 md:py-24">
+                    <div className="container-main">
+                        <motion.div
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            className="text-center mb-12"
+                        >
+                            <h2 className="font-heading text-3xl md:text-4xl font-bold mb-4">
+                                {language === 'uz' ? 'Qurilish jarayoni' : language === 'ru' ? 'Процесс строительства' : 'Construction Progress'}
+                            </h2>
+                            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+                                {language === 'uz'
+                                    ? "Loyihamiz qanday qurilayotganini video orqali ko'ring"
+                                    : language === 'ru'
+                                    ? 'Посмотрите видео о том, как строится наш проект'
+                                    : 'Watch how our project is being built'}
+                            </p>
+                        </motion.div>
+
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.95 }}
+                            whileInView={{ opacity: 1, scale: 1 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.5 }}
+                            className="relative max-w-4xl mx-auto"
+                        >
+                            {/* Video Thumbnail with Play Button */}
+                            <div
+                                className="relative aspect-video rounded-2xl overflow-hidden shadow-2xl cursor-pointer group"
+                                onClick={() => setShowVideoModal(true)}
+                            >
+                                {/* Thumbnail Image */}
+                                <img
+                                    src={project.detail?.image1_url || project.image_url || ""}
+                                    alt="Video thumbnail"
+                                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                />
+
+                                {/* Overlay */}
+                                <div className="absolute inset-0 bg-primary/40 group-hover:bg-primary/50 transition-colors" />
+
+                                {/* Play Button */}
+                                <div className="absolute inset-0 flex items-center justify-center">
+                                    <motion.div
+                                        whileHover={{ scale: 1.1 }}
+                                        whileTap={{ scale: 0.95 }}
+                                        className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-accent flex items-center justify-center shadow-xl"
+                                    >
+                                        <Play className="w-8 h-8 md:w-10 md:h-10 text-accent-foreground ml-1" fill="currentColor" />
+                                    </motion.div>
+                                </div>
+
+                                {/* Video Label */}
+                                <div className="absolute bottom-4 left-4 md:bottom-6 md:left-6">
+                                    <span className="bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-medium text-primary">
+                                        {language === 'uz' ? "Videoni ko'rish" : language === 'ru' ? 'Смотреть видео' : 'Watch Video'}
+                                    </span>
+                                </div>
+                            </div>
+
+                            {/* Decorative Elements */}
+                            <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-accent/20 rounded-2xl -z-10" />
+                            <div className="absolute -top-4 -left-4 w-16 h-16 bg-primary/10 rounded-xl -z-10" />
+                        </motion.div>
+                    </div>
+                </section>
+
+                {/* Video Modal */}
+                {showVideoModal && (
+                    <div
+                        className="fixed inset-0 z-[9999] bg-black/90 flex items-center justify-center p-4"
+                        onClick={() => setShowVideoModal(false)}
+                    >
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 0.9 }}
+                            className="relative w-full max-w-5xl aspect-video"
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                            {/* Close Button */}
+                            <button
+                                onClick={() => setShowVideoModal(false)}
+                                className="absolute -top-12 right-0 text-white hover:text-accent transition-colors"
+                            >
+                                <X className="w-8 h-8" />
+                            </button>
+
+                            {/* YouTube Embed - Using channel's video or placeholder */}
+                            <iframe
+                                src={`https://www.youtube.com/embed?listType=user_uploads&list=GeneralConstruction-f4g&autoplay=1`}
+                                title="Construction Progress Video"
+                                className="w-full h-full rounded-xl bg-black"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowFullScreen
+                            />
+                        </motion.div>
+                    </div>
                 )}
 
                 {/* Location Map */}
