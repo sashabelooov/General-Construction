@@ -588,15 +588,65 @@ const translations: Translations = {
     ru: 'General Construction - ведущая строительная компания Узбекистана',
     en: 'General Construction - leading construction company in the USA',
   },
+  'footer.description': {
+    uz: 'O\'zbekistondagi yetakchi qurilish kompaniyasi. {years}+ yillik tajriba va bir necha tugatilgan loyihalar.',
+    ru: 'Ведущая строительная компания Узбекистана. {years}+ лет опыта и несколько завершенных проектов.',
+    en: 'Leading construction company in Uzbekistan. {years}+ years of experience and several completed projects.',
+  },
   'footer.quickLinks': {
     uz: 'Tezkor havolalar',
     ru: 'Быстрые ссылки',
     en: 'Quick Links',
   },
+  'footer.projects': {
+    uz: 'Bizning loyihalar',
+    ru: 'Наши проекты',
+    en: 'Our Projects',
+  },
+  'footer.about': {
+    uz: 'Kompaniya haqida',
+    ru: 'О компании',
+    en: 'About Us',
+  },
+  'footer.news': {
+    uz: 'Yangiliklar',
+    ru: 'Новости',
+    en: 'News',
+  },
+  'footer.contact': {
+    uz: 'Kontakt',
+    ru: 'Контакты',
+    en: 'Contact',
+  },
   'footer.contactUs': {
     uz: 'Bog\'lanish',
     ru: 'Контакты',
     en: 'Contact Us',
+  },
+  'footer.offices': {
+    uz: 'Ofislarimiz',
+    ru: 'Наши офисы',
+    en: 'Our Offices',
+  },
+  'footer.socialMedia': {
+    uz: 'Ijtimoiy tarmoqlar',
+    ru: 'Социальные сети',
+    en: 'Social Media',
+  },
+  'footer.location': {
+    uz: 'Bizning joylashuv',
+    ru: 'Наше местоположение',
+    en: 'Our Location',
+  },
+  'footer.privacy': {
+    uz: 'Maxfiylik siyosati',
+    ru: 'Политика конфиденциальности',
+    en: 'Privacy Policy',
+  },
+  'footer.terms': {
+    uz: 'Foydalanish shartlari',
+    ru: 'Условия использования',
+    en: 'Terms of Use',
   },
   'footer.rights': {
     uz: 'Barcha huquqlar himoyalangan',

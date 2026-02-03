@@ -1,17 +1,13 @@
 import { Link } from "react-router-dom";
 import { Phone, Mail, MapPin } from "lucide-react";
 import GeneralConstructionLogo from "@/components/GeneralConstructionLogo";
+import { useLanguage } from "@/lib/i18n";
+
+const COMPANY_START_YEAR = 2022;
 
 const offices = [
   { name: "Manhattan Office", address: "123 Broadway, Manhattan, NY 10001" },
   { name: "Hollywood Office", address: "456 Sunset Blvd, Hollywood, CA 90028" },
-];
-
-const quickLinks = [
-  { href: "/projects", label: "Bizning loyihalar" },
-  { href: "/about", label: "Kompaniya haqida" },
-  { href: "/news", label: "Yangiliklar" },
-  { href: "/contact", label: "Kontakt" },
 ];
 
 const socialLinks = [
@@ -22,6 +18,20 @@ const socialLinks = [
 ];
 
 export default function Footer() {
+  const { t } = useLanguage();
+  const currentYear = new Date().getFullYear();
+  const yearsOfExperience = currentYear - COMPANY_START_YEAR;
+
+  const quickLinks = [
+    { href: "/projects", label: t('footer.projects') },
+    { href: "/about", label: t('footer.about') },
+    { href: "/news", label: t('footer.news') },
+    { href: "/contact", label: t('footer.contact') },
+  ];
+
+  // Replace {years} placeholder with actual years
+  const descriptionText = t('footer.description').replace('{years}', String(yearsOfExperience));
+
   return (
     <footer className="bg-primary text-primary-foreground">
       <div className="container-main py-16">
@@ -34,7 +44,7 @@ export default function Footer() {
                 <GeneralConstructionLogo className="h-8 w-auto max-w-[160px] object-contain" />
               </Link>
               <p className="text-primary-foreground/70 mb-6 max-w-md">
-                O'zbekistondagi yetakchi qurilish kompaniyasi. 10+ yillik tajriba, 50+ tugatilgan loyihalar.
+                {descriptionText}
               </p>
             </div>
 
@@ -42,7 +52,7 @@ export default function Footer() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
               {/* Quick Links */}
               <div>
-                <h4 className="font-heading font-bold text-lg mb-4">Tezkor havolalar</h4>
+                <h4 className="font-heading font-bold text-lg mb-4">{t('footer.quickLinks')}</h4>
                 <ul className="space-y-2">
                   {quickLinks.map((link) => (
                     <li key={link.href}>
@@ -59,14 +69,8 @@ export default function Footer() {
 
               {/* Contact Info */}
               <div>
-                <h4 className="font-heading font-bold text-lg mb-4">Bog'lanish</h4>
+                <h4 className="font-heading font-bold text-lg mb-4">{t('footer.contactUs')}</h4>
                 <ul className="space-y-3">
-                  <li>
-                    <a href="tel:+998785555544" className="flex items-center gap-3 hover:text-accent transition-colors text-primary-foreground/70">
-                      <Phone className="w-4 h-4 text-accent" />
-                      +998 (78) 555-55-44
-                    </a>
-                  </li>
                   <li>
                     <a href="tel:+998785555544" className="flex items-center gap-3 hover:text-accent transition-colors text-primary-foreground/70">
                       <Phone className="w-4 h-4 text-accent" />
@@ -85,7 +89,7 @@ export default function Footer() {
 
             {/* Offices */}
             <div>
-              <h4 className="font-heading font-bold text-lg mb-4">Ofislarimiz</h4>
+              <h4 className="font-heading font-bold text-lg mb-4">{t('footer.offices')}</h4>
               <ul className="space-y-3">
                 {offices.map((office) => (
                   <li key={office.name} className="flex gap-3">
@@ -101,7 +105,7 @@ export default function Footer() {
 
             {/* Social Links */}
             <div>
-              <h4 className="font-heading font-bold text-lg mb-4">Ijtimoiy tarmoqlar</h4>
+              <h4 className="font-heading font-bold text-lg mb-4">{t('footer.socialMedia')}</h4>
               <div className="flex gap-5">
                 {socialLinks.map((social) => (
                   social.href ? (
@@ -152,7 +156,7 @@ export default function Footer() {
 
           {/* Right Section - Google Map */}
           <div className="lg:pl-8">
-            <h4 className="font-heading font-bold text-lg mb-4">Bizning joylashuv</h4>
+            <h4 className="font-heading font-bold text-lg mb-4">{t('footer.location')}</h4>
             <div className="rounded-2xl overflow-hidden h-full min-h-[400px] bg-primary-foreground/10">
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d191885.50264024!2d69.11455!3d41.31151!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38ae8b0cc379e9c3%3A0xa5a9323b4aa5cb98!2sTashkent%2C%20Uzbekistan!5e0!3m2!1sen!2s!4v1635959481000!5m2!1sen!2s"
@@ -170,14 +174,14 @@ export default function Footer() {
         {/* Bottom */}
         <div className="mt-12 pt-8 border-t border-primary-foreground/20 flex flex-col sm:flex-row justify-between items-center gap-4">
           <p className="text-primary-foreground/60 text-sm">
-            © 2024 General Construction. Barcha huquqlar himoyalangan.
+            © {currentYear} General Construction. {t('footer.rights')}.
           </p>
           <div className="flex gap-6">
             <Link to="/privacy" className="text-primary-foreground/60 text-sm hover:text-accent transition-colors">
-              Maxfiylik siyosati
+              {t('footer.privacy')}
             </Link>
             <Link to="/terms" className="text-primary-foreground/60 text-sm hover:text-accent transition-colors">
-              Foydalanish shartlari
+              {t('footer.terms')}
             </Link>
           </div>
         </div>

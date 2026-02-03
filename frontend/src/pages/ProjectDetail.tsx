@@ -330,33 +330,30 @@ export default function ProjectDetail() {
                     </div>
                 )}
 
-                {/* Location Map */}
+                {/* Location Map - Full Width */}
                 {project.detail && (
-                    <section className="py-16">
-                        <div className="container-main">
-                            <h2 className="font-heading text-3xl md:text-4xl font-bold mb-8 text-center">Location</h2>
-                            <div className="bg-muted rounded-2xl overflow-hidden">
-                                <div className="p-6 flex items-center gap-4 border-b border-border">
-                                    <MapPin className="w-8 h-8 text-accent" />
-                                    <div>
-                                        <p className="text-xl font-bold">{project.location_name}</p>
-                                        <p className="text-muted-foreground text-sm">
-                                            {project.detail.latitude}, {project.detail.longitude}
-                                        </p>
-                                    </div>
-                                </div>
-                                <iframe
-                                    src={`https://maps.google.com/maps?q=${project.detail.latitude},${project.detail.longitude}&z=15&output=embed`}
-                                    width="100%"
-                                    height="450"
-                                    style={{ border: 0 }}
-                                    allowFullScreen
-                                    loading="lazy"
-                                    referrerPolicy="no-referrer-when-downgrade"
-                                    title="Project Location Map"
-                                    className="w-full"
-                                />
-                            </div>
+                    <section className="relative">
+                        {/* Section Title */}
+                        <div className="bg-white py-8">
+                            <h2 className="font-heading text-3xl md:text-4xl font-bold text-center">
+                                {language === 'uz' ? 'Joylashuv' : language === 'ru' ? 'Местоположение' : 'Location'}
+                            </h2>
+                        </div>
+
+                        {/* Full Width Map Container */}
+                        <div className="relative w-full h-[600px] md:h-[700px] lg:h-[800px]">
+                            {/* Full Width Map */}
+                            <iframe
+                                src={`https://maps.google.com/maps?q=${project.detail.latitude},${project.detail.longitude}&z=15&output=embed`}
+                                width="100%"
+                                height="100%"
+                                style={{ border: 0 }}
+                                allowFullScreen
+                                loading="lazy"
+                                referrerPolicy="no-referrer-when-downgrade"
+                                title="Project Location Map"
+                                className="w-full h-full"
+                            />
                         </div>
                     </section>
                 )}

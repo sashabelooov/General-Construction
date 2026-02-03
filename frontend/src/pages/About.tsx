@@ -25,6 +25,8 @@ import aboutImage11 from "@/assets/about_11.jpg";
 // Stat icons
 import { Building2, Users, Clock, MapPin } from "lucide-react";
 
+const COMPANY_START_YEAR = 2022;
+
 const aboutCarouselImages = [
   aboutImage1, aboutImage2, aboutImage3, aboutImage4, aboutImage5,
   aboutImage6, aboutImage7, aboutImage8, aboutImage9, aboutImage10, aboutImage11
@@ -34,6 +36,10 @@ export default function About() {
   const { t } = useLanguage();
   const [currentSlide, setCurrentSlide] = useState(0);
   const [direction, setDirection] = useState(0);
+
+  // Calculate years of experience dynamically
+  const currentYear = new Date().getFullYear();
+  const yearsOfExperience = currentYear - COMPANY_START_YEAR;
 
   // Auto-slide for carousel
   useEffect(() => {
@@ -77,7 +83,7 @@ export default function About() {
   const stats = [
     { icon: Building2, value: "50+", label: t('about.stats.projects') },
     { icon: Users, value: "5000+", label: t('about.stats.families') },
-    { icon: Clock, value: "10+", label: t('about.stats.experience') },
+    { icon: Clock, value: `${yearsOfExperience}+`, label: t('about.stats.experience') },
     { icon: MapPin, value: "1M+", label: t('about.stats.area') },
   ];
 
@@ -210,7 +216,7 @@ export default function About() {
                 </div>
 
                 <div className="absolute -bottom-6 -left-6 w-32 h-32 rounded-xl bg-accent flex items-center justify-center">
-                  <span className="font-heading font-bold text-4xl text-primary">4+</span>
+                  <span className="font-heading font-bold text-4xl text-primary">{yearsOfExperience}+</span>
                 </div>
               </motion.div>
             </div>
