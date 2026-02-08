@@ -4,9 +4,12 @@ from django.utils.translation import gettext_lazy as _
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = "change-me"
-DEBUG = True
-ALLOWED_HOSTS: list[str] = ["localhost", "127.0.0.1", "192.168.48.2", "*"]
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "change-me")
+DEBUG = os.environ.get("DJANGO_DEBUG", "1") == "1"
+ALLOWED_HOSTS: list[str] = os.environ.get(
+    "DJANGO_ALLOWED_HOSTS", "localhost,127.0.0.1,192.168.48.2"
+).split(",")
+
 
 INSTALLED_APPS = [
     # Admin theme (must be before django.contrib.admin)
@@ -68,13 +71,25 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "config.wsgi.application"
 
-# Database: start with sqlite for simplicity (swap to Postgres later)
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+# Database: PostgreSQL in Docker/production, SQLite for local dev
+if os.environ.get("POSTGRES_DB"):
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": os.environ.get("POSTGRES_DB", "general_construction"),
+            "USER": os.environ.get("POSTGRES_USER", "postgres"),
+            "PASSWORD": os.environ.get("POSTGRES_PASSWORD", "postgres"),
+            "HOST": os.environ.get("POSTGRES_HOST", "db"),
+            "PORT": os.environ.get("POSTGRES_PORT", "5432"),
+        }
     }
-}
+else:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
+        }
+    }
 
 AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
@@ -128,8 +143,11 @@ SPECTACULAR_SETTINGS = {
     "VERSION": "1.0.0",
 }
 
-# CORS: allow local Vite dev server by default
+# CORS: allow local Vite dev server by default; override via env in production
+_cors_env = os.environ.get("DJANGO_CORS_ALLOWED_ORIGINS", "")
 CORS_ALLOWED_ORIGINS = [
+    origin.strip() for origin in _cors_env.split(",") if origin.strip()
+] if _cors_env else [
     "http://localhost:5173",
     "http://localhost:8080",
     "http://127.0.0.1:8080",
@@ -151,12 +169,22 @@ JAZZMIN_SETTINGS = {
 # ASGI Application for WebSocket support
 ASGI_APPLICATION = "config.asgi.application"
 
-# Channel layers for WebSocket
-CHANNEL_LAYERS = {
-    "default": {
-        "BACKEND": "channels.layers.InMemoryChannelLayer"
+# Channel layers: Redis in Docker/production, InMemory for local dev
+if os.environ.get("REDIS_URL"):
+    CHANNEL_LAYERS = {
+        "default": {
+            "BACKEND": "channels_redis.core.RedisChannelLayer",
+            "CONFIG": {
+                "hosts": [os.environ.get("REDIS_URL", "redis://redis:6379/0")],
+            },
+        }
     }
-}
+else:
+    CHANNEL_LAYERS = {
+        "default": {
+            "BACKEND": "channels.layers.InMemoryChannelLayer"
+        }
+    }
 
 # =============================================================================
 # SECURITY SETTINGS (Professional Level)

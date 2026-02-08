@@ -1,0 +1,27 @@
+# ============================================================
+# Production Override
+# ============================================================
+# Usage: docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+#
+# This removes debug ports and adds production-only settings.
+# ============================================================
+
+services:
+  db:
+    ports: []              # Don't expose PostgreSQL to the internet
+    restart: always
+
+  redis:
+    ports: []              # Don't expose Redis to the internet
+    restart: always
+
+  backend:
+    ports: []              # Only accessible via Nginx, not directly
+    restart: always
+    environment:
+      DJANGO_DEBUG: "0"
+
+  nginx:
+    restart: always
+    ports:
+      - "80:80"
