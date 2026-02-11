@@ -134,18 +134,19 @@ jobs:
             git fetch origin main
             git reset --hard origin/main
 
-            # Build and restart containers
+            # Build and restart containers (using production override)
+            # IMPORTANT: "down" without -v keeps database volumes intact
             echo "==> Building and starting containers..."
-            docker compose down
-            docker compose up --build -d
+            docker compose -f docker-compose.yml -f docker-compose.prod.yml down
+            docker compose -f docker-compose.yml -f docker-compose.prod.yml up --build -d
 
             # Wait for services to be healthy
             echo "==> Waiting for services to start..."
-            sleep 15
+            sleep 20
 
             # Verify deployment
             echo "==> Checking service health..."
-            docker compose ps
+            docker compose -f docker-compose.yml -f docker-compose.prod.yml ps
             curl -f http://localhost/api/v1/ || echo "WARNING: Backend health check failed"
             curl -f http://localhost/ || echo "WARNING: Frontend health check failed"
 

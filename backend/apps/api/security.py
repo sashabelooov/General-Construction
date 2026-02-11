@@ -128,7 +128,7 @@ class RateLimitMiddleware:
 
 
 class SecurityHeadersMiddleware:
-    """Add security headers to all responses."""
+    """Add security headers to API responses (skip admin to avoid breaking Jazzmin JS)."""
 
     def __init__(self, get_response):
         self.get_response = get_response
@@ -136,7 +136,11 @@ class SecurityHeadersMiddleware:
     def __call__(self, request):
         response = self.get_response(request)
 
-        # Security headers
+        # Skip admin panel — Jazzmin needs inline scripts and permissive headers
+        if request.path.startswith('/admin/'):
+            return response
+
+        # Security headers for non-admin responses
         response['X-Content-Type-Options'] = 'nosniff'
         response['X-Frame-Options'] = 'DENY'
         response['X-XSS-Protection'] = '1; mode=block'

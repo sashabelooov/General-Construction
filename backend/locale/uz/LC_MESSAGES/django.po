@@ -456,3 +456,19 @@ msgstr "Ijtimoiy tarmoqlar"
 
 msgid "Footer"
 msgstr "Pastki qism"
+
+# App Names (sidebar sections)
+msgid "News"
+msgstr "Yangiliklar"
+
+msgid "Leads & Conversations"
+msgstr "So'rovlar va Suhbatlar"
+
+msgid "Analytics"
+msgstr "Analitika"
+
+msgid "Kontent"
+msgstr "Kontent"
+
+msgid "Site Content"
+msgstr "Sayt kontenti"

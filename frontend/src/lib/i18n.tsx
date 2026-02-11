@@ -581,6 +581,61 @@ const translations: Translations = {
     ru: 'Электронная почта',
     en: 'Email',
   },
+  'contact.heroTitle': {
+    uz: 'Biz bilan bog\'laning',
+    ru: 'Свяжитесь с нами',
+    en: 'Contact Us',
+  },
+  'contact.heroDescription': {
+    uz: 'Savollaringiz bormi? Biz har doim aloqadamiz va yordam berishga tayyormiz.',
+    ru: 'У вас есть вопросы? Мы всегда на связи и готовы помочь.',
+    en: 'Have questions? We are always in touch and ready to help.',
+  },
+  'contact.sendMessage': {
+    uz: 'Xabar yuboring',
+    ru: 'Отправить сообщение',
+    en: 'Send a Message',
+  },
+  'contact.sendMessageDescription': {
+    uz: 'Formani to\'ldiring, tez orada siz bilan bog\'lanamiz',
+    ru: 'Заполните форму, мы свяжемся с вами в ближайшее время',
+    en: 'Fill out the form, we will contact you shortly',
+  },
+  'contact.ourAddress': {
+    uz: 'Bizning manzil',
+    ru: 'Наш адрес',
+    en: 'Our Address',
+  },
+  'contact.ourAddressDescription': {
+    uz: 'Ofisimizga tashrif buyuring yoki qo\'ng\'iroq qiling',
+    ru: 'Посетите наш офис или позвоните нам',
+    en: 'Visit our office or give us a call',
+  },
+  'contact.ourOffices': {
+    uz: 'Bizning ofislar',
+    ru: 'Наши офисы',
+    en: 'Our Offices',
+  },
+  'contact.address': {
+    uz: 'Manzil',
+    ru: 'Адрес',
+    en: 'Address',
+  },
+  'contact.businessHours': {
+    uz: 'Ish vaqti',
+    ru: 'Часы работы',
+    en: 'Business Hours',
+  },
+  'contact.businessHoursValue': {
+    uz: 'Dush - Jum: 09:00 - 18:00',
+    ru: 'Пн - Пт: 09:00 - 18:00',
+    en: 'Mon - Fri: 09:00 - 18:00',
+  },
+  'contact.businessHoursDescription': {
+    uz: 'Shanba: 10:00 - 15:00',
+    ru: 'Суббота: 10:00 - 15:00',
+    en: 'Saturday: 10:00 - 15:00',
+  },
 
   // Footer
   'footer.company': {

@@ -5,10 +5,12 @@ from django.utils.translation import gettext_lazy as _
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "change-me")
-DEBUG = os.environ.get("DJANGO_DEBUG", "1") == "1"
-ALLOWED_HOSTS: list[str] = os.environ.get(
-    "DJANGO_ALLOWED_HOSTS", "localhost,127.0.0.1,192.168.48.2"
-).split(",")
+DEBUG = os.environ.get("DJANGO_DEBUG", "1").strip() == "1"
+ALLOWED_HOSTS: list[str] = [
+    h.strip() for h in os.environ.get(
+        "DJANGO_ALLOWED_HOSTS", "localhost,127.0.0.1,192.168.48.2"
+    ).split(",") if h.strip()
+]
 
 
 INSTALLED_APPS = [
@@ -39,6 +41,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",  # Serve static files in production
     "apps.api.security.SecurityHeadersMiddleware",  # Security headers
     "apps.api.security.RateLimitMiddleware",  # Rate limiting
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -119,6 +122,7 @@ LOCALE_PATHS = [
 
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
+STATICFILES_DIRS = [BASE_DIR / "static"]
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
@@ -144,7 +148,7 @@ SPECTACULAR_SETTINGS = {
 }
 
 # CORS: allow local Vite dev server by default; override via env in production
-_cors_env = os.environ.get("DJANGO_CORS_ALLOWED_ORIGINS", "")
+_cors_env = os.environ.get("DJANGO_CORS_ALLOWED_ORIGINS", "").strip()
 CORS_ALLOWED_ORIGINS = [
     origin.strip() for origin in _cors_env.split(",") if origin.strip()
 ] if _cors_env else [
@@ -155,6 +159,21 @@ CORS_ALLOWED_ORIGINS = [
 ]
 CORS_ALLOW_ALL_ORIGINS = DEBUG  # Allow all origins in development
 
+# CSRF: trust the proxy origin (required for Django 4.0+ behind reverse proxy)
+_csrf_env = os.environ.get("DJANGO_CSRF_TRUSTED_ORIGINS", "").strip()
+CSRF_TRUSTED_ORIGINS = [
+    origin.strip() for origin in _csrf_env.split(",") if origin.strip()
+] if _csrf_env else [
+    "http://localhost",
+    "http://localhost:80",
+    "http://localhost:8000",
+    "http://localhost:8080",
+    "http://127.0.0.1",
+    "http://127.0.0.1:80",
+    "http://127.0.0.1:8000",
+    "http://127.0.0.1:8080",
+]
+
 # Jazzmin basic branding (you can tweak later)
 JAZZMIN_SETTINGS = {
     "site_title": "General Construction Admin",
@@ -164,6 +183,10 @@ JAZZMIN_SETTINGS = {
     "copyright": "General Construction",
     # Enable language switcher in admin
     "language_chooser": True,
+    "changeform_format": "horizontal_tabs",
+    # Fix Bootstrap 4/5 tab switching mismatch in Jazzmin 3.x
+    # Temporarily disable custom JS to test whether it causes admin JS errors
+    "custom_js": None,
 }
 
 # ASGI Application for WebSocket support

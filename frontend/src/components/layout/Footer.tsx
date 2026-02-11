@@ -1,13 +1,13 @@
 import { Link } from "react-router-dom";
-import { Phone, Mail, MapPin } from "lucide-react";
+import { Phone, MapPin } from "lucide-react";
 import GeneralConstructionLogo from "@/components/GeneralConstructionLogo";
 import { useLanguage } from "@/lib/i18n";
 
 const COMPANY_START_YEAR = 2022;
 
 const offices = [
-  { name: "Manhattan Office", address: "123 Broadway, Manhattan, NY 10001" },
-  { name: "Hollywood Office", address: "456 Sunset Blvd, Hollywood, CA 90028" },
+  { name: "Yangiobod Residence", address: "Yashnobod tumani, Uysozlar mavzesi 9/1 uy" },
+  { name: "Afsona Residence", address: "Yunusobod tumani, 15-mavzesi, 4-uy" },
 ];
 
 const socialLinks = [
@@ -75,12 +75,6 @@ export default function Footer() {
                     <a href="tel:+998785555544" className="flex items-center gap-3 hover:text-accent transition-colors text-primary-foreground/70">
                       <Phone className="w-4 h-4 text-accent" />
                       +998 (78) 555-55-44
-                    </a>
-                  </li>
-                  <li>
-                    <a href="mailto:info@generalconstruction.uz" className="flex items-center gap-3 hover:text-accent transition-colors text-primary-foreground/70">
-                      <Mail className="w-4 h-4 text-accent" />
-                      info@generalconstruction.uz
                     </a>
                   </li>
                 </ul>
@@ -159,7 +153,7 @@ export default function Footer() {
             <h4 className="font-heading font-bold text-lg mb-4">{t('footer.location')}</h4>
             <div className="rounded-2xl overflow-hidden h-full min-h-[400px] bg-primary-foreground/10">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d191885.50264024!2d69.11455!3d41.31151!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38ae8b0cc379e9c3%3A0xa5a9323b4aa5cb98!2sTashkent%2C%20Uzbekistan!5e0!3m2!1sen!2s!4v1635959481000!5m2!1sen!2s"
+                src="https://maps.google.com/maps?q=41.380834,69.289938&z=17&output=embed"
                 width="100%"
                 height="100%"
                 style={{ border: 0, minHeight: "400px" }}
@@ -177,12 +171,12 @@ export default function Footer() {
             © {currentYear} General Construction. {t('footer.rights')}.
           </p>
           <div className="flex gap-6">
-            <Link to="/privacy" className="text-primary-foreground/60 text-sm hover:text-accent transition-colors">
+            <span className="text-primary-foreground/60 text-sm cursor-default">
               {t('footer.privacy')}
-            </Link>
-            <Link to="/terms" className="text-primary-foreground/60 text-sm hover:text-accent transition-colors">
+            </span>
+            <span className="text-primary-foreground/60 text-sm cursor-default">
               {t('footer.terms')}
-            </Link>
+            </span>
           </div>
         </div>
       </div>

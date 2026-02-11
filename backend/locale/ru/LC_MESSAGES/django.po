@@ -456,3 +456,19 @@ msgstr "Социальные сети"
 
 msgid "Footer"
 msgstr "Подвал сайта"
+
+# App Names (sidebar sections)
+msgid "News"
+msgstr "Новости"
+
+msgid "Leads & Conversations"
+msgstr "Заявки и диалоги"
+
+msgid "Analytics"
+msgstr "Аналитика"
+
+msgid "Kontent"
+msgstr "Контент"
+
+msgid "Site Content"
+msgstr "Контент сайта"

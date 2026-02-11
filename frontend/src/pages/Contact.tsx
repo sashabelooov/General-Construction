@@ -1,64 +1,58 @@
 import { motion } from "framer-motion";
-import { Phone, Mail, MapPin, Clock } from "lucide-react";
+import { Phone, MapPin, Clock } from "lucide-react";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import ConsultationForm from "@/components/forms/ConsultationForm";
+import { useLanguage } from "@/lib/i18n";
 
 const offices = [
   {
-    name: "Head Office - Manhattan",
-    address: "123 Broadway, Manhattan, NY 10001",
+    name: "Yangiobod Residence",
+    address: "Yashnobod tumani, Uysozlar mavzesi 9/1 uy",
     phone: "+998 (78) 555-55-44",
-    email: "manhattan@generalconstruction.com",
-    hours: "Mon-Fri: 09:00 - 18:00",
-    mapUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3024.2219!2d-74.006015!3d40.712728!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25a316c6b4b91%3A0x20b3c62f9b8c5b8f!2sBroadway%2C%20New%20York%2C%20NY%2C%20USA!5e0!3m2!1sen!2s!4v1635959481000!5m2!1sen!2s",
+    hours: { uz: "Dush - Jum: 09:00 - 18:00", ru: "Пн - Пт: 09:00 - 18:00", en: "Mon - Fri: 09:00 - 18:00" },
+    mapUrl: "https://maps.google.com/maps?q=41.257387,69.343874&z=16&output=embed",
   },
   {
-    name: "Los Angeles Branch",
-    address: "456 Sunset Blvd, Hollywood, CA 90028",
+    name: "Afsona Residence",
+    address: "Yunusobod tumani, 15-mavzesi, 4-uy",
     phone: "+998 (78) 555-55-44",
-    email: "losangeles@generalconstruction.com",
-    hours: "Mon-Fri: 09:00 - 18:00",
-    mapUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3305.732!2d-118.328661!3d34.092809!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2c75ddc3d5c1%3A0x8dc3396f7c9c6b0!2sSunset%20Blvd%2C%20Los%20Angeles%2C%20CA%2C%20USA!5e0!3m2!1sen!2s!4v1635959481000!5m2!1sen!2s",
-  },
-];
-
-const contactMethods = [
-  {
-    icon: Phone,
-    title: "Phone",
-    value: "+998 (78) 555-55-44",
-    description: "Mon-Fri: 09:00 - 18:00",
-    href: "tel:+998785555544",
-  },
-  {
-    icon: Mail,
-    title: "Email",
-    value: "info@generalconstruction.com",
-    description: "We respond within 24 hours",
-    href: "mailto:info@generalconstruction.com",
-  },
-  {
-    icon: MapPin,
-    title: "Address",
-    value: "New York, Manhattan",
-    description: "123 Broadway, NY 10001",
-    href: "#offices",
-  },
-  {
-    icon: Clock,
-    title: "Business Hours",
-    value: "Dush - Jum: 09:00 - 18:00",
-    description: "Shanba: 10:00 - 15:00",
-    href: null,
+    hours: { uz: "Dush - Jum: 09:00 - 18:00", ru: "Пн - Пт: 09:00 - 18:00", en: "Mon - Fri: 09:00 - 18:00" },
+    mapUrl: "https://maps.google.com/maps?q=41.364006,69.281593&z=16&output=embed",
   },
 ];
 
 export default function Contact() {
+  const { t, language } = useLanguage();
+
+  const contactMethods = [
+    {
+      icon: Phone,
+      title: t('contact.phone'),
+      value: "+998 (78) 555-55-44",
+      description: t('contact.businessHoursValue'),
+      href: "tel:+998785555544",
+    },
+    {
+      icon: MapPin,
+      title: t('contact.address'),
+      value: "Yunusobod tumani",
+      description: "Amir Temur shox ko'chasi, 210-uy",
+      href: "#offices",
+    },
+    {
+      icon: Clock,
+      title: t('contact.businessHours'),
+      value: t('contact.businessHoursValue'),
+      description: t('contact.businessHoursDescription'),
+      href: null,
+    },
+  ];
+
   return (
     <div className="min-h-screen bg-white">
       <Navbar />
-      
+
       <main>
         {/* Hero */}
         <section className="bg-primary py-20">
@@ -69,10 +63,10 @@ export default function Contact() {
               className="text-center"
             >
               <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground mb-4">
-                Biz bilan bog'laning
+                {t('contact.heroTitle')}
               </h1>
               <p className="text-primary-foreground/80 text-lg max-w-2xl mx-auto">
-                Savollaringiz bormi? Biz har doim aloqadamiz va yordam berishga tayyormiz.
+                {t('contact.heroDescription')}
               </p>
             </motion.div>
           </div>
@@ -81,7 +75,7 @@ export default function Contact() {
         {/* Contact Methods */}
         <section className="py-16">
           <div className="container-main">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {contactMethods.map((method, index) => (
                 <motion.div
                   key={method.title}
@@ -127,9 +121,9 @@ export default function Contact() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
               >
-                <h2 className="section-title mb-4">Xabar yuboring</h2>
+                <h2 className="section-title mb-4">{t('contact.sendMessage')}</h2>
                 <p className="text-muted-foreground mb-8">
-                  Formani to'ldiring, tez orada siz bilan bog'lanamiz
+                  {t('contact.sendMessageDescription')}
                 </p>
                 <div className="bg-card rounded-2xl p-8 shadow-soft">
                   <ConsultationForm />
@@ -142,13 +136,13 @@ export default function Contact() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
               >
-                <h2 className="section-title mb-4">Bizning manzil</h2>
+                <h2 className="section-title mb-4">{t('contact.ourAddress')}</h2>
                 <p className="text-muted-foreground mb-8">
-                  Ofisimizga tashrif buyuring yoki qo'ng'iroq qiling
+                  {t('contact.ourAddressDescription')}
                 </p>
                 <div className="rounded-2xl overflow-hidden shadow-soft h-[400px]">
                   <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d191885.50264024!2d69.11455!3d41.31151!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38ae8b0cc379e9c3%3A0xa5a9323b4aa5cb98!2sTashkent%2C%20Uzbekistan!5e0!3m2!1sen!2s!4v1635959481000!5m2!1sen!2s"
+                    src="https://maps.google.com/maps?q=41.380834,69.289938&z=17&output=embed"
                     width="100%"
                     height="100%"
                     style={{ border: 0 }}
@@ -171,7 +165,7 @@ export default function Contact() {
               viewport={{ once: true }}
               className="text-center mb-12"
             >
-              <h2 className="section-title">Bizning ofislar</h2>
+              <h2 className="section-title">{t('contact.ourOffices')}</h2>
             </motion.div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -209,14 +203,8 @@ export default function Contact() {
                         </a>
                       </li>
                       <li className="flex items-center gap-3">
-                        <Mail className="w-5 h-5 text-accent" />
-                        <a href={`mailto:${office.email}`} className="hover:text-accent transition-colors">
-                          {office.email}
-                        </a>
-                      </li>
-                      <li className="flex items-center gap-3">
                         <Clock className="w-5 h-5 text-accent" />
-                        <span className="text-muted-foreground">{office.hours}</span>
+                        <span className="text-muted-foreground">{office.hours[language] || office.hours.en}</span>
                       </li>
                     </ul>
                   </div>

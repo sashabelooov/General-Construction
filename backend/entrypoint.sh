@@ -20,6 +20,9 @@ echo "==> Database is ready!"
 echo "==> Running migrations..."
 python manage.py migrate --noinput
 
+echo "==> Compiling translations..."
+python manage.py compilemessages --ignore=venv 2>/dev/null || echo "    (no new translations to compile)"
+
 echo "==> Collecting static files..."
 python manage.py collectstatic --noinput
 
