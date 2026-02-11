@@ -2,17 +2,17 @@
 # General Construction - CI/CD Pipeline
 # ============================================================
 # Triggers:
-#   - Push to main     → runs tests + deploys to production
-#   - Pull request      → runs tests only (no deploy)
+#   - Push to production → runs tests + deploys to production
+#   - Pull request       → runs tests only (no deploy)
 # ============================================================
 
 name: CI/CD Pipeline
 
 on:
   push:
-    branches: [main]
+    branches: [production]
   pull_request:
-    branches: [main]
+    branches: [production]
 
 env:
   DOCKER_BUILDKIT: 1
@@ -113,8 +113,8 @@ jobs:
     runs-on: ubuntu-latest
     needs: [test-backend, test-frontend]    # Only deploy if both tests pass
 
-    # Only deploy on push to main (not on pull requests)
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    # Only deploy on push to production (not on pull requests)
+    if: github.event_name == 'push' && github.ref == 'refs/heads/production'
 
     steps:
       - name: Deploy to EC2 via SSH
@@ -131,8 +131,8 @@ jobs:
 
             # Pull latest code
             echo "==> Pulling latest code..."
-            git fetch origin main
-            git reset --hard origin/main
+            git fetch origin production
+            git reset --hard origin/production
 
             # Build and restart containers (using production override)
             # IMPORTANT: "down" without -v keeps database volumes intact
