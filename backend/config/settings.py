@@ -184,9 +184,8 @@ JAZZMIN_SETTINGS = {
     # Enable language switcher in admin
     "language_chooser": True,
     "changeform_format": "horizontal_tabs",
-    # Fix Bootstrap 4/5 tab switching mismatch in Jazzmin 3.x
-    # Temporarily disable custom JS to test whether it causes admin JS errors
-    "custom_js": None,
+    # Fix Bootstrap 4/5 mismatch in Jazzmin 3.x (data-toggle → data-bs-toggle)
+    "custom_js": "js/admin_tabs_fix.js",
 }
 
 # ASGI Application for WebSocket support
