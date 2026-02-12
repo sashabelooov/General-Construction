@@ -36,6 +36,9 @@ backend/media/*
 backend/logs/*
 backend/staticfiles/*
 
+# AWS keys
+*.pem
+
 # OS files
 .DS_Store
 Thumbs.db
