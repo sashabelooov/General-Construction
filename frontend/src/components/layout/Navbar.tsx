@@ -199,6 +199,23 @@ export default function Navbar() {
                   </button>
                 ))}
 
+                {/* Language Switcher in Mobile */}
+                <div className="flex items-center gap-2 pt-4 border-t border-border">
+                  {languages.map((lang) => (
+                    <button
+                      key={lang.code}
+                      onClick={() => setLanguage(lang.code)}
+                      className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                        language === lang.code
+                          ? "bg-accent text-accent-foreground"
+                          : "bg-secondary hover:bg-muted"
+                      }`}
+                    >
+                      {lang.code.toUpperCase()}
+                    </button>
+                  ))}
+                </div>
+
                 {/* Social Media Icons in Mobile */}
                 <div className="pt-4 border-t border-border">
                   <div className="flex items-center gap-4 mb-4">
