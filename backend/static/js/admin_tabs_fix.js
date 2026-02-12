@@ -49,9 +49,13 @@
         // Fix dropdowns (language chooser, user menu, etc.)
         fixDropdowns();
 
-        // Fix tabs
+        // Fix tabs and pills (Jazzmin uses data-toggle="pill" for horizontal tabs)
         document.addEventListener("click", function (e) {
-            var link = e.target.closest('a[data-toggle="tab"], a[data-bs-toggle="tab"], .changeform-tabs-item a');
+            var link = e.target.closest(
+                'a[data-toggle="tab"], a[data-toggle="pill"], ' +
+                'a[data-bs-toggle="tab"], a[data-bs-toggle="pill"], ' +
+                '.changeform-tabs-item a'
+            );
             if (!link) return;
             e.preventDefault();
             activateTab(link);
