@@ -181,22 +181,27 @@ export default function ProjectDetail() {
                             >
                                 <div>
                                     <h2 className="font-heading text-3xl md:text-4xl font-bold mb-6">
-                                        About the Project
+                                        {language === 'uz' ? 'Loyiha haqida' : language === 'ru' ? 'О проекте' : 'About the Project'}
                                     </h2>
                                     <p className="text-muted-foreground text-lg leading-relaxed mb-6">
                                         {getField(project.detail.about_description)}
                                     </p>
 
-                                    <div className="grid grid-cols-2 gap-4 mt-8">
+                                    <div className="grid grid-cols-3 gap-4 mt-8">
                                         <div className="bg-secondary p-4 rounded-xl">
                                             <Building2 className="w-8 h-8 text-accent mb-2" />
                                             <p className="text-2xl font-bold text-foreground">{project.number_of_houses}</p>
-                                            <p className="text-sm text-muted-foreground">Total Units</p>
+                                            <p className="text-sm text-muted-foreground">{language === 'uz' ? 'Uylar soni' : language === 'ru' ? 'Кол-во домов' : 'Total Units'}</p>
                                         </div>
                                         <div className="bg-secondary p-4 rounded-xl">
                                             <MapPin className="w-8 h-8 text-accent mb-2" />
                                             <p className="text-2xl font-bold text-foreground">{project.location_name.split(',')[0]}</p>
-                                            <p className="text-sm text-muted-foreground">Location</p>
+                                            <p className="text-sm text-muted-foreground">{language === 'uz' ? 'Joylashuv' : language === 'ru' ? 'Локация' : 'Location'}</p>
+                                        </div>
+                                        <div className="bg-secondary p-4 rounded-xl">
+                                            <Calendar className="w-8 h-8 text-accent mb-2" />
+                                            <p className="text-2xl font-bold text-foreground">{project.completion_date}</p>
+                                            <p className="text-sm text-muted-foreground">{language === 'uz' ? 'Topshirish' : language === 'ru' ? 'Сдача' : 'Delivery'}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -217,6 +222,9 @@ export default function ProjectDetail() {
                 {project.detail && (project.detail.image2_url || project.detail.image3_url) && (
                     <section className="py-16 bg-secondary">
                         <div className="container-main">
+                            <h2 className="font-heading text-3xl md:text-4xl font-bold mb-8 text-center">
+                                {language === 'uz' ? 'Loyiha galereyasi' : language === 'ru' ? 'Галерея проекта' : 'Project Gallery'}
+                            </h2>
                             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                                 {[project.detail.image2_url, project.detail.image3_url, project.detail.image4_url, project.detail.image5_url].filter(Boolean).map((img, i) => (
                                     <div key={i} className="h-64 rounded-xl overflow-hidden shadow-lg">
@@ -368,7 +376,7 @@ export default function ProjectDetail() {
                                 viewport={{ once: true }}
                             >
                                 <h2 className="font-heading text-3xl md:text-4xl font-bold mb-6">
-                                    Architecture
+                                    {language === 'uz' ? 'Arxitektura' : language === 'ru' ? 'Архитектура' : 'Architecture'}
                                 </h2>
                                 <p className="text-muted-foreground text-lg leading-relaxed mb-8 max-w-4xl">
                                     {getField(project.detail.architecture_description)}
@@ -401,14 +409,14 @@ export default function ProjectDetail() {
                             >
                                 <div>
                                     <h2 className="font-heading text-3xl md:text-4xl font-bold mb-6">
-                                        Interior Space & Amenities
+                                        {language === 'uz' ? "Ichki makon va qulayliklar" : language === 'ru' ? 'Интерьер и удобства' : 'Interior Space & Amenities'}
                                     </h2>
                                     <p className="text-muted-foreground text-lg leading-relaxed mb-8">
                                         {getField(project.detail.interior_description)}
                                     </p>
 
                                     <div className="space-y-3">
-                                        <h3 className="font-semibold text-xl mb-4">Premium Amenities:</h3>
+                                        <h3 className="font-semibold text-xl mb-4">{language === 'uz' ? 'Premium qulayliklar:' : language === 'ru' ? 'Премиум удобства:' : 'Premium Amenities:'}</h3>
                                         <div className="grid grid-cols-2 gap-3">
                                             {project.detail?.amenities?.map(amenity => (
                                                 <div key={amenity.id} className="flex items-center gap-2">
