@@ -44,7 +44,7 @@ services:
       dockerfile: Dockerfile
     restart: unless-stopped
     volumes:
-      - media_data:/app/media           # Persist uploaded images
+      - ./media:/app/media              # Bind mount: nginx serves directly from host
       - static_data:/app/staticfiles    # Django admin static files
     environment:
       # Django
@@ -78,5 +78,4 @@ services:
 volumes:
   postgres_data:     # Database files persist across restarts
   redis_data:        # Redis data persists across restarts
-  media_data:        # Uploaded images persist across restarts
   static_data:       # Django static files (admin CSS/JS)
