@@ -195,7 +195,7 @@ export default function ProjectDetail() {
                                         </div>
                                         <div className="bg-secondary p-4 rounded-xl">
                                             <MapPin className="w-8 h-8 text-accent mb-2" />
-                                            <p className="text-2xl font-bold text-foreground">{project.location_name.split(',')[0]}</p>
+                                            <p className="text-lg font-bold text-foreground">{project.location_name}</p>
                                             <p className="text-sm text-muted-foreground">{language === 'uz' ? 'Joylashuv' : language === 'ru' ? 'Локация' : 'Location'}</p>
                                         </div>
                                         <div className="bg-secondary p-4 rounded-xl">
