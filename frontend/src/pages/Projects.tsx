@@ -28,6 +28,34 @@ export default function Projects() {
       });
   }, []);
 
+  const getStatusTranslation = (status: string) => {
+    switch (status) {
+      case "completed":
+        return t('projects.status.sold');
+      case "for_sale":
+        return t('projects.status.sale');
+      case "under_construction":
+        return t('projects.status.building');
+      case "will_start":
+        return t('projects.status.building');
+      default:
+        return status;
+    }
+  };
+
+  const getStatusBadgeClass = (status: string) => {
+    switch (status) {
+      case "completed":
+        return "bg-success text-primary-foreground";
+      case "for_sale":
+        return "bg-accent text-primary";
+      case "under_construction":
+      case "will_start":
+      default:
+        return "bg-primary text-primary-foreground";
+    }
+  };
+
   const getSegmentTranslation = (segment: string) => {
     const formatted = segment.toLowerCase();
     switch (formatted) {
@@ -128,7 +156,7 @@ export default function Projects() {
                     transition={{ delay: index * 0.1 }}
                     className="group"
                   >
-                    <Link to={`/projects/${project.id}`} className="block">
+                    <Link to={`/projects/${project.slug}`} className="block">
                       <div className="card-project overflow-hidden">
                         {/* Image */}
                         <div className="relative h-64 overflow-hidden">
@@ -141,7 +169,12 @@ export default function Projects() {
 
                           {/* Badges */}
                           <div className="absolute top-4 left-4 flex gap-2">
-                            <span className="px-3 py-1 rounded-full text-xs font-semibold bg-accent text-primary">
+                            <span className={`px-3 py-1 rounded-full text-xs font-semibold ${getStatusBadgeClass(project.status)}`}>
+                              {getStatusTranslation(project.status)}
+                            </span>
+                          </div>
+                          <div className="absolute top-4 right-4">
+                            <span className="px-3 py-1 rounded-full text-xs font-semibold bg-card/90 text-foreground">
                               {getSegmentTranslation(project.segment)}
                             </span>
                           </div>

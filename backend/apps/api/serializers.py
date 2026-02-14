@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from apps.content.models import Apartment, Project, ProjectDetail, Amenity
+from apps.content.models import Apartment, InteriorSection, Project, ProjectDetail, Amenity
 from apps.leads.models import Lead, Conversation
 from apps.news.models import NewsPost
 
@@ -51,6 +51,30 @@ class ApartmentSerializer(serializers.ModelSerializer):
         ]
 
     def get_image_url(self, obj: Apartment):
+        if obj.image:
+            request = self.context.get("request")
+            if request is not None:
+                return request.build_absolute_uri(obj.image.url)
+            return obj.image.url
+        return None
+
+
+class InteriorSectionSerializer(serializers.ModelSerializer):
+    name = serializers.SerializerMethodField()
+    description = serializers.SerializerMethodField()
+    image_url = serializers.SerializerMethodField()
+
+    class Meta:
+        model = InteriorSection
+        fields = ["id", "name", "description", "image_url", "order"]
+
+    def get_name(self, obj: InteriorSection):
+        return {"uz": obj.name_uz, "ru": obj.name_ru, "en": obj.name_en}
+
+    def get_description(self, obj: InteriorSection):
+        return {"uz": obj.description_uz, "ru": obj.description_ru, "en": obj.description_en}
+
+    def get_image_url(self, obj: InteriorSection):
         if obj.image:
             request = self.context.get("request")
             if request is not None:
@@ -124,6 +148,7 @@ class ProjectSerializer(serializers.ModelSerializer):
     image_url = serializers.SerializerMethodField()
     detail = ProjectDetailSerializer(read_only=True)
     apartments = ApartmentSerializer(many=True, read_only=True)
+    interior_sections = InteriorSectionSerializer(many=True, read_only=True)
 
     class Meta:
         model = Project
@@ -140,6 +165,7 @@ class ProjectSerializer(serializers.ModelSerializer):
             "created_at",
             "detail",
             "apartments",
+            "interior_sections",
         ]
 
     def get_image_url(self, obj: Project):

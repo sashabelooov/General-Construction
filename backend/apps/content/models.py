@@ -120,12 +120,12 @@ class ProjectDetail(TimeStampedModel):
     architecture_image2 = models.ImageField(_("Architecture Image 2"), upload_to="projects/details/architecture/")
     architecture_image3 = models.ImageField(_("Architecture Image 3"), upload_to="projects/details/architecture/")
 
-    # Interior Space & Amenities
-    interior_description = models.TextField(_("Interior Description"))
+    # Interior Space & Amenities (legacy - kept for backward compat, now optional)
+    interior_description = models.TextField(_("Interior Description"), blank=True, default="")
     interior_description_uz = models.TextField(_("Interior Description (Uzbek)"), blank=True, default="")
     interior_description_ru = models.TextField(_("Interior Description (Russian)"), blank=True, default="")
     interior_description_en = models.TextField(_("Interior Description (English)"), blank=True, default="")
-    interior_image = models.ImageField(_("Interior Image"), upload_to="projects/details/interior/")
+    interior_image = models.ImageField(_("Interior Image"), upload_to="projects/details/interior/", blank=True, null=True)
 
     # Premium Amenities
     amenities = models.ManyToManyField(Amenity, blank=True, verbose_name=_("Premium Amenities"))
@@ -136,3 +136,29 @@ class ProjectDetail(TimeStampedModel):
 
     def __str__(self) -> str:
         return f"Detail for {self.project.title}"
+
+
+class InteriorSection(TimeStampedModel):
+    """Individual interior section with name, description and image for carousel display."""
+    project = models.ForeignKey(
+        Project,
+        on_delete=models.CASCADE,
+        related_name="interior_sections",
+        verbose_name=_("Project")
+    )
+    name_uz = models.CharField(_("Name (Uzbek)"), max_length=255, blank=True, default="")
+    name_ru = models.CharField(_("Name (Russian)"), max_length=255, blank=True, default="")
+    name_en = models.CharField(_("Name (English)"), max_length=255, blank=True, default="")
+    description_uz = models.TextField(_("Description (Uzbek)"), blank=True, default="")
+    description_ru = models.TextField(_("Description (Russian)"), blank=True, default="")
+    description_en = models.TextField(_("Description (English)"), blank=True, default="")
+    image = models.ImageField(_("Image"), upload_to="projects/details/interior/")
+    order = models.PositiveIntegerField(_("Order"), default=0)
+
+    class Meta:
+        verbose_name = _("Interior Section")
+        verbose_name_plural = _("Interior Sections")
+        ordering = ["order", "id"]
+
+    def __str__(self) -> str:
+        return self.name_en or self.name_ru or self.name_uz or f"Interior Section {self.pk}"

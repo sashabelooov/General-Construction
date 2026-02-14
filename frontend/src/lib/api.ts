@@ -23,6 +23,14 @@ export interface Amenity {
     image_url: string | null;
 }
 
+export interface InteriorSection {
+    id: number;
+    name: MultiLangField;
+    description: MultiLangField;
+    image_url: string | null;
+    order: number;
+}
+
 export interface Apartment {
     id: number;
     delivery_year: number;
@@ -79,6 +87,7 @@ export interface Project {
     created_at: string;
     detail: ProjectDetail | null;
     apartments: Apartment[];
+    interior_sections: InteriorSection[];
 }
 
 export interface NewsPost {

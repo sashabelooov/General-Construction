@@ -18,6 +18,15 @@ class ProjectViewSet(viewsets.ReadOnlyModelViewSet):
     filterset_fields = ["segment"]
     search_fields = ["title", "location_name"]
     ordering_fields = ["completion_date", "created_at"]
+    lookup_field = "slug"
+
+    def get_object(self):
+        """Support both slug and ID lookups."""
+        lookup = self.kwargs.get(self.lookup_field)
+        if lookup and lookup.isdigit():
+            self.kwargs["pk"] = lookup
+            self.lookup_field = "pk"
+        return super().get_object()
 
 
 class ApartmentViewSet(viewsets.ReadOnlyModelViewSet):

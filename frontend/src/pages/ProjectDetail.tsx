@@ -15,7 +15,7 @@ const areaOptions = ["Barchasi", "30-50 m²", "50-80 m²", "80-100 m²", "100+ m
 const deliveryOptions = ["Barchasi", "2026", "2027", "2028"];
 
 export default function ProjectDetail() {
-    const { id } = useParams();
+    const { slug } = useParams();
     const navigate = useNavigate();
     const { t, language } = useLanguage();
     const [showContactForm, setShowContactForm] = useState(false);
@@ -39,9 +39,9 @@ export default function ProjectDetail() {
 
     useEffect(() => {
         window.scrollTo(0, 0);
-        if (id) {
+        if (slug) {
             setLoading(true);
-            api.projects.get(id)
+            api.projects.get(slug)
                 .then(data => {
                     setProject(data);
                     setFilteredApartments(data.apartments || []);
@@ -57,12 +57,12 @@ export default function ProjectDetail() {
                 .then(data => setAllApartmentsGlobal(data))
                 .catch(err => console.error("Failed to fetch global apartments:", err));
         }
-    }, [id]);
+    }, [slug]);
 
-    // Auto-slide for amenities carousel
+    // Auto-slide for interior sections carousel
     useEffect(() => {
-        if (!project?.detail?.amenities?.length) return;
-        const count = project.detail.amenities.length;
+        if (!project?.interior_sections?.length) return;
+        const count = project.interior_sections.length;
         if (count <= 1) return;
         const timer = setInterval(() => {
             setCurrentAmenityIndex((prev) => (prev + 1) % count);
@@ -167,6 +167,21 @@ export default function ProjectDetail() {
         return (field as any)[language] || field.en || "";
     };
 
+    const formatCompletionDate = (dateString: string | null) => {
+        if (!dateString) return "";
+        const date = new Date(dateString);
+        if (language === 'uz') {
+            const quarter = Math.ceil((date.getMonth() + 1) / 3);
+            return `${date.getFullYear()}-yil, ${quarter}-chorak`;
+        } else if (language === 'ru') {
+            const quarter = Math.ceil((date.getMonth() + 1) / 3);
+            return `${quarter} квартал ${date.getFullYear()}`;
+        } else {
+            const quarter = Math.ceil((date.getMonth() + 1) / 3);
+            return `Q${quarter} ${date.getFullYear()}`;
+        }
+    };
+
     return (
         <div className="min-h-screen bg-white">
             <Navbar />
@@ -231,7 +246,7 @@ export default function ProjectDetail() {
                                         </div>
                                         <div className="bg-secondary p-4 rounded-xl">
                                             <Calendar className="w-8 h-8 text-accent mb-2" />
-                                            <p className="text-2xl font-bold text-foreground">{project.completion_date}</p>
+                                            <p className="text-2xl font-bold text-foreground">{formatCompletionDate(project.completion_date)}</p>
                                             <p className="text-sm text-muted-foreground">{language === 'uz' ? 'Topshirish' : language === 'ru' ? 'Сдача' : 'Delivery'}</p>
                                         </div>
                                     </div>
@@ -464,8 +479,8 @@ export default function ProjectDetail() {
                     </section>
                 )}
 
-                {/* Interior Amenities - Carousel */}
-                {project.detail && project.detail.amenities && project.detail.amenities.length > 0 && (
+                {/* Interior Sections - Carousel */}
+                {project.interior_sections && project.interior_sections.length > 0 && (
                     <section className="py-16 md:py-24">
                         <div className="container-main">
                             <motion.div
@@ -473,17 +488,14 @@ export default function ProjectDetail() {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                             >
-                                <h2 className="font-heading text-3xl md:text-4xl font-bold mb-4 uppercase">
+                                <h2 className="font-heading text-3xl md:text-4xl font-bold mb-10 uppercase">
                                     {language === 'uz' ? "Ichki qulayliklar" : language === 'ru' ? 'Внутренние удобства' : 'Interior Amenities'}
                                 </h2>
-                                <p className="text-muted-foreground text-lg leading-relaxed mb-10 max-w-3xl">
-                                    {getField(project.detail.interior_description)}
-                                </p>
 
                                 {(() => {
-                                    const amenities = project.detail!.amenities!;
-                                    const currentAmenity = amenities[currentAmenityIndex];
-                                    const amenitySlideVariants = {
+                                    const sections = project.interior_sections;
+                                    const currentSection = sections[currentAmenityIndex % sections.length];
+                                    const sectionSlideVariants = {
                                         enter: (dir: number) => ({ x: dir > 0 ? "100%" : "-100%", opacity: 0 }),
                                         center: { x: 0, opacity: 1 },
                                         exit: (dir: number) => ({ x: dir < 0 ? "100%" : "-100%", opacity: 0 }),
@@ -501,24 +513,27 @@ export default function ProjectDetail() {
                                                         transition={{ duration: 0.3 }}
                                                     >
                                                         <h3 className="font-heading text-2xl font-bold mb-4">
-                                                            {getField(currentAmenity.name)}
+                                                            {getField(currentSection.name)}
                                                         </h3>
+                                                        <p className="text-muted-foreground text-lg leading-relaxed">
+                                                            {getField(currentSection.description)}
+                                                        </p>
                                                     </motion.div>
                                                 </AnimatePresence>
 
-                                                {/* Amenity navigation dots */}
-                                                <div className="flex gap-3 mt-8">
-                                                    {amenities.map((amenity, index) => (
+                                                {/* Section navigation tabs */}
+                                                <div className="flex flex-wrap gap-3 mt-8">
+                                                    {sections.map((section, index) => (
                                                         <button
-                                                            key={amenity.id}
+                                                            key={section.id}
                                                             onClick={() => setCurrentAmenityIndex(index)}
                                                             className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
-                                                                index === currentAmenityIndex
+                                                                index === currentAmenityIndex % sections.length
                                                                     ? "bg-accent text-accent-foreground"
                                                                     : "bg-secondary text-muted-foreground hover:bg-secondary/80"
                                                             }`}
                                                         >
-                                                            {getField(amenity.name)}
+                                                            {getField(section.name)}
                                                         </button>
                                                     ))}
                                                 </div>
@@ -526,13 +541,13 @@ export default function ProjectDetail() {
                                                 {/* Arrow navigation */}
                                                 <div className="flex gap-3 mt-6">
                                                     <button
-                                                        onClick={() => setCurrentAmenityIndex((prev) => (prev - 1 + amenities.length) % amenities.length)}
+                                                        onClick={() => setCurrentAmenityIndex((prev) => (prev - 1 + sections.length) % sections.length)}
                                                         className="w-12 h-12 rounded-full border border-border flex items-center justify-center hover:bg-secondary transition-colors"
                                                     >
                                                         <ChevronLeft className="w-5 h-5" />
                                                     </button>
                                                     <button
-                                                        onClick={() => setCurrentAmenityIndex((prev) => (prev + 1) % amenities.length)}
+                                                        onClick={() => setCurrentAmenityIndex((prev) => (prev + 1) % sections.length)}
                                                         className="w-12 h-12 rounded-full border border-border flex items-center justify-center hover:bg-secondary transition-colors"
                                                     >
                                                         <ChevronRight className="w-5 h-5" />
@@ -540,15 +555,15 @@ export default function ProjectDetail() {
                                                 </div>
                                             </div>
 
-                                            {/* Amenity Image Carousel */}
+                                            {/* Section Image Carousel */}
                                             <div className="relative h-[500px] rounded-2xl overflow-hidden shadow-2xl">
                                                 <AnimatePresence initial={false} custom={1}>
                                                     <motion.img
                                                         key={currentAmenityIndex}
-                                                        src={currentAmenity.image_url || project.detail!.interior_image_url || ""}
-                                                        alt={getField(currentAmenity.name)}
+                                                        src={currentSection.image_url || ""}
+                                                        alt={getField(currentSection.name)}
                                                         custom={1}
-                                                        variants={amenitySlideVariants}
+                                                        variants={sectionSlideVariants}
                                                         initial="enter"
                                                         animate="center"
                                                         exit="exit"

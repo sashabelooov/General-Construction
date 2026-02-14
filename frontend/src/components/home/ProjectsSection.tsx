@@ -48,8 +48,8 @@ export default function ProjectsSection() {
     fetchProjects();
   }, []);
 
-  const handleProjectClick = (projectId: number) => {
-    navigate(`/projects/${projectId}`);
+  const handleProjectClick = (slug: string) => {
+    navigate(`/projects/${slug}`);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -215,7 +215,7 @@ export default function ProjectsSection() {
                   </div>
 
                   <button
-                    onClick={() => handleProjectClick(project.id)}
+                    onClick={() => handleProjectClick(project.slug)}
                     className="flex items-center gap-2 text-accent font-semibold hover:gap-3 transition-all"
                   >
                     {t('projects.more')}
