@@ -7,7 +7,7 @@ const COMPANY_START_YEAR = 2022;
 
 const offices = [
   { name: "Yangiobod Residence", address: "Yashnobod tumani, Uysozlar mavzesi 9/1 uy" },
-  { name: "Afsona Residence", address: "Yunusobod tumani, 15-mavzesi, 4-uy" },
+  { name: "Afsona Residence", address: "Toshkent shaxri, Yunusobod tumani, 4-mavze Adolat 28A" },
 ];
 
 const socialLinks = [
@@ -153,7 +153,7 @@ export default function Footer() {
             <h4 className="font-heading font-bold text-lg mb-4">{t('footer.location')}</h4>
             <div className="rounded-2xl overflow-hidden h-full min-h-[400px] bg-primary-foreground/10">
               <iframe
-                src="https://maps.google.com/maps?q=41.380834,69.289938&z=17&output=embed"
+                src="https://maps.google.com/maps?q=41.364006,69.281593&z=16&output=embed"
                 width="100%"
                 height="100%"
                 style={{ border: 0, minHeight: "400px" }}

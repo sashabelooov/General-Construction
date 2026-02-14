@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { MapPin, Building2, Home, ChevronLeft, ChevronRight, ChevronDown, Maximize2, Calendar, Search, RefreshCcw, Heart, Layers, Play, X } from "lucide-react";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
@@ -21,6 +21,8 @@ export default function ProjectDetail() {
     const [showContactForm, setShowContactForm] = useState(false);
     const [currentAmenityIndex, setCurrentAmenityIndex] = useState(0);
     const [showVideoModal, setShowVideoModal] = useState(false);
+    const [aboutSlide, setAboutSlide] = useState(0);
+    const [aboutDirection, setAboutDirection] = useState(0);
 
     const [project, setProject] = useState<Project | null>(null);
     const [loading, setLoading] = useState(true);
@@ -56,6 +58,35 @@ export default function ProjectDetail() {
                 .catch(err => console.error("Failed to fetch global apartments:", err));
         }
     }, [id]);
+
+    // Auto-slide for amenities carousel
+    useEffect(() => {
+        if (!project?.detail?.amenities?.length) return;
+        const count = project.detail.amenities.length;
+        if (count <= 1) return;
+        const timer = setInterval(() => {
+            setCurrentAmenityIndex((prev) => (prev + 1) % count);
+        }, 6000);
+        return () => clearInterval(timer);
+    }, [project]);
+
+    // Auto-slide for about carousel
+    useEffect(() => {
+        if (!project?.detail) return;
+        const aboutImages = [
+            project.detail.about_image_url,
+            project.detail.image2_url,
+            project.detail.image3_url,
+            project.detail.image4_url,
+            project.detail.image5_url,
+        ].filter(Boolean);
+        if (aboutImages.length <= 1) return;
+        const timer = setInterval(() => {
+            setAboutDirection(1);
+            setAboutSlide((prev) => (prev + 1) % aboutImages.length);
+        }, 5000);
+        return () => clearInterval(timer);
+    }, [project]);
 
     if (loading) {
         return (
@@ -206,32 +237,68 @@ export default function ProjectDetail() {
                                     </div>
                                 </div>
 
-                                <div className="relative">
-                                    <img
-                                        src={project.detail.about_image_url || ""}
-                                        alt={getField(project.title)}
-                                        className="w-full h-[500px] object-cover rounded-2xl shadow-2xl"
-                                    />
-                                </div>
-                            </motion.div>
-                        </div>
-                    </section>
-                )}
+                                {(() => {
+                                    const aboutImages = [
+                                        project.detail.about_image_url,
+                                        project.detail.image2_url,
+                                        project.detail.image3_url,
+                                        project.detail.image4_url,
+                                        project.detail.image5_url,
+                                    ].filter(Boolean) as string[];
 
-                {/* Gallery (Header images 2-5) */}
-                {project.detail && (project.detail.image2_url || project.detail.image3_url) && (
-                    <section className="py-16 bg-secondary">
-                        <div className="container-main">
-                            <h2 className="font-heading text-3xl md:text-4xl font-bold mb-8 text-center">
-                                {language === 'uz' ? 'Loyiha galereyasi' : language === 'ru' ? 'Галерея проекта' : 'Project Gallery'}
-                            </h2>
-                            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                                {[project.detail.image2_url, project.detail.image3_url, project.detail.image4_url, project.detail.image5_url].filter(Boolean).map((img, i) => (
-                                    <div key={i} className="h-64 rounded-xl overflow-hidden shadow-lg">
-                                        <img src={img!} className="w-full h-full object-cover hover:scale-105 transition-transform" alt="Gallery" />
-                                    </div>
-                                ))}
-                            </div>
+                                    const slideVariants = {
+                                        enter: (dir: number) => ({ x: dir > 0 ? "100%" : "-100%", opacity: 0 }),
+                                        center: { x: 0, opacity: 1 },
+                                        exit: (dir: number) => ({ x: dir < 0 ? "100%" : "-100%", opacity: 0 }),
+                                    };
+
+                                    return (
+                                        <div className="relative h-[500px] rounded-2xl overflow-hidden shadow-2xl">
+                                            <AnimatePresence initial={false} custom={aboutDirection}>
+                                                <motion.img
+                                                    key={aboutSlide}
+                                                    src={aboutImages[aboutSlide] || ""}
+                                                    alt={`${getField(project.title)} ${aboutSlide + 1}`}
+                                                    custom={aboutDirection}
+                                                    variants={slideVariants}
+                                                    initial="enter"
+                                                    animate="center"
+                                                    exit="exit"
+                                                    transition={{ duration: 0.5, ease: "easeInOut" }}
+                                                    className="absolute inset-0 w-full h-full object-cover"
+                                                />
+                                            </AnimatePresence>
+
+                                            {aboutImages.length > 1 && (
+                                                <>
+                                                    <button
+                                                        onClick={() => { setAboutDirection(-1); setAboutSlide((prev) => (prev - 1 + aboutImages.length) % aboutImages.length); }}
+                                                        className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-card/30 backdrop-blur-sm flex items-center justify-center text-primary-foreground hover:bg-card/50 transition-colors z-10"
+                                                    >
+                                                        <ChevronLeft className="w-5 h-5" />
+                                                    </button>
+                                                    <button
+                                                        onClick={() => { setAboutDirection(1); setAboutSlide((prev) => (prev + 1) % aboutImages.length); }}
+                                                        className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-card/30 backdrop-blur-sm flex items-center justify-center text-primary-foreground hover:bg-card/50 transition-colors z-10"
+                                                    >
+                                                        <ChevronRight className="w-5 h-5" />
+                                                    </button>
+
+                                                    <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+                                                        {aboutImages.map((_, index) => (
+                                                            <button
+                                                                key={index}
+                                                                onClick={() => { setAboutDirection(index > aboutSlide ? 1 : -1); setAboutSlide(index); }}
+                                                                className={`w-2 h-2 rounded-full transition-all duration-300 ${index === aboutSlide ? "w-6 bg-accent" : "bg-primary-foreground/50 hover:bg-primary-foreground/70"}`}
+                                                            />
+                                                        ))}
+                                                    </div>
+                                                </>
+                                            )}
+                                        </div>
+                                    );
+                                })()}
+                            </motion.div>
                         </div>
                     </section>
                 )}
@@ -397,46 +464,102 @@ export default function ProjectDetail() {
                     </section>
                 )}
 
-                {/* Interior & Amenities */}
-                {project.detail && (
+                {/* Interior Amenities - Carousel */}
+                {project.detail && project.detail.amenities && project.detail.amenities.length > 0 && (
                     <section className="py-16 md:py-24">
                         <div className="container-main">
                             <motion.div
                                 initial={{ opacity: 0, y: 30 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
-                                className="grid md:grid-cols-2 gap-12 items-center"
                             >
-                                <div>
-                                    <h2 className="font-heading text-3xl md:text-4xl font-bold mb-6">
-                                        {language === 'uz' ? "Ichki makon va qulayliklar" : language === 'ru' ? 'Интерьер и удобства' : 'Interior Space & Amenities'}
-                                    </h2>
-                                    <p className="text-muted-foreground text-lg leading-relaxed mb-8">
-                                        {getField(project.detail.interior_description)}
-                                    </p>
+                                <h2 className="font-heading text-3xl md:text-4xl font-bold mb-4 uppercase">
+                                    {language === 'uz' ? "Ichki qulayliklar" : language === 'ru' ? 'Внутренние удобства' : 'Interior Amenities'}
+                                </h2>
+                                <p className="text-muted-foreground text-lg leading-relaxed mb-10 max-w-3xl">
+                                    {getField(project.detail.interior_description)}
+                                </p>
 
-                                    <div className="space-y-3">
-                                        <h3 className="font-semibold text-xl mb-4">{language === 'uz' ? 'Premium qulayliklar:' : language === 'ru' ? 'Премиум удобства:' : 'Premium Amenities:'}</h3>
-                                        <div className="grid grid-cols-2 gap-3">
-                                            {project.detail?.amenities?.map(amenity => (
-                                                <div key={amenity.id} className="flex items-center gap-2">
-                                                    <div className="w-2 h-2 bg-accent rounded-full" />
-                                                    <span className="text-foreground">{getField(amenity.name)}</span>
+                                {(() => {
+                                    const amenities = project.detail!.amenities!;
+                                    const currentAmenity = amenities[currentAmenityIndex];
+                                    const amenitySlideVariants = {
+                                        enter: (dir: number) => ({ x: dir > 0 ? "100%" : "-100%", opacity: 0 }),
+                                        center: { x: 0, opacity: 1 },
+                                        exit: (dir: number) => ({ x: dir < 0 ? "100%" : "-100%", opacity: 0 }),
+                                    };
+
+                                    return (
+                                        <div className="grid md:grid-cols-2 gap-12 items-center">
+                                            <div>
+                                                <AnimatePresence mode="wait">
+                                                    <motion.div
+                                                        key={currentAmenityIndex}
+                                                        initial={{ opacity: 0, y: 20 }}
+                                                        animate={{ opacity: 1, y: 0 }}
+                                                        exit={{ opacity: 0, y: -20 }}
+                                                        transition={{ duration: 0.3 }}
+                                                    >
+                                                        <h3 className="font-heading text-2xl font-bold mb-4">
+                                                            {getField(currentAmenity.name)}
+                                                        </h3>
+                                                    </motion.div>
+                                                </AnimatePresence>
+
+                                                {/* Amenity navigation dots */}
+                                                <div className="flex gap-3 mt-8">
+                                                    {amenities.map((amenity, index) => (
+                                                        <button
+                                                            key={amenity.id}
+                                                            onClick={() => setCurrentAmenityIndex(index)}
+                                                            className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
+                                                                index === currentAmenityIndex
+                                                                    ? "bg-accent text-accent-foreground"
+                                                                    : "bg-secondary text-muted-foreground hover:bg-secondary/80"
+                                                            }`}
+                                                        >
+                                                            {getField(amenity.name)}
+                                                        </button>
+                                                    ))}
                                                 </div>
-                                            ))}
-                                        </div>
-                                    </div>
-                                </div>
 
-                                <div className="relative">
-                                    <div className="relative h-[500px] rounded-2xl overflow-hidden shadow-2xl">
-                                        <img
-                                            src={project.detail.interior_image_url || ""}
-                                            alt="Interior"
-                                            className="w-full h-full object-cover"
-                                        />
-                                    </div>
-                                </div>
+                                                {/* Arrow navigation */}
+                                                <div className="flex gap-3 mt-6">
+                                                    <button
+                                                        onClick={() => setCurrentAmenityIndex((prev) => (prev - 1 + amenities.length) % amenities.length)}
+                                                        className="w-12 h-12 rounded-full border border-border flex items-center justify-center hover:bg-secondary transition-colors"
+                                                    >
+                                                        <ChevronLeft className="w-5 h-5" />
+                                                    </button>
+                                                    <button
+                                                        onClick={() => setCurrentAmenityIndex((prev) => (prev + 1) % amenities.length)}
+                                                        className="w-12 h-12 rounded-full border border-border flex items-center justify-center hover:bg-secondary transition-colors"
+                                                    >
+                                                        <ChevronRight className="w-5 h-5" />
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                            {/* Amenity Image Carousel */}
+                                            <div className="relative h-[500px] rounded-2xl overflow-hidden shadow-2xl">
+                                                <AnimatePresence initial={false} custom={1}>
+                                                    <motion.img
+                                                        key={currentAmenityIndex}
+                                                        src={currentAmenity.image_url || project.detail!.interior_image_url || ""}
+                                                        alt={getField(currentAmenity.name)}
+                                                        custom={1}
+                                                        variants={amenitySlideVariants}
+                                                        initial="enter"
+                                                        animate="center"
+                                                        exit="exit"
+                                                        transition={{ duration: 0.5, ease: "easeInOut" }}
+                                                        className="absolute inset-0 w-full h-full object-cover"
+                                                    />
+                                                </AnimatePresence>
+                                            </div>
+                                        </div>
+                                    );
+                                })()}
                             </motion.div>
                         </div>
                     </section>

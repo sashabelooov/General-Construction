@@ -33,7 +33,7 @@ const aboutCarouselImages = [
 ];
 
 export default function About() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [currentSlide, setCurrentSlide] = useState(0);
   const [direction, setDirection] = useState(0);
 
@@ -81,8 +81,8 @@ export default function About() {
   };
 
   const stats = [
-    { icon: Building2, value: "50+", label: t('about.stats.projects') },
-    { icon: Users, value: "5000+", label: t('about.stats.families') },
+    { icon: Building2, value: t('about.stats.projectsValue'), label: t('about.stats.projects') },
+    { icon: Users, value: "500+", label: t('about.stats.families') },
     { icon: Clock, value: `${yearsOfExperience}+`, label: t('about.stats.experience') },
     { icon: MapPin, value: "1M+", label: t('about.stats.area') },
   ];
@@ -274,8 +274,11 @@ export default function About() {
                   {t('about.mission.text')}
                 </p>
                 <p className="text-muted-foreground text-lg leading-relaxed">
-                  Kompaniyamiz jamoasi 200 dan ortiq malakali mutaxassislardan iborat bo'lib, 
-                  ular o'z sohasida keng tajribaga ega. Biz har bir loyihaga mas'uliyat bilan yondashamiz.
+                  {language === 'uz'
+                    ? "Kompaniyamiz jamoasi malakali mutaxassislardan iborat bo'lib, ular o'z sohasida keng tajribaga ega. Biz har bir loyihaga mas'uliyat bilan yondashamiz."
+                    : language === 'ru'
+                    ? 'Наша команда состоит из квалифицированных специалистов с большим опытом в своей области. Мы ответственно подходим к каждому проекту.'
+                    : 'Our team consists of qualified specialists with extensive experience in their field. We approach every project with responsibility.'}
                 </p>
               </motion.div>
 
@@ -286,20 +289,20 @@ export default function About() {
                 className="grid grid-cols-2 gap-6"
               >
                 <div className="bg-card rounded-xl p-6 shadow-soft">
-                  <span className="font-heading font-bold text-4xl text-accent block mb-2">200+</span>
-                  <span className="text-muted-foreground">Mutaxassislar</span>
+                  <span className="font-heading font-bold text-4xl text-accent block mb-2">100+</span>
+                  <span className="text-muted-foreground">{language === 'uz' ? 'Mutaxassislar' : language === 'ru' ? 'Специалистов' : 'Specialists'}</span>
                 </div>
                 <div className="bg-card rounded-xl p-6 shadow-soft">
-                  <span className="font-heading font-bold text-4xl text-accent block mb-2">15+</span>
-                  <span className="text-muted-foreground">Joriy loyihalar</span>
+                  <span className="font-heading font-bold text-4xl text-accent block mb-2">500+</span>
+                  <span className="text-muted-foreground">{language === 'uz' ? 'Baxtli oilalar' : language === 'ru' ? 'Счастливых семей' : 'Happy Families'}</span>
                 </div>
                 <div className="bg-card rounded-xl p-6 shadow-soft">
                   <span className="font-heading font-bold text-4xl text-accent block mb-2">99%</span>
-                  <span className="text-muted-foreground">Mijoz mamnuniyati</span>
+                  <span className="text-muted-foreground">{language === 'uz' ? 'Mijoz mamnuniyati' : language === 'ru' ? 'Довольных клиентов' : 'Client Satisfaction'}</span>
                 </div>
                 <div className="bg-card rounded-xl p-6 shadow-soft">
                   <span className="font-heading font-bold text-4xl text-accent block mb-2">24/7</span>
-                  <span className="text-muted-foreground">Qo'llab-quvvatlash</span>
+                  <span className="text-muted-foreground">{language === 'uz' ? "Qo'llab-quvvatlash" : language === 'ru' ? 'Поддержка' : 'Support'}</span>
                 </div>
               </motion.div>
             </div>

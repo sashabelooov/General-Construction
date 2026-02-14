@@ -413,9 +413,14 @@ const translations: Translations = {
     en: 'About Company',
   },
   'about.description': {
-    uz: '2014-yildan beri O\'zbekiston qurilish bozorida faoliyat yuritayotgan yetakchi kompaniya. Biz zamonaviy turar-joy majmualari qurish va oilalarga orzularidagi uyni taqdim etish bilan shug\'ullanamiz.',
-    ru: 'Ведущая компания на строительном рынке Узбекистана с 2014 года. Мы занимаемся строительством современных жилых комплексов и предоставлением семьям дома их мечты.',
-    en: 'A leading company in the construction market of the USA since 2014. We are engaged in the construction of modern residential complexes and providing families with their dream home.',
+    uz: '2022-yildan beri O\'zbekiston qurilish bozorida faoliyat yuritayotgan yetakchi kompaniya. Biz zamonaviy turar-joy majmualari qurish va oilalarga orzularidagi uyni taqdim etish bilan shug\'ullanamiz.',
+    ru: 'Ведущая компания на строительном рынке Узбекистана с 2022 года. Мы занимаемся строительством современных жилых комплексов и предоставлением семьям дома их мечты.',
+    en: 'A leading company in the construction market of Uzbekistan since 2022. We are engaged in the construction of modern residential complexes and providing families with their dream home.',
+  },
+  'about.stats.projectsValue': {
+    uz: 'Bir necha',
+    ru: 'Несколько',
+    en: 'Several',
   },
   'about.stats.projects': {
     uz: 'Topshirilgan loyihalar',
@@ -463,9 +468,9 @@ const translations: Translations = {
     en: 'Trust',
   },
   'about.values.trustDesc': {
-    uz: '10 yillik tajriba davomida minglab oilalarning ishonchini qozondik.',
-    ru: 'За 10 лет опыта мы заслужили доверие тысяч семей.',
-    en: 'Over 10 years of experience, we have earned the trust of thousands of families.',
+    uz: 'Faoliyatimiz davomida yuzlab oilalarning ishonchini qozondik.',
+    ru: 'За время нашей деятельности мы заслужили доверие сотен семей.',
+    en: 'Throughout our operations, we have earned the trust of hundreds of families.',
   },
   'about.values.innovation': {
     uz: 'Innovatsiya',
@@ -641,7 +646,7 @@ const translations: Translations = {
   'footer.company': {
     uz: 'General Construction - O\'zbekistonning yetakchi qurilish kompaniyasi',
     ru: 'General Construction - ведущая строительная компания Узбекистана',
-    en: 'General Construction - leading construction company in the USA',
+    en: 'General Construction - leading construction company in Uzbekistan',
   },
   'footer.description': {
     uz: 'O\'zbekistondagi yetakchi qurilish kompaniyasi. {years}+ yillik tajriba va bir necha tugatilgan loyihalar.',
