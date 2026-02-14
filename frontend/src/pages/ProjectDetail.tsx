@@ -170,16 +170,10 @@ export default function ProjectDetail() {
     const formatCompletionDate = (dateString: string | null) => {
         if (!dateString) return "";
         const date = new Date(dateString);
-        if (language === 'uz') {
-            const quarter = Math.ceil((date.getMonth() + 1) / 3);
-            return `${date.getFullYear()}-yil, ${quarter}-chorak`;
-        } else if (language === 'ru') {
-            const quarter = Math.ceil((date.getMonth() + 1) / 3);
-            return `${quarter} квартал ${date.getFullYear()}`;
-        } else {
-            const quarter = Math.ceil((date.getMonth() + 1) / 3);
-            return `Q${quarter} ${date.getFullYear()}`;
-        }
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const year = date.getFullYear();
+        return `${day}.${month}.${year}`;
     };
 
     return (

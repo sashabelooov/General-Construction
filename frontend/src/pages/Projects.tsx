@@ -72,18 +72,11 @@ export default function Projects() {
 
   const formatCompletionDate = (dateString: string | null) => {
     if (!dateString) return "";
-
     const date = new Date(dateString);
-    if (language === 'uz') {
-      const day = String(date.getDate()).padStart(2, '0');
-      const month = String(date.getMonth() + 1).padStart(2, '0');
-      const year = date.getFullYear();
-      return `${day}-${month}-${year}`;
-    } else {
-      const quarter = Math.floor((date.getMonth() + 3) / 3);
-      const year = date.getFullYear();
-      return `Q${quarter} ${year}`;
-    }
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+    return `${day}.${month}.${year}`;
   };
 
   const filteredProjects = projects.filter((project) => {

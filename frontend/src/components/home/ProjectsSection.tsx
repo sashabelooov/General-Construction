@@ -101,20 +101,11 @@ export default function ProjectsSection() {
 
   const formatCompletionDate = (dateString: string | null) => {
     if (!dateString) return t('projects.status.sold');
-
     const date = new Date(dateString);
-    if (language === 'uz') {
-      // Format as DD-MM-YYYY for Uzbek
-      const day = String(date.getDate()).padStart(2, '0');
-      const month = String(date.getMonth() + 1).padStart(2, '0');
-      const year = date.getFullYear();
-      return `${day}-${month}-${year}`;
-    } else {
-      // For English and Russian, use Q format
-      const quarter = Math.floor((date.getMonth() + 3) / 3);
-      const year = date.getFullYear();
-      return `Q${quarter} ${year}`;
-    }
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+    return `${day}.${month}.${year}`;
   };
 
   return (
