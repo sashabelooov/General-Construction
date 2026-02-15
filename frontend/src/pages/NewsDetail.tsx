@@ -106,8 +106,8 @@ export default function NewsDetail() {
               >
                 {/* Image */}
                 {news.image_url && (
-                  <div className="relative h-80 md:h-96 rounded-2xl overflow-hidden bg-muted mb-8">
-                    <img src={news.image_url} alt={news.title[language]} className="w-full h-full object-cover" />
+                  <div className="relative rounded-2xl overflow-hidden bg-muted mb-8">
+                    <img src={news.image_url} alt={news.title[language]} className="w-full h-auto object-contain" />
                   </div>
                 )}
 
@@ -165,10 +165,7 @@ export default function NewsDetail() {
                             {item.title[language]}
                           </h4>
                           <span className="text-xs text-muted-foreground mt-1 block">
-                            {new Date(item.date_of_creation).toLocaleDateString(language === 'uz' ? "uz-UZ" : language === 'ru' ? "ru-RU" : "en-US", {
-                              month: "short",
-                              day: "numeric",
-                            })}
+                            {(() => { const d = new Date(item.date_of_creation); return `${String(d.getDate()).padStart(2,'0')}.${String(d.getMonth()+1).padStart(2,'0')}.${d.getFullYear()}`; })()}
                           </span>
                         </div>
                       </div>

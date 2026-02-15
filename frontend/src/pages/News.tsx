@@ -99,11 +99,7 @@ export default function News() {
                     <div className="p-6">
                       <div className="flex items-center gap-2 text-muted-foreground text-sm mb-3">
                         <Calendar className="w-4 h-4" />
-                        {new Date(news.date_of_creation).toLocaleDateString(language === 'uz' ? "uz-UZ" : language === 'ru' ? "ru-RU" : "en-US", {
-                          year: "numeric",
-                          month: "long",
-                          day: "numeric",
-                        })}
+                        {(() => { const d = new Date(news.date_of_creation); return `${String(d.getDate()).padStart(2,'0')}.${String(d.getMonth()+1).padStart(2,'0')}.${d.getFullYear()}`; })()}
                       </div>
 
                       <h2 className="font-heading font-bold text-xl mb-3 group-hover:text-accent transition-colors">
