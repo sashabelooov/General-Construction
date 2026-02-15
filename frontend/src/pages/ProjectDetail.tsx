@@ -247,21 +247,27 @@ export default function ProjectDetail() {
                                         {getField(project.detail.about_description)}
                                     </p>
 
-                                    <div className="grid grid-cols-3 gap-4 mt-8">
-                                        <div className="bg-secondary p-4 rounded-xl">
-                                            <Building2 className="w-8 h-8 text-accent mb-2" />
-                                            <p className="text-2xl font-bold text-foreground">{project.number_of_houses}</p>
-                                            <p className="text-sm text-muted-foreground">{language === 'uz' ? 'Uylar soni' : language === 'ru' ? 'Кол-во домов' : 'Total Units'}</p>
+                                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-8">
+                                        <div className="bg-secondary p-4 rounded-xl flex sm:block items-center gap-3">
+                                            <Building2 className="w-8 h-8 text-accent mb-0 sm:mb-2 flex-shrink-0" />
+                                            <div>
+                                                <p className="text-2xl font-bold text-foreground">{project.number_of_houses}</p>
+                                                <p className="text-sm text-muted-foreground">{language === 'uz' ? 'Uylar soni' : language === 'ru' ? 'Кол-во домов' : 'Total Units'}</p>
+                                            </div>
                                         </div>
-                                        <div className="bg-secondary p-4 rounded-xl">
-                                            <MapPin className="w-8 h-8 text-accent mb-2" />
-                                            <p className="text-lg font-bold text-foreground">{project.location_name}</p>
-                                            <p className="text-sm text-muted-foreground">{language === 'uz' ? 'Joylashuv' : language === 'ru' ? 'Локация' : 'Location'}</p>
+                                        <div className="bg-secondary p-4 rounded-xl flex sm:block items-center gap-3">
+                                            <MapPin className="w-8 h-8 text-accent mb-0 sm:mb-2 flex-shrink-0" />
+                                            <div>
+                                                <p className="text-lg font-bold text-foreground">{project.location_name}</p>
+                                                <p className="text-sm text-muted-foreground">{language === 'uz' ? 'Joylashuv' : language === 'ru' ? 'Локация' : 'Location'}</p>
+                                            </div>
                                         </div>
-                                        <div className="bg-secondary p-4 rounded-xl">
-                                            <Calendar className="w-8 h-8 text-accent mb-2" />
-                                            <p className="text-2xl font-bold text-foreground">{formatCompletionDate(project.completion_date)}</p>
-                                            <p className="text-sm text-muted-foreground">{language === 'uz' ? 'Topshirish' : language === 'ru' ? 'Сдача' : 'Delivery'}</p>
+                                        <div className="bg-secondary p-4 rounded-xl flex sm:block items-center gap-3">
+                                            <Calendar className="w-8 h-8 text-accent mb-0 sm:mb-2 flex-shrink-0" />
+                                            <div>
+                                                <p className="text-2xl font-bold text-foreground">{formatCompletionDate(project.completion_date)}</p>
+                                                <p className="text-sm text-muted-foreground">{language === 'uz' ? 'Topshirish' : language === 'ru' ? 'Сдача' : 'Delivery'}</p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

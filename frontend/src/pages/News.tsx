@@ -86,11 +86,11 @@ export default function News() {
                     className="bg-card rounded-2xl overflow-hidden shadow-soft hover:shadow-medium transition-shadow group cursor-pointer"
                     onClick={() => handleNewsClick(news.id)}
                   >
-                    <div className="relative h-56 overflow-hidden bg-muted">
+                    <div className="relative overflow-hidden bg-muted">
                       {news.image_url ? (
-                        <img src={news.image_url} alt={getField(news.title)} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                        <img src={news.image_url} alt={getField(news.title)} className="w-full h-auto object-contain group-hover:scale-105 transition-transform duration-500" />
                       ) : (
-                        <div className="absolute inset-0 flex items-center justify-center text-muted-foreground">
+                        <div className="h-56 flex items-center justify-center text-muted-foreground">
                           <span className="text-6xl">📰</span>
                         </div>
                       )}
