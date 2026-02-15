@@ -1,4 +1,5 @@
 from rest_framework import mixins, viewsets
+from rest_framework.permissions import AllowAny
 
 from apps.content.models import Apartment, Project
 from apps.news.models import NewsPost
@@ -46,6 +47,8 @@ class NewsPostViewSet(viewsets.ReadOnlyModelViewSet):
 
 class LeadViewSet(mixins.CreateModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
     queryset = Lead.objects.all()
+    authentication_classes = []
+    permission_classes = [AllowAny]
 
     def get_serializer_class(self):
         if self.action == "create":
