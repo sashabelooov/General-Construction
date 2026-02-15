@@ -540,7 +540,7 @@ const translations: Translations = {
     en: 'No news found in this category',
   },
   'news.backToNews': {
-    uz: 'Yangiliklarга qaytish',
+    uz: 'Yangiliklarga qaytish',
     ru: 'Вернуться к новостям',
     en: 'Back to News',
   },

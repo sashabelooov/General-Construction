@@ -15,7 +15,7 @@ const offices = [
   },
   {
     name: "Afsona Residence",
-    address: "Yunusobod tumani, 15-mavzesi, 4-uy",
+    address: "Toshkent shaxri, Yunusobod tumani, 4-mavze Adolat 28A",
     phone: "+998 (78) 555-55-44",
     hours: { uz: "Dush - Jum: 09:00 - 18:00", ru: "Пн - Пт: 09:00 - 18:00", en: "Mon - Fri: 09:00 - 18:00" },
     mapUrl: "https://maps.google.com/maps?q=41.364006,69.281593&z=16&output=embed",
@@ -142,7 +142,7 @@ export default function Contact() {
                 </p>
                 <div className="rounded-2xl overflow-hidden shadow-soft h-[400px]">
                   <iframe
-                    src="https://maps.google.com/maps?q=41.380834,69.289938&z=17&output=embed"
+                    src="https://maps.google.com/maps?q=41.364006,69.281593&z=16&output=embed"
                     width="100%"
                     height="100%"
                     style={{ border: 0 }}
