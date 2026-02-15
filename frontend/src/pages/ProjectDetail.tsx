@@ -178,6 +178,12 @@ export default function ProjectDetail() {
         // Handle youtube.com/embed/ID
         const embedMatch = url.match(/embed\/([a-zA-Z0-9_-]+)/);
         if (embedMatch) videoId = embedMatch[1];
+        // Handle youtube.com/shorts/ID
+        const shortsMatch = url.match(/shorts\/([a-zA-Z0-9_-]+)/);
+        if (shortsMatch) videoId = shortsMatch[1];
+        // Handle youtube.com/live/ID
+        const liveMatch = url.match(/live\/([a-zA-Z0-9_-]+)/);
+        if (liveMatch) videoId = liveMatch[1];
         return videoId ? `https://www.youtube.com/embed/${videoId}` : null;
     };
 

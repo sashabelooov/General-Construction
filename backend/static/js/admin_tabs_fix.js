@@ -32,105 +32,105 @@
         }
     }
 
-    /* ── Dropdown fix ── */
-    function fixDropdowns() {
-        document.querySelectorAll('[data-toggle="dropdown"]').forEach(function (el) {
-            if (!el.hasAttribute("data-bs-toggle")) {
-                el.setAttribute("data-bs-toggle", "dropdown");
-            }
-        });
-
-        // Also fix collapse toggles (sidebar, etc.)
-        document.querySelectorAll('[data-toggle="collapse"]').forEach(function (el) {
-            if (!el.hasAttribute("data-bs-toggle")) {
-                el.setAttribute("data-bs-toggle", "collapse");
+    /* ── Bridge data-toggle to data-bs-toggle for all elements ── */
+    function bridgeDataAttributes() {
+        var toggleTypes = ["dropdown", "collapse", "tab", "pill", "modal", "tooltip", "popover"];
+        toggleTypes.forEach(function (type) {
+            document.querySelectorAll('[data-toggle="' + type + '"]').forEach(function (el) {
+                if (!el.hasAttribute("data-bs-toggle")) {
+                    el.setAttribute("data-bs-toggle", type);
+                }
+                // Also bridge data-target to data-bs-target
                 var target = el.getAttribute("data-target");
                 if (target && !el.hasAttribute("data-bs-target")) {
                     el.setAttribute("data-bs-target", target);
                 }
-            }
-        });
-
-        // Initialize Bootstrap 5 Dropdown instances
-        if (typeof bootstrap !== "undefined" && bootstrap.Dropdown) {
-            document.querySelectorAll('[data-bs-toggle="dropdown"]').forEach(function (el) {
-                try {
-                    if (!bootstrap.Dropdown.getInstance(el)) {
-                        new bootstrap.Dropdown(el);
-                    }
-                } catch (e) { /* already initialized */ }
             });
-        }
+        });
     }
 
     /* ── Language chooser fix ── */
     function fixLanguageChooser() {
-        // Find the language chooser form and dropdown items
-        var langForm = document.getElementById("language-form");
-        if (!langForm) return;
+        var menu = document.getElementById("jazzy-languagemenu");
+        if (!menu) return;
 
-        // Make sure clicking language dropdown items submits the form
-        document.querySelectorAll('.dropdown-item').forEach(function (item) {
-            // Check if this is a language switcher item by looking for onclick with language-form
-            var onclick = item.getAttribute("onclick");
-            if (onclick && onclick.indexOf("language-form") !== -1) {
-                // Replace onclick with a proper event listener
-                item.removeAttribute("onclick");
-                item.addEventListener("click", function (e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    // Extract language code from the onclick attribute
-                    var langMatch = onclick.match(/value\s*=\s*'([^']+)'/);
-                    if (langMatch) {
-                        var langInput = langForm.querySelector('[name="language"]');
-                        if (langInput) {
-                            langInput.value = langMatch[1];
-                            langForm.submit();
-                        }
-                    }
-                });
+        var navItem = menu.closest(".nav-item.dropdown");
+        if (!navItem) return;
+
+        var toggle = navItem.querySelector("a.nav-link");
+        if (!toggle) return;
+
+        // Remove any existing Bootstrap dropdown behavior that might interfere
+        toggle.removeAttribute("data-toggle");
+        toggle.removeAttribute("data-bs-toggle");
+
+        // Manual toggle: click the globe icon to show/hide the menu
+        toggle.addEventListener("click", function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            var isOpen = menu.classList.contains("show");
+
+            // Close all open dropdowns first
+            document.querySelectorAll(".dropdown-menu.show").forEach(function (m) {
+                m.classList.remove("show");
+                var p = m.closest(".nav-item");
+                if (p) p.classList.remove("show");
+            });
+
+            if (!isOpen) {
+                menu.classList.add("show");
+                navItem.classList.add("show");
             }
         });
 
-        // Also handle the dropdown toggle for the language chooser specifically
-        var langDropdownToggle = langForm.closest('.nav-item');
-        if (langDropdownToggle) {
-            var toggle = langDropdownToggle.querySelector('[data-toggle="dropdown"], [data-bs-toggle="dropdown"]');
-            var menu = langDropdownToggle.querySelector('.dropdown-menu');
-            if (toggle && menu) {
-                toggle.addEventListener("click", function (e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    var isOpen = menu.classList.contains("show");
-                    // Close all other dropdowns
-                    document.querySelectorAll('.dropdown-menu.show').forEach(function (m) {
-                        m.classList.remove("show");
-                    });
-                    if (!isOpen) {
-                        menu.classList.add("show");
-                    }
-                });
-            }
-        }
+        // The language buttons are type="submit" inside a form - they work natively.
+        // No extra JS needed for them. Clicking a button submits the form with the language value.
+    }
 
-        // Close dropdown when clicking outside
+    /* ── Close dropdowns on outside click ── */
+    function setupOutsideClickClose() {
         document.addEventListener("click", function (e) {
-            if (!e.target.closest('.nav-item.dropdown')) {
-                document.querySelectorAll('.dropdown-menu.show').forEach(function (m) {
+            if (!e.target.closest(".nav-item.dropdown")) {
+                document.querySelectorAll(".dropdown-menu.show").forEach(function (m) {
                     m.classList.remove("show");
+                    var p = m.closest(".nav-item");
+                    if (p) p.classList.remove("show");
                 });
             }
         });
     }
 
-    document.addEventListener("DOMContentLoaded", function () {
-        // Fix dropdowns (language chooser, user menu, etc.)
-        fixDropdowns();
+    /* ── Fix all other dropdowns (user menu, etc.) ── */
+    function fixOtherDropdowns() {
+        if (typeof bootstrap === "undefined" || !bootstrap.Dropdown) return;
 
-        // Fix language chooser specifically
+        document.querySelectorAll('[data-bs-toggle="dropdown"]').forEach(function (el) {
+            // Skip the language chooser - we handle it manually
+            if (el.closest("#jazzy-languagemenu") || (el.nextElementSibling && el.nextElementSibling.id === "jazzy-languagemenu")) return;
+
+            try {
+                if (!bootstrap.Dropdown.getInstance(el)) {
+                    new bootstrap.Dropdown(el);
+                }
+            } catch (e) { /* already initialized */ }
+        });
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        // Bridge Bootstrap 4 data attributes to Bootstrap 5
+        bridgeDataAttributes();
+
+        // Fix language chooser with manual toggle
         fixLanguageChooser();
 
-        // Fix tabs and pills (Jazzmin uses data-toggle="pill" for horizontal tabs)
+        // Fix other dropdowns using Bootstrap 5
+        fixOtherDropdowns();
+
+        // Close dropdowns on outside click
+        setupOutsideClickClose();
+
+        // Fix tabs and pills
         document.addEventListener("click", function (e) {
             var link = e.target.closest(
                 'a[data-toggle="tab"], a[data-toggle="pill"], ' +
@@ -140,19 +140,22 @@
             if (!link) return;
 
             // Don't intercept dropdown items or language chooser clicks
-            if (link.closest('.dropdown-menu') || link.closest('.dropdown')) return;
+            if (link.closest(".dropdown-menu") || link.closest(".dropdown")) return;
 
             e.preventDefault();
             activateTab(link);
         });
 
+        // Activate tab from URL hash
         if (window.location.hash) {
             var hashLink = document.querySelector('a[href="' + window.location.hash + '"]');
             if (hashLink) activateTab(hashLink);
         }
 
-        // Retry dropdown fix after a short delay (in case Bootstrap loads async)
-        setTimeout(fixDropdowns, 500);
-        setTimeout(fixLanguageChooser, 500);
+        // Retry after short delay in case Bootstrap loads asynchronously
+        setTimeout(function () {
+            bridgeDataAttributes();
+            fixOtherDropdowns();
+        }, 500);
     });
 })();
