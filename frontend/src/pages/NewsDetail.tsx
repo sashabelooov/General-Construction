@@ -88,11 +88,7 @@ export default function NewsDetail() {
               <div className="flex items-center gap-4 text-primary-foreground/80">
                 <div className="flex items-center gap-2">
                   <Calendar className="w-4 h-4" />
-                  {new Date(news.date_of_creation).toLocaleDateString(language === 'uz' ? "uz-UZ" : language === 'ru' ? "ru-RU" : "en-US", {
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                  })}
+                  {(() => { const d = new Date(news.date_of_creation); return `${String(d.getDate()).padStart(2,'0')}.${String(d.getMonth()+1).padStart(2,'0')}.${d.getFullYear()}`; })()}
                 </div>
               </div>
             </motion.div>
