@@ -40,9 +40,9 @@ const translations: Translations = {
 
   // Hero Section
   'hero.subtitle': {
-    uz: 'Premium turar-joy majmualari',
-    ru: 'Премиум жилые комплексы',
-    en: 'Premium Residential Complexes',
+    uz: 'Zamonaviy turar-joy majmualari',
+    ru: 'Современные жилые комплексы',
+    en: 'Modern Residential Complexes',
   },
   'hero.title': {
     uz: "Orzuingizdagi uyni biz bilan toping",
@@ -80,9 +80,9 @@ const translations: Translations = {
     en: 'starts today',
   },
   'hero.slide1.description': {
-    uz: 'Premium sifatli turar-joy majmualari. Zamonaviy dizayn, qulay to\'lov shartlari va ishonchli quruvchi.',
-    ru: 'Премиум качественные жилые комплексы. Современный дизайн, удобные условия оплаты и надежный застройщик.',
-    en: 'Premium quality residential complexes. Modern design, convenient payment terms and reliable builder.',
+    uz: 'Zamonaviy sifatli turar-joy majmualari. Zamonaviy dizayn, qulay to\'lov shartlari va ishonchli quruvchi.',
+    ru: 'Современные качественные жилые комплексы. Современный дизайн, удобные условия оплаты и надежный застройщик.',
+    en: 'Modern quality residential complexes. Modern design, convenient payment terms and reliable builder.',
   },
   'hero.slide2.title': {
     uz: 'Hashamatli hayot',
@@ -115,9 +115,9 @@ const translations: Translations = {
     en: '10+ years of experience, 50+ successful projects. The best choice for your family.',
   },
   'hero.projectDescription': {
-    uz: 'Zamonaviy turar-joy majmuasi. Premium sifat va qulay to\'lov shartlari.',
-    ru: 'Современный жилой комплекс. Премиум качество и удобные условия оплаты.',
-    en: 'Modern residential complex. Premium quality and convenient payment terms.',
+    uz: 'Zamonaviy turar-joy majmuasi. Zamonaviy sifat va qulay to\'lov shartlari.',
+    ru: 'Современный жилой комплекс. Современное качество и удобные условия оплаты.',
+    en: 'Modern residential complex. Modern quality and convenient payment terms.',
   },
 
   // Projects Section
@@ -127,9 +127,9 @@ const translations: Translations = {
     en: 'Our Projects',
   },
   'projects.title': {
-    uz: 'Premium turar-joy majmualari',
-    ru: 'Премиум жилые комплексы',
-    en: 'Premium Residential Complexes',
+    uz: 'Zamonaviy turar-joy majmualari',
+    ru: 'Современные жилые комплексы',
+    en: 'Modern Residential Complexes',
   },
   'projects.description': {
     uz: "Zamonaviy me'morchilik, qulay infrastruktura va ishonchli sifat bilan ajralib turuvchi loyihalarimiz",
@@ -264,9 +264,9 @@ const translations: Translations = {
     en: 'Business',
   },
   'filter.class.premium': {
-    uz: 'Premium',
-    ru: 'Премиум',
-    en: 'Premium',
+    uz: 'Zamonaviy',
+    ru: 'Современный',
+    en: 'Modern',
   },
   'filter.search': {
     uz: 'Qidirish',
