@@ -31,6 +31,14 @@ export interface InteriorSection {
     order: number;
 }
 
+export interface ArchitectureSection {
+    id: number;
+    title: MultiLangField;
+    description: MultiLangField;
+    image_url: string | null;
+    order: number;
+}
+
 export interface Apartment {
     id: number;
     delivery_year: number;
@@ -63,6 +71,7 @@ export interface ProjectDetail {
     image5_url: string | null;
     about_description: MultiLangField;
     about_image_url: string | null;
+    video_url: string;
     latitude: number;
     longitude: number;
     architecture_description: MultiLangField;
@@ -88,6 +97,7 @@ export interface Project {
     detail: ProjectDetail | null;
     apartments: Apartment[];
     interior_sections: InteriorSection[];
+    architecture_sections: ArchitectureSection[];
 }
 
 export interface NewsPost {

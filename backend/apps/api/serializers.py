@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from apps.content.models import Apartment, InteriorSection, Project, ProjectDetail, Amenity
+from apps.content.models import Apartment, ArchitectureSection, InteriorSection, Project, ProjectDetail, Amenity
 from apps.leads.models import Lead, Conversation
 from apps.news.models import NewsPost
 
@@ -83,6 +83,30 @@ class InteriorSectionSerializer(serializers.ModelSerializer):
         return None
 
 
+class ArchitectureSectionSerializer(serializers.ModelSerializer):
+    title = serializers.SerializerMethodField()
+    description = serializers.SerializerMethodField()
+    image_url = serializers.SerializerMethodField()
+
+    class Meta:
+        model = ArchitectureSection
+        fields = ["id", "title", "description", "image_url", "order"]
+
+    def get_title(self, obj: ArchitectureSection):
+        return {"uz": obj.title_uz, "ru": obj.title_ru, "en": obj.title_en}
+
+    def get_description(self, obj: ArchitectureSection):
+        return {"uz": obj.description_uz, "ru": obj.description_ru, "en": obj.description_en}
+
+    def get_image_url(self, obj: ArchitectureSection):
+        if obj.image:
+            request = self.context.get("request")
+            if request is not None:
+                return request.build_absolute_uri(obj.image.url)
+            return obj.image.url
+        return None
+
+
 class ProjectDetailSerializer(serializers.ModelSerializer):
     image1_url = serializers.SerializerMethodField()
     image2_url = serializers.SerializerMethodField()
@@ -108,6 +132,7 @@ class ProjectDetailSerializer(serializers.ModelSerializer):
         fields = [
             "image1_url", "image2_url", "image3_url", "image4_url", "image5_url",
             "about_description", "about_image_url",
+            "video_url",
             "latitude", "longitude",
             "architecture_description", "architecture_image1_url", "architecture_image2_url", "architecture_image3_url",
             "interior_description", "interior_image_url",
@@ -149,6 +174,7 @@ class ProjectSerializer(serializers.ModelSerializer):
     detail = ProjectDetailSerializer(read_only=True)
     apartments = ApartmentSerializer(many=True, read_only=True)
     interior_sections = InteriorSectionSerializer(many=True, read_only=True)
+    architecture_sections = ArchitectureSectionSerializer(many=True, read_only=True)
 
     class Meta:
         model = Project
@@ -166,6 +192,7 @@ class ProjectSerializer(serializers.ModelSerializer):
             "detail",
             "apartments",
             "interior_sections",
+            "architecture_sections",
         ]
 
     def get_image_url(self, obj: Project):

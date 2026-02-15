@@ -1,7 +1,15 @@
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
 
-from apps.content.models import Amenity, Apartment, InteriorSection, Project, ProjectDetail
+from apps.content.models import Amenity, Apartment, ArchitectureSection, InteriorSection, Project, ProjectDetail
+
+
+class ArchitectureSectionInline(admin.StackedInline):
+    model = ArchitectureSection
+    extra = 1
+    verbose_name = _("Architecture Section")
+    verbose_name_plural = _("Architecture Sections")
+    fields = ("title_uz", "title_ru", "title_en", "description_uz", "description_ru", "description_en", "image", "order")
 
 
 class InteriorSectionInline(admin.StackedInline):
@@ -26,18 +34,17 @@ class ProjectDetailInline(admin.StackedInline):
             "fields": ("about_description_uz", "about_description_ru", "about_description_en", "about_image"),
             "description": _("Description and image for the 'About' section.")
         }),
-        (_("3. Location"), {
+        (_("3. YouTube Video"), {
+            "fields": ("video_url",),
+            "description": _("Paste a YouTube video URL (e.g. https://www.youtube.com/watch?v=abc123). The video will be embedded on the project page.")
+        }),
+        (_("4. Location"), {
             "fields": ("latitude", "longitude"),
             "description": _("GPS coordinates for the map. Find them on Google Maps.")
         }),
-        (_("4. Architecture"), {
-            "fields": ("architecture_description_uz", "architecture_description_ru", "architecture_description_en",
-                       "architecture_image1", "architecture_image2", "architecture_image3"),
-            "description": _("Architecture description and 3 images.")
-        }),
-        (_("5. Interior Sections are added below (scroll down)"), {
+        (_("5. Architecture & Interior Sections are added below (scroll down)"), {
             "fields": (),
-            "description": _("Interior sections with images are added as separate items below this form. Each section becomes a carousel slide.")
+            "description": _("Architecture and Interior sections are added as separate items below. Each section has a title, description and image.")
         }),
     )
 
@@ -56,7 +63,7 @@ class ProjectAdmin(admin.ModelAdmin):
     search_fields = ("title", "location_name", "slug")
     prepopulated_fields = {"slug": ("title",)}
     readonly_fields = ("created_at", "updated_at")
-    inlines = [ProjectDetailInline, InteriorSectionInline, ApartmentInline]
+    inlines = [ProjectDetailInline, ArchitectureSectionInline, InteriorSectionInline, ApartmentInline]
 
     fieldsets = (
         (None, {"fields": ("title", "slug", "status", "segment", "completion_date")}),
@@ -65,11 +72,10 @@ class ProjectAdmin(admin.ModelAdmin):
     )
 
     def get_inline_instances(self, request, obj=None):
-        """Only show InteriorSectionInline when editing existing project with detail."""
+        """Only show section inlines when editing existing project."""
         inlines = super().get_inline_instances(request, obj)
         if obj is None:
-            # Remove InteriorSectionInline for new projects (no detail yet)
-            return [i for i in inlines if not isinstance(i, InteriorSectionInline)]
+            return [i for i in inlines if not isinstance(i, (ArchitectureSectionInline, InteriorSectionInline))]
         return inlines
 
 

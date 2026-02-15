@@ -111,14 +111,18 @@ class ProjectDetail(TimeStampedModel):
     latitude = models.DecimalField(_("Latitude"), max_digits=13, decimal_places=10)
     longitude = models.DecimalField(_("Longitude"), max_digits=13, decimal_places=10)
 
-    # Architecture
-    architecture_description = models.TextField(_("Architecture Description"))
+    # Video
+    video_url = models.URLField(_("YouTube Video URL"), max_length=500, blank=True, default="",
+                                help_text=_("Paste YouTube video link, e.g. https://www.youtube.com/watch?v=abc123"))
+
+    # Architecture (legacy fields - kept for backward compat, now optional)
+    architecture_description = models.TextField(_("Architecture Description"), blank=True, default="")
     architecture_description_uz = models.TextField(_("Architecture Description (Uzbek)"), blank=True, default="")
     architecture_description_ru = models.TextField(_("Architecture Description (Russian)"), blank=True, default="")
     architecture_description_en = models.TextField(_("Architecture Description (English)"), blank=True, default="")
-    architecture_image1 = models.ImageField(_("Architecture Image 1"), upload_to="projects/details/architecture/")
-    architecture_image2 = models.ImageField(_("Architecture Image 2"), upload_to="projects/details/architecture/")
-    architecture_image3 = models.ImageField(_("Architecture Image 3"), upload_to="projects/details/architecture/")
+    architecture_image1 = models.ImageField(_("Architecture Image 1"), upload_to="projects/details/architecture/", blank=True, null=True)
+    architecture_image2 = models.ImageField(_("Architecture Image 2"), upload_to="projects/details/architecture/", blank=True, null=True)
+    architecture_image3 = models.ImageField(_("Architecture Image 3"), upload_to="projects/details/architecture/", blank=True, null=True)
 
     # Interior Space & Amenities (legacy - kept for backward compat, now optional)
     interior_description = models.TextField(_("Interior Description"), blank=True, default="")
@@ -162,3 +166,29 @@ class InteriorSection(TimeStampedModel):
 
     def __str__(self) -> str:
         return self.name_en or self.name_ru or self.name_uz or f"Interior Section {self.pk}"
+
+
+class ArchitectureSection(TimeStampedModel):
+    """Individual architecture section with title, description and image for card display."""
+    project = models.ForeignKey(
+        Project,
+        on_delete=models.CASCADE,
+        related_name="architecture_sections",
+        verbose_name=_("Project")
+    )
+    title_uz = models.CharField(_("Title (Uzbek)"), max_length=255, blank=True, default="")
+    title_ru = models.CharField(_("Title (Russian)"), max_length=255, blank=True, default="")
+    title_en = models.CharField(_("Title (English)"), max_length=255, blank=True, default="")
+    description_uz = models.TextField(_("Description (Uzbek)"), blank=True, default="")
+    description_ru = models.TextField(_("Description (Russian)"), blank=True, default="")
+    description_en = models.TextField(_("Description (English)"), blank=True, default="")
+    image = models.ImageField(_("Image"), upload_to="projects/details/architecture/")
+    order = models.PositiveIntegerField(_("Order"), default=0)
+
+    class Meta:
+        verbose_name = _("Architecture Section")
+        verbose_name_plural = _("Architecture Sections")
+        ordering = ["order", "id"]
+
+    def __str__(self) -> str:
+        return self.title_en or self.title_ru or self.title_uz or f"Architecture Section {self.pk}"
