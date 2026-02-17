@@ -1,14 +1,22 @@
 import { motion } from "framer-motion";
+import { useLanguage } from "@/lib/i18n";
 
 interface LoadingScreenProps {
   onLoadingComplete?: () => void;
   isPageTransition?: boolean;
 }
 
+const taglines = {
+  uz: "Orzularni haqiqatga aylantirish",
+  ru: "Воплощаем мечты в реальность",
+  en: "Building Dreams Into Reality",
+};
+
 export default function LoadingScreen({
   onLoadingComplete,
   isPageTransition = false
 }: LoadingScreenProps) {
+  const { language } = useLanguage();
   // Shorter duration for page transitions
   const loadingDuration = isPageTransition ? 0.8 : 2;
   const initialDelay = isPageTransition ? 0 : 0.2;
@@ -107,7 +115,7 @@ export default function LoadingScreen({
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1, duration: 0.5 }}
           >
-            Building Dreams Into Reality
+            {taglines[language]}
           </motion.p>
         )}
 

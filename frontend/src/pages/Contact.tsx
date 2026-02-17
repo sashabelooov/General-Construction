@@ -33,19 +33,18 @@ function NavigationButtons({ lat, lng }: { lat: number; lng: number }) {
         href={`https://3.redirect.appmetrica.yandex.com/route?end-lat=${lat}&end-lon=${lng}&appmetrica_tracking_id=1178268795219780156`}
         target="_blank"
         rel="noopener noreferrer"
-        className="inline-flex items-center px-4 py-2.5 bg-[#FFDE00] rounded-xl hover:brightness-95 transition-all shadow-sm"
+        className="inline-flex items-center px-4 py-2 bg-[#FCE000] rounded-xl hover:brightness-95 transition-all shadow-sm"
       >
-        <svg width="120" height="28" viewBox="0 0 800 275" xmlns="http://www.w3.org/2000/svg">
-          <text x="400" y="200" textAnchor="middle" fontFamily="Arial, Helvetica, sans-serif" fontWeight="900" fontSize="220" fill="black">
-            Яндекс <tspan fontStyle="italic" fontFamily="Verdana, sans-serif">Go</tspan>
-          </text>
+        <svg width="130" height="30" viewBox="0 0 1050 250" xmlns="http://www.w3.org/2000/svg">
+          <text x="10" y="195" fontFamily="Arial, Helvetica, sans-serif" fontWeight="bold" fontSize="210" fill="black">Яндекс</text>
+          <text x="760" y="195" fontFamily="Georgia, Times, serif" fontWeight="bold" fontStyle="italic" fontSize="210" fill="black">Go</text>
         </svg>
       </a>
       <a
         href={`https://waze.com/ul?ll=${lat},${lng}&navigate=yes`}
         target="_blank"
         rel="noopener noreferrer"
-        className="inline-flex items-center gap-1.5 px-4 py-2.5 bg-[#33CCFF] rounded-xl hover:brightness-95 transition-all shadow-sm"
+        className="inline-flex items-center gap-1.5 px-4 py-2 bg-[#33CCFF] rounded-xl hover:brightness-95 transition-all shadow-sm"
       >
         <svg width="28" height="28" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
           <path d="M165,75 C165,120 135,150 100,150 C70,150 35,130 20,110 C5,90 20,75 20,75 C20,30 55,5 100,5 C145,5 165,35 165,75 Z" fill="white" stroke="black" strokeWidth="10"/>
