@@ -4,14 +4,14 @@ import { ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useLanguage } from "@/lib/i18n";
 
-// About images for carousel
-import aboutImage1 from "@/assets/about_1.jpg";
-import aboutImage2 from "@/assets/about_2.jpg";
-import aboutImage3 from "@/assets/about_3.jpg";
-import aboutImage5 from "@/assets/about_5.jpg";
-import aboutImage9 from "@/assets/about_9.jpg";
+// Yangiobod Residence images for hero carousel
+import yangiobod1 from "@/assets/yangiobod_main_1.jpeg";
+import yangiobod3 from "@/assets/yangiobod_main_3.jpeg";
+import yangiobod4 from "@/assets/yangiobod_main_4.jpeg";
+import yangiobod5 from "@/assets/yangiobod_main_5.jpeg";
+import yangiobod6 from "@/assets/yangiobod_main_6.jpeg";
 
-const heroImages = [aboutImage1, aboutImage2, aboutImage3, aboutImage5, aboutImage9];
+const heroImages = [yangiobod1, yangiobod3, yangiobod4, yangiobod5, yangiobod6];
 
 interface Slide {
   id: number;
