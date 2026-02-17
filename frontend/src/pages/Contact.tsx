@@ -28,40 +28,34 @@ const offices = [
 
 function NavigationButtons({ lat, lng }: { lat: number; lng: number }) {
   return (
-    <div className="flex gap-2 mt-3">
+    <div className="flex flex-wrap gap-3 mt-3">
       <a
         href={`https://3.redirect.appmetrica.yandex.com/route?end-lat=${lat}&end-lon=${lng}&appmetrica_tracking_id=1178268795219780156`}
         target="_blank"
         rel="noopener noreferrer"
-        className="flex items-center gap-2 px-4 py-2 bg-[#FFDE00] text-black rounded-lg hover:brightness-95 transition-all text-sm font-semibold"
+        className="inline-flex items-center px-4 py-2.5 bg-[#FFDE00] rounded-xl hover:brightness-95 transition-all shadow-sm"
       >
-        <svg width="20" height="20" viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
-          <rect width="800" height="500" fill="#FFDE00"/>
-          <text x="400" y="270" textAnchor="middle" fontFamily="Arial, sans-serif" fontWeight="900" fontSize="110" fill="black">
+        <svg width="120" height="28" viewBox="0 0 800 275" xmlns="http://www.w3.org/2000/svg">
+          <text x="400" y="200" textAnchor="middle" fontFamily="Arial, Helvetica, sans-serif" fontWeight="900" fontSize="220" fill="black">
             Яндекс <tspan fontStyle="italic" fontFamily="Verdana, sans-serif">Go</tspan>
           </text>
         </svg>
-        Yandex Go
       </a>
       <a
         href={`https://waze.com/ul?ll=${lat},${lng}&navigate=yes`}
         target="_blank"
         rel="noopener noreferrer"
-        className="flex items-center gap-2 px-4 py-2 bg-[#33CCFF] text-black rounded-lg hover:brightness-95 transition-all text-sm font-semibold"
+        className="inline-flex items-center gap-1.5 px-4 py-2.5 bg-[#33CCFF] rounded-xl hover:brightness-95 transition-all shadow-sm"
       >
-        <svg width="20" height="20" viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
-          <rect width="800" height="500" fill="#33CCFF"/>
-          <text x="120" y="280" fontFamily="Arial Rounded MT Bold, Helvetica, sans-serif" fontWeight="bold" fontSize="140" fill="black">waze</text>
-          <g transform="translate(550, 200)">
-            <circle cx="40" cy="115" r="22" fill="black"/>
-            <circle cx="110" cy="115" r="22" fill="black"/>
-            <path d="M145,65 C145,105 115,130 75,130 C45,130 15,115 5,100 C-5,85 5,65 5,65 C5,25 40,0 75,0 C110,0 145,25 145,65 Z" fill="white" stroke="black" strokeWidth="8"/>
-            <circle cx="60" cy="55" r="7" fill="black"/>
-            <circle cx="100" cy="55" r="7" fill="black"/>
-            <path d="M60,85 Q80,105 100,85" fill="none" stroke="black" strokeWidth="6" strokeLinecap="round"/>
-          </g>
+        <svg width="28" height="28" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+          <path d="M165,75 C165,120 135,150 100,150 C70,150 35,130 20,110 C5,90 20,75 20,75 C20,30 55,5 100,5 C145,5 165,35 165,75 Z" fill="white" stroke="black" strokeWidth="10"/>
+          <circle cx="75" cy="65" r="10" fill="black"/>
+          <circle cx="125" cy="65" r="10" fill="black"/>
+          <path d="M75,105 Q100,130 125,105" fill="none" stroke="black" strokeWidth="8" strokeLinecap="round"/>
+          <circle cx="55" cy="145" r="18" fill="black"/>
+          <circle cx="145" cy="145" r="18" fill="black"/>
         </svg>
-        Waze
+        <span className="font-bold text-sm text-black">Waze</span>
       </a>
     </div>
   );
