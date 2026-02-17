@@ -86,7 +86,7 @@ class RateLimitMiddleware:
         self.get_response = get_response
         # Rate limits: (requests, time_window_seconds)
         self.rate_limits = {
-            'default': (100, 3600),  # 100 requests per hour
+            'default': (1000, 3600),  # 1000 requests per hour
             '/api/v1/leads/': (10, 60),  # 10 leads per minute (prevent spam)
         }
 

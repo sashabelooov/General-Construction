@@ -225,15 +225,15 @@ else:
 # Rate limiting (using django-ratelimit or custom middleware)
 # Install: pip install django-ratelimit
 
-# API Throttling via DRF
-REST_FRAMEWORK["DEFAULT_THROTTLE_CLASSES"] = [
-    "rest_framework.throttling.AnonRateThrottle",
-    "rest_framework.throttling.UserRateThrottle",
-]
-REST_FRAMEWORK["DEFAULT_THROTTLE_RATES"] = {
-    "anon": "100/hour",  # Anonymous users: 100 requests per hour
-    "user": "1000/hour",  # Authenticated users: 1000 requests per hour
-}
+# API Throttling via DRF (disabled — custom RateLimitMiddleware handles this)
+# REST_FRAMEWORK["DEFAULT_THROTTLE_CLASSES"] = [
+#     "rest_framework.throttling.AnonRateThrottle",
+#     "rest_framework.throttling.UserRateThrottle",
+# ]
+# REST_FRAMEWORK["DEFAULT_THROTTLE_RATES"] = {
+#     "anon": "100/hour",
+#     "user": "1000/hour",
+# }
 
 # Security headers (enable in production)
 if not DEBUG:
