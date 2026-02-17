@@ -43,7 +43,7 @@ MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",  # Serve static files in production
     "apps.api.security.SecurityHeadersMiddleware",  # Security headers
-    "apps.api.security.RateLimitMiddleware",  # Rate limiting
+    # "apps.api.security.RateLimitMiddleware",  # Rate limiting (disabled — was causing 500s)
     "apps.api.security.APIClientCheckMiddleware",  # Block direct browser API access
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.locale.LocaleMiddleware",  # Add for i18n

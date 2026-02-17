@@ -1,5 +1,10 @@
+import logging
+
+from django.db.models import F
 from django.utils import timezone
 from .models import Visitor, PageView, DailyStats
+
+logger = logging.getLogger(__name__)
 
 
 class VisitorTrackingMiddleware:
@@ -18,41 +23,44 @@ class VisitorTrackingMiddleware:
         if path.startswith('/api/schema/'):
             return self.get_response(request)
 
-        # Get client IP address
-        ip_address = self.get_client_ip(request)
+        # Track visitor — wrapped in try/except so analytics never breaks real requests
+        try:
+            ip_address = self.get_client_ip(request)
 
-        if ip_address:
-            # Get or create visitor
-            visitor, created = Visitor.objects.get_or_create(
-                ip_address=ip_address,
-                defaults={
-                    'user_agent': request.META.get('HTTP_USER_AGENT', '')[:500],
-                }
-            )
-
-            if not created:
-                # Update visit count and last visit
-                visitor.visit_count += 1
-                visitor.last_visit = timezone.now()
-                visitor.save(update_fields=['visit_count', 'last_visit'])
-
-            # Create page view record for API requests
-            if path.startswith('/api/'):
-                PageView.objects.create(
-                    visitor=visitor,
-                    path=path,
-                    referer=request.META.get('HTTP_REFERER', '')[:200] if request.META.get('HTTP_REFERER') else '',
+            if ip_address:
+                # Get or create visitor
+                visitor, created = Visitor.objects.get_or_create(
+                    ip_address=ip_address,
+                    defaults={
+                        'user_agent': request.META.get('HTTP_USER_AGENT', '')[:500],
+                    }
                 )
 
-            # Update daily stats
-            today = timezone.now().date()
-            daily_stats, _ = DailyStats.objects.get_or_create(date=today)
+                if not created:
+                    Visitor.objects.filter(pk=visitor.pk).update(
+                        visit_count=F('visit_count') + 1,
+                        last_visit=timezone.now(),
+                    )
 
-            if created:
-                daily_stats.unique_visitors += 1
+                # Create page view record for API requests
+                if path.startswith('/api/'):
+                    PageView.objects.create(
+                        visitor=visitor,
+                        path=path,
+                        referer=request.META.get('HTTP_REFERER', '')[:200] if request.META.get('HTTP_REFERER') else '',
+                    )
 
-            daily_stats.total_page_views += 1
-            daily_stats.save(update_fields=['unique_visitors', 'total_page_views'])
+                # Update daily stats using F() to avoid race conditions
+                today = timezone.now().date()
+                daily_stats, day_created = DailyStats.objects.get_or_create(date=today)
+
+                updates = {'total_page_views': F('total_page_views') + 1}
+                if created:
+                    updates['unique_visitors'] = F('unique_visitors') + 1
+
+                DailyStats.objects.filter(pk=daily_stats.pk).update(**updates)
+        except Exception:
+            logger.exception("VisitorTrackingMiddleware error (non-fatal)")
 
         response = self.get_response(request)
         return response
