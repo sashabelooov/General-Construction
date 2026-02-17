@@ -169,9 +169,9 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center px-4 py-2 bg-[#FCE000] rounded-xl hover:brightness-95 transition-all shadow-sm"
               >
-                <svg width="130" height="30" viewBox="0 0 1050 250" xmlns="http://www.w3.org/2000/svg">
-                  <text x="10" y="195" fontFamily="Montserrat, Arial, sans-serif" fontWeight="700" fontSize="210" fill="black">Яндекс</text>
-                  <text x="760" y="195" fontFamily="Montserrat, Arial, sans-serif" fontWeight="600" fontStyle="italic" fontSize="210" fill="black">Go</text>
+                <svg width="110" height="24" viewBox="0 0 880 200" xmlns="http://www.w3.org/2000/svg">
+                  <text x="10" y="155" fontFamily="Montserrat, Arial, sans-serif" fontWeight="600" fontSize="160" fill="black">Яндекс</text>
+                  <text x="630" y="155" fontFamily="Montserrat, Arial, sans-serif" fontWeight="500" fontStyle="italic" fontSize="160" fill="black">Go</text>
                 </svg>
               </a>
               <a
