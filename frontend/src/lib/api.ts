@@ -91,7 +91,7 @@ export interface Project {
     status: string;
     image_url: string | null;
     completion_date: string | null;
-    location_name: string;
+    location_name: MultiLangField;
     number_of_houses: number;
     segment: "comfort" | "business" | "premium";
     created_at: string;

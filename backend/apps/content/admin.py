@@ -67,7 +67,7 @@ class ProjectAdmin(admin.ModelAdmin):
 
     fieldsets = (
         (None, {"fields": ("title", "slug", "status", "segment", "completion_date")}),
-        (_("General Info"), {"fields": ("location_name", "number_of_houses", "image")}),
+        (_("General Info"), {"fields": ("location_name", "location_name_ru", "location_name_en", "number_of_houses", "image")}),
         (_("Timestamps"), {"fields": ("created_at", "updated_at")}),
     )
 

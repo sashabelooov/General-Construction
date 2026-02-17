@@ -6,8 +6,8 @@ import { useLanguage } from "@/lib/i18n";
 const COMPANY_START_YEAR = 2022;
 
 const offices = [
-  { name: "Yangiobod Residence", address: "Yashnobod tumani, Uysozlar mavzesi 9/1 uy" },
-  { name: "Afsona Residence", address: "Toshkent shaxri, Yunusobod tumani, 4-mavze Adolat 28A" },
+  { name: "Yangiobod Residence", address: { uz: "Yashnobod tumani, Uysozlar mavzesi 9/1 uy", ru: "Яшнабадский район, массив Уйсозлар 9/1", en: "Yashnobod district, Uysozlar area 9/1" } },
+  { name: "Afsona Residence", address: { uz: "Toshkent shaxri, Yunusobod tumani, 4-mavze Adolat 28A", ru: "г. Ташкент, Юнусабадский район, 4-массив Адолат 28А", en: "Tashkent, Yunusobod district, 4th area Adolat 28A" } },
 ];
 
 const socialLinks = [
@@ -18,7 +18,7 @@ const socialLinks = [
 ];
 
 export default function Footer() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const currentYear = new Date().getFullYear();
   const yearsOfExperience = currentYear - COMPANY_START_YEAR;
 
@@ -90,7 +90,7 @@ export default function Footer() {
                     <MapPin className="w-4 h-4 text-accent flex-shrink-0 mt-1" />
                     <div>
                       <p className="font-medium text-sm">{office.name}</p>
-                      <p className="text-primary-foreground/70 text-sm">{office.address}</p>
+                      <p className="text-primary-foreground/70 text-sm">{office.address[language as keyof typeof office.address]}</p>
                     </div>
                   </li>
                 ))}
@@ -170,8 +170,8 @@ export default function Footer() {
                 className="inline-flex items-center px-4 py-2 bg-[#FCE000] rounded-xl hover:brightness-95 transition-all shadow-sm"
               >
                 <svg width="130" height="30" viewBox="0 0 1050 250" xmlns="http://www.w3.org/2000/svg">
-                  <text x="10" y="195" fontFamily="Arial, Helvetica, sans-serif" fontWeight="bold" fontSize="210" fill="black">Яндекс</text>
-                  <text x="760" y="195" fontFamily="Georgia, Times, serif" fontWeight="bold" fontStyle="italic" fontSize="210" fill="black">Go</text>
+                  <text x="10" y="195" fontFamily="Montserrat, Arial, sans-serif" fontWeight="700" fontSize="210" fill="black">Яндекс</text>
+                  <text x="760" y="195" fontFamily="Montserrat, Arial, sans-serif" fontWeight="600" fontStyle="italic" fontSize="210" fill="black">Go</text>
                 </svg>
               </a>
               <a

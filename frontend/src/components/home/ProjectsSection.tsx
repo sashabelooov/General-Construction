@@ -188,7 +188,7 @@ export default function ProjectsSection() {
                 <div className="p-6">
                   <div className="flex items-center gap-2 text-muted-foreground mb-2">
                     <MapPin className="w-4 h-4 text-accent" />
-                    <span className="text-sm">{project.location_name}</span>
+                    <span className="text-sm">{project.location_name[language] || project.location_name.uz}</span>
                   </div>
 
                   <div className="flex items-center gap-2 text-muted-foreground mb-2">

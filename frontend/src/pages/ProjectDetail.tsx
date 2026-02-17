@@ -222,7 +222,7 @@ export default function ProjectDetail() {
                                 </h1>
                                 <div className="flex items-center justify-center gap-2 text-primary-foreground/90 mt-4">
                                     <MapPin className="w-5 h-5" />
-                                    <span className="text-lg md:text-xl">{project.location_name}</span>
+                                    <span className="text-lg md:text-xl">{project.location_name[language] || project.location_name.uz}</span>
                                 </div>
                             </motion.div>
                         </div>
@@ -258,7 +258,7 @@ export default function ProjectDetail() {
                                         <div className="bg-secondary p-4 rounded-xl flex sm:block items-center gap-3">
                                             <MapPin className="w-8 h-8 text-accent mb-0 sm:mb-2 flex-shrink-0" />
                                             <div>
-                                                <p className="text-lg font-bold text-foreground">{project.location_name}</p>
+                                                <p className="text-lg font-bold text-foreground">{project.location_name[language] || project.location_name.uz}</p>
                                                 <p className="text-sm text-muted-foreground">{language === 'uz' ? 'Joylashuv' : language === 'ru' ? 'Локация' : 'Location'}</p>
                                             </div>
                                         </div>
@@ -420,8 +420,8 @@ export default function ProjectDetail() {
                                     className="inline-flex items-center px-4 py-2 bg-[#FCE000] rounded-xl hover:brightness-95 transition-all shadow-sm"
                                 >
                                     <svg width="130" height="30" viewBox="0 0 1050 250" xmlns="http://www.w3.org/2000/svg">
-                                        <text x="10" y="195" fontFamily="Arial, Helvetica, sans-serif" fontWeight="bold" fontSize="210" fill="black">Яндекс</text>
-                                        <text x="760" y="195" fontFamily="Georgia, Times, serif" fontWeight="bold" fontStyle="italic" fontSize="210" fill="black">Go</text>
+                                        <text x="10" y="195" fontFamily="Montserrat, Arial, sans-serif" fontWeight="700" fontSize="210" fill="black">Яндекс</text>
+                                        <text x="760" y="195" fontFamily="Montserrat, Arial, sans-serif" fontWeight="600" fontStyle="italic" fontSize="210" fill="black">Go</text>
                                     </svg>
                                 </a>
                                 <a

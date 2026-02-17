@@ -8,7 +8,7 @@ import { useLanguage } from "@/lib/i18n";
 const offices = [
   {
     name: "Yangiobod Residence",
-    address: "Yashnobod tumani, Uysozlar mavzesi 9/1 uy",
+    address: { uz: "Yashnobod tumani, Uysozlar mavzesi 9/1 uy", ru: "Яшнабадский район, массив Уйсозлар 9/1", en: "Yashnobod district, Uysozlar area 9/1" },
     phone: "+998 (78) 555-55-44",
     hours: { uz: "Dush - Jum: 09:00 - 18:00", ru: "Пн - Пт: 09:00 - 18:00", en: "Mon - Fri: 09:00 - 18:00" },
     mapUrl: "https://maps.google.com/maps?q=41.257387,69.343874&z=16&output=embed",
@@ -17,7 +17,7 @@ const offices = [
   },
   {
     name: "Afsona Residence",
-    address: "Toshkent shaxri, Yunusobod tumani, 4-mavze Adolat 28A",
+    address: { uz: "Toshkent shaxri, Yunusobod tumani, 4-mavze Adolat 28A", ru: "г. Ташкент, Юнусабадский район, 4-массив Адолат 28А", en: "Tashkent, Yunusobod district, 4th area Adolat 28A" },
     phone: "+998 (78) 555-55-44",
     hours: { uz: "Dush - Jum: 09:00 - 18:00", ru: "Пн - Пт: 09:00 - 18:00", en: "Mon - Fri: 09:00 - 18:00" },
     mapUrl: "https://maps.google.com/maps?q=41.364006,69.281593&z=16&output=embed",
@@ -36,8 +36,8 @@ function NavigationButtons({ lat, lng }: { lat: number; lng: number }) {
         className="inline-flex items-center px-4 py-2 bg-[#FCE000] rounded-xl hover:brightness-95 transition-all shadow-sm"
       >
         <svg width="130" height="30" viewBox="0 0 1050 250" xmlns="http://www.w3.org/2000/svg">
-          <text x="10" y="195" fontFamily="Arial, Helvetica, sans-serif" fontWeight="bold" fontSize="210" fill="black">Яндекс</text>
-          <text x="760" y="195" fontFamily="Georgia, Times, serif" fontWeight="bold" fontStyle="italic" fontSize="210" fill="black">Go</text>
+          <text x="10" y="195" fontFamily="Montserrat, Arial, sans-serif" fontWeight="700" fontSize="210" fill="black">Яндекс</text>
+          <text x="760" y="195" fontFamily="Montserrat, Arial, sans-serif" fontWeight="600" fontStyle="italic" fontSize="210" fill="black">Go</text>
         </svg>
       </a>
       <a
@@ -233,7 +233,7 @@ export default function Contact() {
                     <ul className="space-y-3">
                       <li className="flex items-start gap-3">
                         <MapPin className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
-                        <span className="text-muted-foreground">{office.address}</span>
+                        <span className="text-muted-foreground">{office.address[language as keyof typeof office.address]}</span>
                       </li>
                       <li className="flex items-center gap-3">
                         <Phone className="w-5 h-5 text-accent" />

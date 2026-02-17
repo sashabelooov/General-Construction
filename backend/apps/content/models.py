@@ -50,7 +50,9 @@ class Project(TimeStampedModel):
         choices=Segment.choices,
         default=Segment.BUSINESS
     )
-    location_name = models.CharField(_("Location Name"), max_length=255)
+    location_name = models.CharField(_("Location Name (UZ)"), max_length=255)
+    location_name_ru = models.CharField(_("Location Name (RU)"), max_length=255, blank=True, default="")
+    location_name_en = models.CharField(_("Location Name (EN)"), max_length=255, blank=True, default="")
     number_of_houses = models.PositiveIntegerField(_("Number of Houses"), default=0)
     image = models.ImageField(_("Image"), upload_to="projects/images/")
     completion_date = models.DateField(_("Completion Date"))

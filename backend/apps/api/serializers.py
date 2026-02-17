@@ -171,6 +171,7 @@ class ProjectDetailSerializer(serializers.ModelSerializer):
 
 class ProjectSerializer(serializers.ModelSerializer):
     image_url = serializers.SerializerMethodField()
+    location_name = serializers.SerializerMethodField()
     detail = ProjectDetailSerializer(read_only=True)
     apartments = ApartmentSerializer(many=True, read_only=True)
     interior_sections = InteriorSectionSerializer(many=True, read_only=True)
@@ -194,6 +195,14 @@ class ProjectSerializer(serializers.ModelSerializer):
             "interior_sections",
             "architecture_sections",
         ]
+
+    def get_location_name(self, obj: Project):
+        uz = obj.location_name or ""
+        return {
+            "uz": uz,
+            "ru": obj.location_name_ru or uz,
+            "en": obj.location_name_en or uz,
+        }
 
     def get_image_url(self, obj: Project):
         if obj.image:
