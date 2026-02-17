@@ -127,6 +127,33 @@ class RateLimitMiddleware:
         return request.META.get('REMOTE_ADDR')
 
 
+class APIClientCheckMiddleware:
+    """
+    Block direct browser access to API endpoints.
+    Only requests from our frontend (with X-GC-Client header) are allowed.
+    Admin, schema docs, and leads POST are exempt.
+    """
+
+    def __init__(self, get_response):
+        self.get_response = get_response
+
+    def __call__(self, request):
+        if request.path.startswith('/api/'):
+            # Allow leads POST (contact form already has CSRF exemption)
+            if request.path.startswith('/api/v1/leads/') and request.method == 'POST':
+                return self.get_response(request)
+            # Allow schema/docs endpoints
+            if request.path.startswith('/api/schema'):
+                return self.get_response(request)
+            # Require custom header from our frontend
+            if request.META.get('HTTP_X_GC_CLIENT') != 'web':
+                return JsonResponse(
+                    {"detail": "Access denied."},
+                    status=status.HTTP_403_FORBIDDEN
+                )
+        return self.get_response(request)
+
+
 class SecurityHeadersMiddleware:
     """Add security headers to API responses (skip admin to avoid breaking Jazzmin JS)."""
 

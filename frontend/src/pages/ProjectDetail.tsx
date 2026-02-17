@@ -410,6 +410,45 @@ export default function ProjectDetail() {
                                 className="w-full h-full"
                             />
                         </div>
+                        {/* Navigation Buttons */}
+                        <div className="bg-white py-4">
+                            <div className="flex justify-center gap-3">
+                                <a
+                                    href={`https://3.redirect.appmetrica.yandex.com/route?end-lat=${project.detail.latitude}&end-lon=${project.detail.longitude}&appmetrica_tracking_id=1178268795219780156`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="flex items-center gap-2 px-5 py-2.5 bg-[#FFDE00] text-black rounded-lg hover:brightness-95 transition-all text-sm font-semibold"
+                                >
+                                    <svg width="20" height="20" viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+                                        <rect width="800" height="500" fill="#FFDE00"/>
+                                        <text x="400" y="270" textAnchor="middle" fontFamily="Arial, sans-serif" fontWeight="900" fontSize="110" fill="black">
+                                            Яндекс <tspan fontStyle="italic" fontFamily="Verdana, sans-serif">Go</tspan>
+                                        </text>
+                                    </svg>
+                                    Yandex Go
+                                </a>
+                                <a
+                                    href={`https://waze.com/ul?ll=${project.detail.latitude},${project.detail.longitude}&navigate=yes`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="flex items-center gap-2 px-5 py-2.5 bg-[#33CCFF] text-black rounded-lg hover:brightness-95 transition-all text-sm font-semibold"
+                                >
+                                    <svg width="20" height="20" viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+                                        <rect width="800" height="500" fill="#33CCFF"/>
+                                        <text x="120" y="280" fontFamily="Arial Rounded MT Bold, Helvetica, sans-serif" fontWeight="bold" fontSize="140" fill="black">waze</text>
+                                        <g transform="translate(550, 200)">
+                                            <circle cx="40" cy="115" r="22" fill="black"/>
+                                            <circle cx="110" cy="115" r="22" fill="black"/>
+                                            <path d="M145,65 C145,105 115,130 75,130 C45,130 15,115 5,100 C-5,85 5,65 5,65 C5,25 40,0 75,0 C110,0 145,25 145,65 Z" fill="white" stroke="black" strokeWidth="8"/>
+                                            <circle cx="60" cy="55" r="7" fill="black"/>
+                                            <circle cx="100" cy="55" r="7" fill="black"/>
+                                            <path d="M60,85 Q80,105 100,85" fill="none" stroke="black" strokeWidth="6" strokeLinecap="round"/>
+                                        </g>
+                                    </svg>
+                                    Waze
+                                </a>
+                            </div>
+                        </div>
                     </section>
                 )}
 

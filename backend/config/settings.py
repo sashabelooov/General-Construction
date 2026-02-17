@@ -44,6 +44,7 @@ MIDDLEWARE = [
     "whitenoise.middleware.WhiteNoiseMiddleware",  # Serve static files in production
     "apps.api.security.SecurityHeadersMiddleware",  # Security headers
     "apps.api.security.RateLimitMiddleware",  # Rate limiting
+    "apps.api.security.APIClientCheckMiddleware",  # Block direct browser API access
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.locale.LocaleMiddleware",  # Add for i18n
     "django.middleware.common.CommonMiddleware",
@@ -158,6 +159,15 @@ CORS_ALLOWED_ORIGINS = [
     "http://192.168.48.2:8080",
 ]
 CORS_ALLOW_ALL_ORIGINS = DEBUG  # Allow all origins in development
+CORS_ALLOW_HEADERS = [
+    "accept",
+    "authorization",
+    "content-type",
+    "origin",
+    "x-csrftoken",
+    "x-requested-with",
+    "x-gc-client",
+]
 
 # CSRF: trust the proxy origin (required for Django 4.0+ behind reverse proxy)
 _csrf_env = os.environ.get("DJANGO_CSRF_TRUSTED_ORIGINS", "").strip()
