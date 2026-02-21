@@ -151,7 +151,14 @@ export default function Footer() {
           {/* Right Section - Google Map */}
           <div className="lg:pl-8">
             <h4 className="font-heading font-bold text-lg mb-4">{t('footer.location')}</h4>
-            <div className="rounded-2xl overflow-hidden min-h-[400px] bg-primary-foreground/10">
+            <div className="rounded-2xl overflow-hidden min-h-[400px] bg-primary-foreground/10 relative">
+              <a
+                href="https://www.google.com/maps?q=41.364006,69.281593"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="absolute inset-0 z-10"
+                aria-label="Open in Google Maps"
+              />
               <iframe
                 src="https://maps.google.com/maps?q=41.364006,69.281593&z=16&output=embed"
                 width="100%"

@@ -178,7 +178,14 @@ export default function Contact() {
                 <p className="text-muted-foreground mb-8">
                   {t('contact.ourAddressDescription')}
                 </p>
-                <div className="rounded-2xl overflow-hidden shadow-soft h-[400px]">
+                <div className="rounded-2xl overflow-hidden shadow-soft h-[400px] relative">
+                  <a
+                    href="https://www.google.com/maps?q=41.364006,69.281593"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="absolute inset-0 z-10"
+                    aria-label="Open in Google Maps"
+                  />
                   <iframe
                     src="https://maps.google.com/maps?q=41.364006,69.281593&z=16&output=embed"
                     width="100%"
@@ -217,7 +224,14 @@ export default function Contact() {
                   transition={{ delay: index * 0.1 }}
                   className="bg-card rounded-2xl overflow-hidden shadow-soft"
                 >
-                  <div className="h-48 bg-muted">
+                  <div className="h-48 bg-muted relative">
+                    <a
+                      href={`https://www.google.com/maps?q=${office.lat},${office.lng}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="absolute inset-0 z-10"
+                      aria-label="Open in Google Maps"
+                    />
                     <iframe
                       src={office.mapUrl}
                       width="100%"

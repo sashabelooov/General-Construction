@@ -397,6 +397,13 @@ export default function ProjectDetail() {
 
                         {/* Full Width Map Container */}
                         <div className="relative w-full h-[600px] md:h-[700px] lg:h-[800px]">
+                            <a
+                                href={`https://www.google.com/maps?q=${project.detail.latitude},${project.detail.longitude}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="absolute inset-0 z-10"
+                                aria-label="Open in Google Maps"
+                            />
                             {/* Full Width Map */}
                             <iframe
                                 src={`https://maps.google.com/maps?q=${project.detail.latitude},${project.detail.longitude}&z=15&output=embed`}
