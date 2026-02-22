@@ -577,9 +577,9 @@ const translations: Translations = {
     en: 'Sales Office',
   },
   'contact.phone': {
-    uz: 'Telefon',
-    ru: 'Телефон',
-    en: 'Phone',
+    uz: 'Menejer telefon raqami',
+    ru: 'Телефон менеджера',
+    en: 'Manager phone number',
   },
   'contact.email': {
     uz: 'Elektron pochta',
