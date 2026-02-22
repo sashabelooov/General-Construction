@@ -67,9 +67,9 @@ export default function Contact() {
     {
       icon: Phone,
       title: t('contact.phone'),
-      value: "+998 (78) 555-55-44",
-      description: t('contact.businessHoursValue'),
-      href: "tel:+998785555544",
+      value: "+998 (95) 031-60-30",
+      description: "+998 (95) 041-60-30",
+      href: "tel:+998950316030",
     },
     {
       icon: MapPin,
