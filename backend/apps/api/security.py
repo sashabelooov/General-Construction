@@ -164,7 +164,7 @@ class SecurityHeadersMiddleware:
         response = self.get_response(request)
 
         # Skip admin panel — Jazzmin needs inline scripts and permissive headers
-        if request.path.startswith('/admin/'):
+        if request.path.startswith('/admin/') or request.path.startswith('/gc-management/'):
             return response
 
         # Security headers for non-admin responses

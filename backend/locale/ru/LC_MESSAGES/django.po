@@ -457,6 +457,64 @@ msgstr "Социальные сети"
 msgid "Footer"
 msgstr "Подвал сайта"
 
+# Analytics App
+msgid "Visitor"
+msgstr "Посетитель"
+
+msgid "Visitors"
+msgstr "Посетители"
+
+msgid "IP Address"
+msgstr "IP-адрес"
+
+msgid "User Agent"
+msgstr "User Agent"
+
+msgid "First Visit"
+msgstr "Первый визит"
+
+msgid "Last Visit"
+msgstr "Последний визит"
+
+msgid "Visit Count"
+msgstr "Количество визитов"
+
+msgid "Country"
+msgstr "Страна"
+
+msgid "City"
+msgstr "Город"
+
+msgid "Page View"
+msgstr "Просмотр страницы"
+
+msgid "Page Views"
+msgstr "Просмотры страниц"
+
+msgid "Page Path"
+msgstr "Путь страницы"
+
+msgid "Referer"
+msgstr "Источник"
+
+msgid "Timestamp"
+msgstr "Время"
+
+msgid "Daily Statistics"
+msgstr "Ежедневная статистика"
+
+msgid "Date"
+msgstr "Дата"
+
+msgid "Unique Visitors"
+msgstr "Уникальных посетителей"
+
+msgid "Total Page Views"
+msgstr "Всего просмотров"
+
+msgid "Leads Count"
+msgstr "Количество заявок"
+
 # App Names (sidebar sections)
 msgid "News"
 msgstr "Новости"
