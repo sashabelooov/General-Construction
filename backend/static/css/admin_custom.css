@@ -1,0 +1,29 @@
+/*
+ * Force AdminLTE 4 sidebar to always use the desktop (flex) layout.
+ * Without this, at viewport < 992px the sidebar becomes a full-screen overlay
+ * because Jazzmin always includes "sidebar-open" in the body class.
+ */
+@media (max-width: 991.98px) {
+    /* Apply desktop flex layout below the lg breakpoint */
+    .sidebar-expand-lg.layout-fixed .app-main-wrapper {
+        display: flex !important;
+        min-height: 100vh !important;
+    }
+    .sidebar-expand-lg.layout-fixed .app-sidebar-wrapper {
+        position: relative !important;
+    }
+    .sidebar-expand-lg.layout-fixed .app-main {
+        flex: 1 1 auto !important;
+        overflow: auto !important;
+    }
+    /* Sidebar: sticky alongside content instead of fixed overlay */
+    .sidebar-expand-lg.layout-fixed .app-sidebar {
+        position: sticky !important;
+        margin-left: 0 !important;
+        max-height: 100vh !important;
+    }
+    /* Hide the dark overlay backdrop */
+    .sidebar-expand-lg.sidebar-open .sidebar-overlay {
+        display: none !important;
+    }
+}

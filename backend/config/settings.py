@@ -194,8 +194,10 @@ JAZZMIN_SETTINGS = {
     # Enable language switcher in admin
     "language_chooser": True,
     "changeform_format": "horizontal_tabs",
-    # Fix Bootstrap 4/5 mismatch in Jazzmin 3.x (data-toggle → data-bs-toggle)
+    # Fix horizontal tabs in Django changeform
     "custom_js": "js/admin_tabs_fix.js",
+    # Fix sidebar overlay issue on narrow viewports
+    "custom_css": "css/admin_custom.css",
 }
 
 # ASGI Application for WebSocket support
