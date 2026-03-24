@@ -1,0 +1,67 @@
+/*
+ * Custom AdminLTE v4 / Jazzmin sidebar fixes.
+ *
+ * Problem: Sidebar nav-link items render icons and text as stacked blocks
+ * instead of inline (icon + text on the same line).
+ * Root cause: Bootstrap 5 .nav .nav-link + AdminLTE v4 RC3 conflicts.
+ */
+
+/* Ensure sidebar nav-links lay out icon and text on one line */
+#jazzy-sidebar .sidebar-menu .nav-link {
+    display: flex !important;
+    align-items: center !important;
+    white-space: nowrap;
+}
+
+/* The <p> inside nav-link must be inline, not block */
+#jazzy-sidebar .sidebar-menu .nav-link p {
+    display: inline !important;
+    margin: 0;
+    padding-left: 0.5rem;
+}
+
+/* Nav icon: fixed width, inline, centered */
+#jazzy-sidebar .sidebar-menu .nav-link .nav-icon {
+    width: 1.6rem;
+    font-size: 1.1rem;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+/* Section headers (nav-header) styling */
+#jazzy-sidebar .sidebar-menu .nav-header {
+    padding: 0.75rem 1rem 0.4rem;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    opacity: 0.7;
+}
+
+/*
+ * Fix sidebar overlay on narrow viewports.
+ * Jazzmin always adds "sidebar-open" to <body>, which triggers the
+ * full-screen overlay at < 992px. Force the desktop flex layout instead.
+ */
+@media (max-width: 991.98px) {
+    .sidebar-expand-lg.layout-fixed .app-wrapper {
+        display: flex !important;
+        flex-direction: row !important;
+        min-height: 100vh !important;
+        flex-wrap: nowrap !important;
+    }
+    .sidebar-expand-lg.layout-fixed .app-sidebar {
+        position: sticky !important;
+        top: 0;
+        margin-left: 0 !important;
+        max-height: 100vh !important;
+        overflow-y: auto;
+    }
+    .sidebar-expand-lg.layout-fixed .app-main {
+        flex: 1 1 auto !important;
+        overflow: auto !important;
+    }
+    /* Hide the dark overlay backdrop */
+    .sidebar-expand-lg.sidebar-open .sidebar-overlay {
+        display: none !important;
+    }
+}

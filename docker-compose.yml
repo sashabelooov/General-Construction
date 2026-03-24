@@ -45,7 +45,7 @@ services:
     restart: unless-stopped
     volumes:
       - ./media:/app/media              # Bind mount: nginx serves directly from host
-      - static_data:/app/staticfiles    # Django admin static files
+      - ./staticfiles:/app/staticfiles   # Bind mount: nginx serves directly from host
     environment:
       # Django
       DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY}
@@ -78,4 +78,3 @@ services:
 volumes:
   postgres_data:     # Database files persist across restarts
   redis_data:        # Redis data persists across restarts
-  static_data:       # Django static files (admin CSS/JS)
