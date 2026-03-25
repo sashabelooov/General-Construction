@@ -552,6 +552,8 @@ msgstr "Oxirgi tashrif"
 msgid "Visit Count"
 msgstr "Tashriflar soni"
 
+
+
 msgid "Country"
 msgstr "Mamlakat"
 
@@ -559,10 +561,10 @@ msgid "City"
 msgstr "Shahar"
 
 msgid "Visitor"
-msgstr "Tashrif buyuruvchi"
+msgstr "Foydalanuvchi"
 
 msgid "Visitors"
-msgstr "Tashrif buyuruvchilar"
+msgstr "Foydalanuvchilar"
 
 msgid "Page Path"
 msgstr "Sahifa yo'li"
@@ -583,7 +585,7 @@ msgid "Date"
 msgstr "Sana"
 
 msgid "Unique Visitors"
-msgstr "Noyob tashrifchilar"
+msgstr "Noyob foydalanuvchilar"
 
 msgid "Total Page Views"
 msgstr "Jami sahifa ko'rishlar"
@@ -595,7 +597,7 @@ msgid "Daily Statistics"
 msgstr "Kunlik statistika"
 
 msgid "Visitor IP"
-msgstr "Tashrif buyuruvchi IP"
+msgstr "Foydalanuvchi IP"
 
 msgid "Relative Traffic"
 msgstr "Nisbiy trafik"
