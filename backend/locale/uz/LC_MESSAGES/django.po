@@ -92,6 +92,15 @@ msgstr "Segment"
 msgid "Location Name"
 msgstr "Joylashuv nomi"
 
+msgid "Location Name (UZ)"
+msgstr "Joylashuv nomi (O'zbekcha)"
+
+msgid "Location Name (RU)"
+msgstr "Joylashuv nomi (Ruscha)"
+
+msgid "Location Name (EN)"
+msgstr "Joylashuv nomi (Inglizcha)"
+
 msgid "Number of Houses"
 msgstr "Uylar soni"
 
@@ -224,6 +233,27 @@ msgstr "Interyer rasmi"
 
 msgid "Premium Amenities"
 msgstr "Premium qulayliklar"
+
+msgid "YouTube Video URL"
+msgstr "YouTube video havolasi"
+
+msgid "Paste YouTube video link, e.g. https://www.youtube.com/watch?v=abc123"
+msgstr "YouTube video havolasini kiriting, masalan https://www.youtube.com/watch?v=abc123"
+
+msgid "Order"
+msgstr "Tartib"
+
+msgid "Interior Section"
+msgstr "Interyer bo'limi"
+
+msgid "Interior Sections"
+msgstr "Interyer bo'limlari"
+
+msgid "Architecture Section"
+msgstr "Arxitektura bo'limi"
+
+msgid "Architecture Sections"
+msgstr "Arxitektura bo'limlari"
 
 # News App
 msgid "News Post"
@@ -403,14 +433,47 @@ msgstr "Pastki matn (Inglizcha)"
 msgid "Header Images"
 msgstr "Sarlavha rasmlari"
 
+msgid "1. Hero Images"
+msgstr "1. Asosiy rasmlar"
+
 msgid "First image is required, other 4 are optional."
 msgstr "Birinchi rasm majburiy, qolgan 4tasi ixtiyoriy."
+
+msgid "First image is required, other 4 are optional. These appear in the hero section and about carousel."
+msgstr "Birinchi rasm majburiy, qolgan 4tasi ixtiyoriy. Ular asosiy bo'lim va haqida karuselda ko'rsatiladi."
+
+msgid "2. About the Project"
+msgstr "2. Loyiha haqida"
 
 msgid "About the Project"
 msgstr "Loyiha haqida"
 
+msgid "Description and image for the 'About' section."
+msgstr "'Biz haqimizda' bo'limi uchun tavsif va rasm."
+
+msgid "3. YouTube Video"
+msgstr "3. YouTube video"
+
+msgid "Paste a YouTube video URL (e.g. https://www.youtube.com/watch?v=abc123). The video will be embedded on the project page."
+msgstr "YouTube video URL kiriting (masalan https://www.youtube.com/watch?v=abc123). Video loyiha sahifasiga joylashtiriladi."
+
+msgid "4. Location"
+msgstr "4. Joylashuv"
+
 msgid "Location"
 msgstr "Joylashuv"
+
+msgid "GPS coordinates for the map. Find them on Google Maps."
+msgstr "Xarita uchun GPS koordinatalari. Ularni Google Xaritadan toping."
+
+msgid "5. Architecture & Interior Sections are added below (scroll down)"
+msgstr "5. Arxitektura va Interyer bo'limlari pastda qo'shiladi (pastga aylantiring)"
+
+msgid "Architecture and Interior sections are added as separate items below. Each section has a title, description and image."
+msgstr "Arxitektura va Interyer bo'limlari pastda alohida elementlar sifatida qo'shiladi. Har bir bo'limda sarlavha, tavsif va rasm bor."
+
+msgid "6. Apartments"
+msgstr "6. Xonadonlar"
 
 msgid "Architecture"
 msgstr "Arxitektura"
@@ -472,3 +535,67 @@ msgstr "Kontent"
 
 msgid "Site Content"
 msgstr "Sayt kontenti"
+
+# Analytics App
+msgid "IP Address"
+msgstr "IP manzil"
+
+msgid "User Agent"
+msgstr "Foydalanuvchi agenti"
+
+msgid "First Visit"
+msgstr "Birinchi tashrif"
+
+msgid "Last Visit"
+msgstr "Oxirgi tashrif"
+
+msgid "Visit Count"
+msgstr "Tashriflar soni"
+
+msgid "Country"
+msgstr "Mamlakat"
+
+msgid "City"
+msgstr "Shahar"
+
+msgid "Visitor"
+msgstr "Tashrif buyuruvchi"
+
+msgid "Visitors"
+msgstr "Tashrif buyuruvchilar"
+
+msgid "Page Path"
+msgstr "Sahifa yo'li"
+
+msgid "Referer"
+msgstr "Havola manbasi"
+
+msgid "Timestamp"
+msgstr "Vaqt belgisi"
+
+msgid "Page View"
+msgstr "Sahifa ko'rish"
+
+msgid "Page Views"
+msgstr "Sahifa ko'rishlar"
+
+msgid "Date"
+msgstr "Sana"
+
+msgid "Unique Visitors"
+msgstr "Noyob tashrifchilar"
+
+msgid "Total Page Views"
+msgstr "Jami sahifa ko'rishlar"
+
+msgid "Leads Count"
+msgstr "So'rovlar soni"
+
+msgid "Daily Statistics"
+msgstr "Kunlik statistika"
+
+msgid "Visitor IP"
+msgstr "Tashrif buyuruvchi IP"
+
+msgid "Relative Traffic"
+msgstr "Nisbiy trafik"

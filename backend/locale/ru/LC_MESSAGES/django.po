@@ -92,6 +92,15 @@ msgstr "Сегмент"
 msgid "Location Name"
 msgstr "Название локации"
 
+msgid "Location Name (UZ)"
+msgstr "Название локации (Узбекский)"
+
+msgid "Location Name (RU)"
+msgstr "Название локации (Русский)"
+
+msgid "Location Name (EN)"
+msgstr "Название локации (Английский)"
+
 msgid "Number of Houses"
 msgstr "Количество домов"
 
@@ -224,6 +233,27 @@ msgstr "Изображение интерьера"
 
 msgid "Premium Amenities"
 msgstr "Премиум удобства"
+
+msgid "YouTube Video URL"
+msgstr "Ссылка на YouTube видео"
+
+msgid "Paste YouTube video link, e.g. https://www.youtube.com/watch?v=abc123"
+msgstr "Вставьте ссылку на YouTube видео, например https://www.youtube.com/watch?v=abc123"
+
+msgid "Order"
+msgstr "Порядок"
+
+msgid "Interior Section"
+msgstr "Секция интерьера"
+
+msgid "Interior Sections"
+msgstr "Секции интерьера"
+
+msgid "Architecture Section"
+msgstr "Секция архитектуры"
+
+msgid "Architecture Sections"
+msgstr "Секции архитектуры"
 
 # News App
 msgid "News Post"
@@ -403,14 +433,47 @@ msgstr "Текст подвала (Английский)"
 msgid "Header Images"
 msgstr "Изображения заголовка"
 
+msgid "1. Hero Images"
+msgstr "1. Главные изображения"
+
 msgid "First image is required, other 4 are optional."
 msgstr "Первое изображение обязательно, остальные 4 — по желанию."
+
+msgid "First image is required, other 4 are optional. These appear in the hero section and about carousel."
+msgstr "Первое изображение обязательно, остальные 4 — по желанию. Они отображаются в главной секции и карусели."
+
+msgid "2. About the Project"
+msgstr "2. О проекте"
 
 msgid "About the Project"
 msgstr "О проекте"
 
+msgid "Description and image for the 'About' section."
+msgstr "Описание и изображение для раздела «О проекте»."
+
+msgid "3. YouTube Video"
+msgstr "3. YouTube видео"
+
+msgid "Paste a YouTube video URL (e.g. https://www.youtube.com/watch?v=abc123). The video will be embedded on the project page."
+msgstr "Вставьте URL YouTube видео (например https://www.youtube.com/watch?v=abc123). Видео будет встроено на странице проекта."
+
+msgid "4. Location"
+msgstr "4. Местоположение"
+
 msgid "Location"
 msgstr "Местоположение"
+
+msgid "GPS coordinates for the map. Find them on Google Maps."
+msgstr "GPS координаты для карты. Найдите их на Google Картах."
+
+msgid "5. Architecture & Interior Sections are added below (scroll down)"
+msgstr "5. Секции архитектуры и интерьера добавляются ниже (прокрутите вниз)"
+
+msgid "Architecture and Interior sections are added as separate items below. Each section has a title, description and image."
+msgstr "Секции архитектуры и интерьера добавляются ниже как отдельные элементы. Каждая секция содержит заголовок, описание и изображение."
+
+msgid "6. Apartments"
+msgstr "6. Квартиры"
 
 msgid "Architecture"
 msgstr "Архитектура"
@@ -472,3 +535,67 @@ msgstr "Контент"
 
 msgid "Site Content"
 msgstr "Контент сайта"
+
+# Analytics App
+msgid "IP Address"
+msgstr "IP адрес"
+
+msgid "User Agent"
+msgstr "Агент пользователя"
+
+msgid "First Visit"
+msgstr "Первый визит"
+
+msgid "Last Visit"
+msgstr "Последний визит"
+
+msgid "Visit Count"
+msgstr "Количество визитов"
+
+msgid "Country"
+msgstr "Страна"
+
+msgid "City"
+msgstr "Город"
+
+msgid "Visitor"
+msgstr "Посетитель"
+
+msgid "Visitors"
+msgstr "Посетители"
+
+msgid "Page Path"
+msgstr "Путь страницы"
+
+msgid "Referer"
+msgstr "Источник перехода"
+
+msgid "Timestamp"
+msgstr "Время"
+
+msgid "Page View"
+msgstr "Просмотр страницы"
+
+msgid "Page Views"
+msgstr "Просмотры страниц"
+
+msgid "Date"
+msgstr "Дата"
+
+msgid "Unique Visitors"
+msgstr "Уникальные посетители"
+
+msgid "Total Page Views"
+msgstr "Всего просмотров"
+
+msgid "Leads Count"
+msgstr "Количество заявок"
+
+msgid "Daily Statistics"
+msgstr "Ежедневная статистика"
+
+msgid "Visitor IP"
+msgstr "IP посетителя"
+
+msgid "Relative Traffic"
+msgstr "Относительный трафик"
