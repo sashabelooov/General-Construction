@@ -50,7 +50,6 @@ class ConversationAdmin(admin.ModelAdmin):
     readonly_fields = ("created_at", "updated_at")
 
 
-@admin.register(Message)
 class MessageAdmin(admin.ModelAdmin):
     list_display = ("id", "conversation", "sender_type", "sender_user", "created_at")
     list_filter = ("sender_type", "created_at")
