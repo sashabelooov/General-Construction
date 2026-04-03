@@ -9,9 +9,9 @@ from .models import Visitor, PageView, DailyStats
 
 @admin.register(Visitor)
 class VisitorAdmin(admin.ModelAdmin):
-    list_display = ["ip_address", "visit_count", "country", "city", "first_visit", "last_visit"]
-    list_filter = ["country", "first_visit", "last_visit"]
-    search_fields = ["ip_address", "country", "city"]
+    list_display = ["ip_address", "visit_count", "first_visit", "last_visit"]
+    list_filter = ["first_visit", "last_visit"]
+    search_fields = ["ip_address"]
     readonly_fields = ["ip_address", "user_agent", "first_visit", "last_visit", "visit_count", "country", "city"]
     ordering = ["-last_visit"]
 
@@ -64,7 +64,7 @@ class PageViewAdmin(admin.ModelAdmin):
 
 @admin.register(DailyStats)
 class DailyStatsAdmin(admin.ModelAdmin):
-    list_display = ["date", "unique_visitors", "total_page_views", "leads_count", "stats_bar"]
+    list_display = ["date", "unique_visitors", "total_page_views", "stats_bar"]
     list_filter = ["date"]
     ordering = ["-date"]
     readonly_fields = ["date", "unique_visitors", "total_page_views", "leads_count"]

@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
 
 from apps.leads.models import Conversation, Lead, Message
+from apps.content.models import Project
 
 
 class MessageInline(admin.TabularInline):
@@ -15,9 +16,16 @@ class MessageInline(admin.TabularInline):
 
 @admin.register(Lead)
 class LeadAdmin(admin.ModelAdmin):
-    list_display = ("id", "type", "name", "phone", "status", "created_at")
-    list_filter = ("type", "status", "created_at")
+    list_display = ("id", "type", "name", "phone", "get_project", "apartment", "status", "created_at")
+    list_filter = ("type", "status", "apartment__project", "created_at")
     search_fields = ("name", "phone")
+
+    def get_project(self, obj):
+        if obj.apartment:
+            return obj.apartment.project
+        return "-"
+    get_project.short_description = _("Project")
+    get_project.admin_order_field = "apartment__project"
 
     fieldsets = (
         (None, {"fields": ("type", "name", "phone", "apartment")}),
@@ -32,7 +40,7 @@ class ConversationAdmin(admin.ModelAdmin):
     list_display = ("id", "status", "assigned_to", "customer_name", "customer_phone", "updated_at")
     list_filter = ("status", "updated_at")
     search_fields = ("customer_name", "customer_phone", "lead__name", "lead__phone")
-    inlines = [MessageInline]
+    inlines = []  # MessageInline hidden intentionally
 
     fieldsets = (
         (None, {"fields": ("lead", "status", "assigned_to")}),
