@@ -2,7 +2,7 @@ from django.conf import settings
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from apps.content.models import Apartment
+from apps.content.models import Project
 
 
 class TimeStampedModel(models.Model):
@@ -26,12 +26,12 @@ class Lead(TimeStampedModel):
     type = models.CharField(_("Type"), max_length=16, choices=LeadType.choices, default=LeadType.CONSULTATION)
     name = models.CharField(_("Name"), max_length=255)
     phone = models.CharField(_("Phone"), max_length=64)
-    apartment = models.ForeignKey(
-        Apartment,
+    project = models.ForeignKey(
+        Project,
         on_delete=models.SET_NULL,
         blank=True,
         null=True,
-        verbose_name=_("Apartment")
+        verbose_name=_("Project")
     )
     source_page = models.CharField(_("Source Page"), max_length=255, blank=True, default="")
     status = models.CharField(_("Status"), max_length=16, choices=Status.choices, default=Status.NEW)

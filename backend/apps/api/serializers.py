@@ -261,7 +261,7 @@ class LeadCreateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Lead
-        fields = ["id", "type", "name", "phone", "source_page", "apartment", "conversation_id"]
+        fields = ["id", "type", "name", "phone", "source_page", "project", "conversation_id"]
 
     def validate_phone(self, value):
         """Validate Uzbekistan phone numbers."""
