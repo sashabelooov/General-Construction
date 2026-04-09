@@ -23,3 +23,6 @@ whitenoise>=6.0,<7.0  # Static file serving
 
 # Database (for production)
 psycopg2-binary>=2.9,<3.0  # PostgreSQL adapter
+
+# HTTP Client (for external integrations)
+requests>=2.31,<3.0  # For Uysot CRM integration

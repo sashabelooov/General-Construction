@@ -315,3 +315,11 @@ LOGGING = {
 import os
 os.makedirs(BASE_DIR / "logs", exist_ok=True)
 
+# =============================================================================
+# UYSOT CRM INTEGRATION
+# =============================================================================
+# The X-Auth token is stored in .env under the key "X-Auth".
+# Django settings names cannot contain hyphens, so we use UYSOT_AUTH_TOKEN here
+# and map it back when reading the .env (see docker-compose or export alias).
+UYSOT_BASE_URL = os.environ.get("UYSOT_BASE_URL", "")
+UYSOT_AUTH_TOKEN = os.environ.get("UYSOT_AUTH_TOKEN", os.environ.get("X-Auth", ""))

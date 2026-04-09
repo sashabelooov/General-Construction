@@ -295,6 +295,8 @@ class LeadCreateSerializer(serializers.ModelSerializer):
         return cleaned
 
     def create(self, validated_data):
+        from apps.leads.services import send_lead_to_uysot_async
+
         lead = super().create(validated_data)
         convo = Conversation.objects.create(
             lead=lead,
@@ -302,6 +304,13 @@ class LeadCreateSerializer(serializers.ModelSerializer):
             customer_phone=lead.phone,
         )
         lead.conversation_id = convo.id
+
+        # Forward the new lead to Uysot CRM dashboard (non-blocking)
+        send_lead_to_uysot_async(
+            phone=lead.phone,
+            name=lead.name,
+        )
+
         return lead
 
 

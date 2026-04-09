@@ -62,6 +62,9 @@ services:
       POSTGRES_PORT: 5432
       # Redis
       REDIS_URL: redis://redis:6379/0
+      # Uysot CRM Integration
+      UYSOT_BASE_URL: ${UYSOT_BASE_URL:-}
+      UYSOT_AUTH_TOKEN: ${UYSOT_AUTH_TOKEN:-}
     depends_on:
       db:
         condition: service_healthy
