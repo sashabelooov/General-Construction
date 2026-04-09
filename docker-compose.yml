@@ -65,6 +65,7 @@ services:
       # Uysot CRM Integration
       UYSOT_BASE_URL: ${UYSOT_BASE_URL:-}
       UYSOT_AUTH_TOKEN: ${UYSOT_AUTH_TOKEN:-}
+      X-Auth: ${X-Auth:-}
     depends_on:
       db:
         condition: service_healthy
