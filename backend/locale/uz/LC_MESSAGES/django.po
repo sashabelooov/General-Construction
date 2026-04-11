@@ -28,7 +28,7 @@ msgstr "O'zbekcha"
 
 # Common fields
 msgid "Created at"
-msgstr "Yaratilgan sana"
+msgstr "Qo'shilgan vaqt"
 
 msgid "Updated at"
 msgstr "Yangilangan sana"
@@ -601,3 +601,127 @@ msgstr "Foydalanuvchi IP"
 
 msgid "Relative Traffic"
 msgstr "Nisbiy trafik"
+
+# Django admin built-in strings
+msgid "Username"
+msgstr "Foydalanuvchi nomi"
+
+msgid "Password"
+msgstr "Parol"
+
+msgid "Password-based authentication"
+msgstr "Parol asosida autentifikatsiya"
+
+msgid "Enabled"
+msgstr "Yoqilgan"
+
+msgid "Password confirm"
+msgstr "Parolni tasdiqlash"
+
+msgid "Required"
+msgstr "Majburiy"
+
+msgid "Staff status"
+msgstr "Xodim holati"
+
+msgid "Active"
+msgstr "Faol"
+
+msgid "Superuser status"
+msgstr "Superuzer holati"
+
+msgid "History"
+msgstr "Tarix"
+
+msgid "Save and add another"
+msgstr "Saqlash va yana qo'shish"
+
+msgid "Save and continue editing"
+msgstr "Saqlash va tahrirlashni davom ettirish"
+
+msgid "Save"
+msgstr "Saqlash"
+
+msgid "Delete"
+msgstr "O'chirish"
+
+msgid "First, enter a username and password. Then, you'll be able to edit more user options."
+msgstr "Avval foydalanuvchi nomi va parol kiriting. Shundan so'ng boshqa parametrlarni tahrirlashingiz mumkin."
+
+msgid "Your password can't be too similar to your other personal information."
+msgstr "Parolingiz shaxsiy ma'lumotlaringizga juda o'xshash bo'lmasligi kerak."
+
+msgid "Your password must contain at least 8 characters."
+msgstr "Parolingiz kamida 8 ta belgidan iborat bo'lishi kerak."
+
+msgid "Your password can't be a commonly used password."
+msgstr "Parolingiz keng tarqalgan parollardan biri bo'lmasligi kerak."
+
+msgid "Your password can't be entirely numeric."
+msgstr "Parolingiz faqat raqamlardan iborat bo'lmasligi kerak."
+
+msgid "First name"
+msgstr "Ism"
+
+msgid "Last name"
+msgstr "Familiya"
+
+msgid "Email address"
+msgstr "Elektron pochta"
+
+msgid "Groups"
+msgstr "Guruhlar"
+
+msgid "User permissions"
+msgstr "Foydalanuvchi ruxsatlari"
+
+msgid "Important dates"
+msgstr "Muhim sanalar"
+
+msgid "Last login"
+msgstr "Oxirgi kirish"
+
+msgid "Date joined"
+msgstr "Qo'shilgan sana"
+
+msgid "Permissions"
+msgstr "Ruxsatlar"
+
+msgid "Personal info"
+msgstr "Shaxsiy ma'lumotlar"
+
+msgid "Action"
+msgstr "Amal"
+
+msgid "Go"
+msgstr "Bajarish"
+
+msgid "Filter"
+msgstr "Filtr"
+
+msgid "Search"
+msgstr "Qidirish"
+
+msgid "Select action"
+msgstr "Amalni tanlang"
+
+msgid "Yes"
+msgstr "Ha"
+
+msgid "No"
+msgstr "Yo'q"
+
+msgid "Unknown"
+msgstr "Noma'lum"
+
+msgid "Are you sure?"
+msgstr "Ishonchingiz komilmi?"
+
+msgid "Location & Media"
+msgstr "Joylashuv va media"
+
+msgid "Basic Info"
+msgstr "Asosiy ma'lumot"
+
+msgid "General"
+msgstr "Umumiy"

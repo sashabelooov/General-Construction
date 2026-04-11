@@ -15,12 +15,13 @@ class MessageInline(admin.TabularInline):
 
 @admin.register(Lead)
 class LeadAdmin(admin.ModelAdmin):
-    list_display = ("id", "type", "name", "phone", "project", "status", "created_at")
+    list_display = ("name", "phone", "type", "project", "status", "created_at")
+    list_display_links = ("name",)
     list_filter = ("type", "status", "project", "created_at")
     search_fields = ("name", "phone")
 
     fieldsets = (
-        (None, {"fields": ("type", "name", "phone", "project")}),
+        (_("General Info"), {"fields": ("type", "name", "phone", "project")}),
         (_("Details"), {"fields": ("source_page", "status", "note")}),
         (_("Timestamps"), {"fields": ("created_at", "updated_at")}),
     )
@@ -29,13 +30,14 @@ class LeadAdmin(admin.ModelAdmin):
 
 @admin.register(Conversation)
 class ConversationAdmin(admin.ModelAdmin):
-    list_display = ("id", "status", "assigned_to", "customer_name", "customer_phone", "updated_at")
+    list_display = ("status", "assigned_to", "customer_name", "customer_phone", "updated_at")
+    list_display_links = ("customer_name",)
     list_filter = ("status", "updated_at")
     search_fields = ("customer_name", "customer_phone", "lead__name", "lead__phone")
-    inlines = []  # MessageInline hidden intentionally
+    inlines = []
 
     fieldsets = (
-        (None, {"fields": ("lead", "status", "assigned_to")}),
+        (_("General Info"), {"fields": ("lead", "status", "assigned_to")}),
         (_("Customer Info"), {"fields": ("customer_name", "customer_phone")}),
         (_("Timestamps"), {"fields": ("created_at", "updated_at")}),
     )
@@ -43,6 +45,6 @@ class ConversationAdmin(admin.ModelAdmin):
 
 
 class MessageAdmin(admin.ModelAdmin):
-    list_display = ("id", "conversation", "sender_type", "sender_user", "created_at")
+    list_display = ("conversation", "sender_type", "sender_user", "created_at")
     list_filter = ("sender_type", "created_at")
     search_fields = ("text", "conversation__lead__name", "conversation__lead__phone")

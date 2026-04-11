@@ -58,7 +58,8 @@ class ApartmentInline(admin.TabularInline):
 
 @admin.register(Project)
 class ProjectAdmin(admin.ModelAdmin):
-    list_display = ("id", "title", "status", "segment", "location_name", "number_of_houses", "completion_date", "created_at")
+    list_display = ("title", "status", "segment", "location_name", "number_of_houses", "completion_date", "created_at")
+    list_display_links = ("title",)
     list_filter = ("status", "segment", "completion_date")
     search_fields = ("title", "location_name", "slug")
     prepopulated_fields = {"slug": ("title",)}
@@ -66,13 +67,12 @@ class ProjectAdmin(admin.ModelAdmin):
     inlines = [ProjectDetailInline, ArchitectureSectionInline, InteriorSectionInline, ApartmentInline]
 
     fieldsets = (
-        (None, {"fields": ("title", "slug", "status", "segment", "completion_date")}),
-        (_("General Info"), {"fields": ("location_name", "location_name_ru", "location_name_en", "number_of_houses", "image")}),
+        (_("General Info"), {"fields": ("title", "slug", "status", "segment", "completion_date")}),
+        (_("Location & Media"), {"fields": ("location_name", "location_name_ru", "location_name_en", "number_of_houses", "image")}),
         (_("Timestamps"), {"fields": ("created_at", "updated_at")}),
     )
 
     def get_inline_instances(self, request, obj=None):
-        """Only show section inlines when editing existing project."""
         inlines = super().get_inline_instances(request, obj)
         if obj is None:
             return [i for i in inlines if not isinstance(i, (ArchitectureSectionInline, InteriorSectionInline))]
@@ -81,12 +81,14 @@ class ProjectAdmin(admin.ModelAdmin):
 
 @admin.register(Apartment)
 class ApartmentAdmin(admin.ModelAdmin):
-    list_display = ("id", "project", "number", "rooms", "area", "floor", "delivery_year")
+    list_display = ("project", "number", "rooms", "area", "floor", "delivery_year")
+    list_display_links = ("number",)
     list_filter = ("project", "rooms", "delivery_year")
     search_fields = ("number", "project__title")
 
 
 @admin.register(Amenity)
 class AmenityAdmin(admin.ModelAdmin):
-    list_display = ("id", "name_en", "name_ru", "name_uz")
+    list_display = ("name_uz", "name_ru", "name_en")
+    list_display_links = ("name_uz",)
     search_fields = ("name_en", "name_ru", "name_uz")

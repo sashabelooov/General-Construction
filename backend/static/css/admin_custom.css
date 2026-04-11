@@ -1,3 +1,10 @@
+/* Hide Django admin timezone warning ("You are X hours ahead/behind server time") */
+.timezonewarning,
+p.timezonewarning,
+.help.timezonewarning {
+    display: none !important;
+}
+
 /*
  * Custom AdminLTE v4 / Jazzmin sidebar fixes.
  *
@@ -35,6 +42,16 @@
     text-transform: uppercase;
     letter-spacing: 0.05em;
     opacity: 0.7;
+}
+
+/*
+ * Fix language switcher capitalization.
+ * CSS text-transform:capitalize treats apostrophe as word boundary,
+ * turning "O'zbek" into "O'Zbek". Disable it on language menu items.
+ */
+#jazzy-languagemenu .dropdown-item,
+#jazzy-languagemenu button {
+    text-transform: none !important;
 }
 
 /*

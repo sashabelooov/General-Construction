@@ -1,7 +1,7 @@
 from django.contrib import admin
-from django.db.models import Count, Sum
 from django.utils.html import format_html
 from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
 from datetime import timedelta
 
 from .models import Visitor, PageView, DailyStats
@@ -22,23 +22,16 @@ class VisitorAdmin(admin.ModelAdmin):
         return False
 
     def changelist_view(self, request, extra_context=None):
-        # Add statistics to the changelist view
         today = timezone.now().date()
         week_ago = today - timedelta(days=7)
         month_ago = today - timedelta(days=30)
 
         extra_context = extra_context or {}
-        extra_context['total_visitors'] = Visitor.objects.count()
-        extra_context['visitors_today'] = Visitor.objects.filter(
-            last_visit__date=today
-        ).count()
-        extra_context['visitors_this_week'] = Visitor.objects.filter(
-            last_visit__date__gte=week_ago
-        ).count()
-        extra_context['visitors_this_month'] = Visitor.objects.filter(
-            last_visit__date__gte=month_ago
-        ).count()
-        extra_context['total_page_views'] = PageView.objects.count()
+        extra_context["total_visitors"] = Visitor.objects.count()
+        extra_context["visitors_today"] = Visitor.objects.filter(last_visit__date=today).count()
+        extra_context["visitors_this_week"] = Visitor.objects.filter(last_visit__date__gte=week_ago).count()
+        extra_context["visitors_this_month"] = Visitor.objects.filter(last_visit__date__gte=month_ago).count()
+        extra_context["total_page_views"] = PageView.objects.count()
 
         return super().changelist_view(request, extra_context=extra_context)
 
@@ -53,7 +46,7 @@ class PageViewAdmin(admin.ModelAdmin):
 
     def visitor_ip(self, obj):
         return obj.visitor.ip_address
-    visitor_ip.short_description = "Visitor IP"
+    visitor_ip.short_description = _("Visitor IP")
 
     def has_add_permission(self, request):
         return False
@@ -70,16 +63,16 @@ class DailyStatsAdmin(admin.ModelAdmin):
     readonly_fields = ["date", "unique_visitors", "total_page_views", "leads_count"]
 
     def stats_bar(self, obj):
-        max_visitors = DailyStats.objects.order_by('-unique_visitors').first()
+        max_visitors = DailyStats.objects.order_by("-unique_visitors").first()
         max_value = max_visitors.unique_visitors if max_visitors else 1
         percentage = (obj.unique_visitors / max_value) * 100 if max_value > 0 else 0
-        return format_html(
+        bar_html = (
             '<div style="width:100px;background:#e0e0e0;border-radius:4px;">'
-            '<div style="width:{}%;background:#4CAF50;height:20px;border-radius:4px;"></div>'
-            '</div>',
-            int(percentage)
-        )
-    stats_bar.short_description = "Relative Traffic"
+            '<div style="width:{pct}%;background:#4CAF50;height:20px;border-radius:4px;"></div>'
+            '</div>'
+        ).format(pct=int(percentage))
+        return format_html(bar_html)
+    stats_bar.short_description = _("Relative Traffic")
 
     def has_add_permission(self, request):
         return False
