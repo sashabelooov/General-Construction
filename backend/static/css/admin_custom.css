@@ -1,3 +1,12 @@
+/* Fix language switcher capitalization (apostrophe treated as word boundary by CSS) */
+#jazzy-languagemenu *,
+#jazzy-languagemenu button,
+#jazzy-languagemenu a,
+#jazzy-languagemenu .dropdown-item,
+.language-chooser * {
+    text-transform: none !important;
+}
+
 /* Hide Django admin timezone warning ("You are X hours ahead/behind server time") */
 .timezonewarning,
 p.timezonewarning,

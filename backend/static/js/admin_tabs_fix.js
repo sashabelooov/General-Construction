@@ -156,6 +156,24 @@
         setTimeout(function () {
             bridgeDataAttributes();
             fixOtherDropdowns();
+            fixLanguageButtonCapitalization();
         }, 500);
     });
+
+    /* ── Fix language button capitalization ──
+     * CSS text-transform:capitalize treats the apostrophe in "O'zbek" as a
+     * word boundary, producing "O'Zbek". Override it via inline style.
+     */
+    function fixLanguageButtonCapitalization() {
+        // Target all buttons and links inside the language dropdown
+        document.querySelectorAll(
+            "#jazzy-languagemenu button, " +
+            "#jazzy-languagemenu a, " +
+            "#jazzy-languagemenu .dropdown-item, " +
+            ".language-chooser button, " +
+            ".language-chooser a"
+        ).forEach(function (el) {
+            el.style.textTransform = "none";
+        });
+    }
 })();
