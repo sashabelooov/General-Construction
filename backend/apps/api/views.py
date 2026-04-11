@@ -45,6 +45,14 @@ class NewsPostViewSet(viewsets.ReadOnlyModelViewSet):
     ordering_fields = ["date_of_creation", "created_at"]
     lookup_field = "slug"
 
+    def get_object(self):
+        """Support both slug and ID lookups for backward compatibility."""
+        lookup = self.kwargs.get(self.lookup_field)
+        if lookup and lookup.isdigit():
+            self.kwargs["pk"] = lookup
+            self.lookup_field = "pk"
+        return super().get_object()
+
 
 class LeadViewSet(mixins.CreateModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
     queryset = Lead.objects.all()
