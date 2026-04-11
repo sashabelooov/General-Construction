@@ -223,6 +223,7 @@ class NewsPostSerializer(serializers.ModelSerializer):
         model = NewsPost
         fields = [
             "id",
+            "slug",
             "image_url",
             "date_of_creation",
             "author_name",
@@ -233,13 +234,27 @@ class NewsPostSerializer(serializers.ModelSerializer):
         ]
 
     def get_title(self, obj: NewsPost):
-        return {"uz": obj.title_uz, "ru": obj.title_ru, "en": obj.title_en}
+        # base title field is the Uzbek/default title
+        return {
+            "uz": obj.title_uz or obj.title,
+            "ru": obj.title_ru or obj.title,
+            "en": obj.title_en or obj.title,
+        }
 
     def get_description(self, obj: NewsPost):
-        return {"uz": obj.description_uz, "ru": obj.description_ru, "en": obj.description_en}
+        # base description field is the Uzbek/default description
+        return {
+            "uz": obj.description_uz or obj.description,
+            "ru": obj.description_ru or obj.description,
+            "en": obj.description_en or obj.description,
+        }
 
     def get_additional_information(self, obj: NewsPost):
-        return {"uz": obj.additional_information_uz, "ru": obj.additional_information_ru, "en": obj.additional_information_en}
+        return {
+            "uz": obj.additional_information_uz or obj.additional_information,
+            "ru": obj.additional_information_ru or obj.additional_information,
+            "en": obj.additional_information_en or obj.additional_information,
+        }
 
     def get_image_url(self, obj: NewsPost):
         if obj.image:

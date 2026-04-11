@@ -8,7 +8,7 @@ import { useLanguage } from "@/lib/i18n";
 import { api, NewsPost } from "@/lib/api";
 
 export default function NewsDetail() {
-  const { id } = useParams();
+  const { slug } = useParams();
   const navigate = useNavigate();
   const { language, t } = useLanguage();
   const [news, setNews] = useState<NewsPost | null>(null);
@@ -19,13 +19,13 @@ export default function NewsDetail() {
     const fetchNews = async () => {
       try {
         setLoading(true);
-        if (!id) return;
+        if (!slug) return;
 
-        const newsData = await api.news.get(id);
+        const newsData = await api.news.get(slug);
         setNews(newsData);
 
         const allNews = await api.news.list();
-        setRelatedNews(allNews.filter(n => n.id !== newsData.id).slice(0, 3));
+        setRelatedNews(allNews.filter(n => n.slug !== newsData.slug).slice(0, 3));
       } catch (error) {
         console.error("Failed to fetch news details:", error);
       } finally {
@@ -34,7 +34,7 @@ export default function NewsDetail() {
     };
 
     fetchNews();
-  }, [id]);
+  }, [slug]);
 
   if (loading) {
     return (
@@ -148,7 +148,7 @@ export default function NewsDetail() {
                       <div
                         key={item.id}
                         onClick={() => {
-                          navigate(`/news/${item.id}`);
+                          navigate(`/news/${item.slug}`);
                           window.scrollTo({ top: 0, behavior: 'smooth' });
                         }}
                         className="group cursor-pointer flex gap-4 p-3 rounded-lg hover:bg-secondary transition-colors"

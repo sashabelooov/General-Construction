@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 
 
@@ -14,6 +15,7 @@ class NewsPost(TimeStampedModel):
     image = models.ImageField(_("Image"), upload_to="news/")
     date_of_creation = models.DateField(_("Date of Creation"), help_text=_("For showing in frontend"))
     author_name = models.CharField(_("Author Name"), max_length=255)
+    slug = models.SlugField(_("Slug"), max_length=255, unique=True, blank=True)
 
     title = models.CharField(_("Title"), max_length=255)
     title_uz = models.CharField(_("Title (Uzbek)"), max_length=255, blank=True, default="")
@@ -35,6 +37,17 @@ class NewsPost(TimeStampedModel):
     class Meta:
         verbose_name = _("News Post")
         verbose_name_plural = _("News Posts")
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            base_slug = slugify(self.title, allow_unicode=True)
+            slug = base_slug
+            counter = 1
+            while NewsPost.objects.filter(slug=slug).exclude(pk=self.pk).exists():
+                slug = f"{base_slug}-{counter}"
+                counter += 1
+            self.slug = slug
+        super().save(*args, **kwargs)
 
     def __str__(self) -> str:
         return self.title

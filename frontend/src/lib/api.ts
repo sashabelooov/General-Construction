@@ -103,6 +103,7 @@ export interface Project {
 
 export interface NewsPost {
     id: number;
+    slug: string;
     image_url: string | null;
     date_of_creation: string;
     author_name: string;
@@ -135,7 +136,7 @@ export const api = {
     },
     news: {
         list: () => apiClient.get<PaginatedResponse<NewsPost> | NewsPost[]>("/news/").then(res => extractData<NewsPost>(res)),
-        get: (id: number | string) => apiClient.get<NewsPost>(`/news/${id}/`).then(res => res.data),
+        get: (slug: string) => apiClient.get<NewsPost>(`/news/${slug}/`).then(res => res.data),
     },
     leads: {
         create: (data: LeadCreate) => apiClient.post<LeadResponse>("/leads/", data).then(res => res.data),

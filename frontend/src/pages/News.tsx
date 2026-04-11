@@ -38,8 +38,8 @@ export default function News() {
     return (field as any)[language] || field.en || "";
   };
 
-  const handleNewsClick = (newsId: number) => {
-    navigate(`/news/${newsId}`);
+  const handleNewsClick = (newsSlug: string) => {
+    navigate(`/news/${newsSlug}`);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -84,7 +84,7 @@ export default function News() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: index * 0.1 }}
                     className="bg-card rounded-2xl overflow-hidden shadow-soft hover:shadow-medium transition-shadow group cursor-pointer"
-                    onClick={() => handleNewsClick(news.id)}
+                    onClick={() => handleNewsClick(news.slug)}
                   >
                     <div className="relative overflow-hidden bg-muted">
                       {news.image_url ? (

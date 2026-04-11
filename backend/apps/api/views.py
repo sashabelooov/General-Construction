@@ -41,8 +41,9 @@ class ApartmentViewSet(viewsets.ReadOnlyModelViewSet):
 class NewsPostViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = NewsPost.objects.all()
     serializer_class = NewsPostSerializer
-    search_fields = ["title_uz", "title_ru", "title_en", "author_name"]
+    search_fields = ["title", "title_uz", "title_ru", "title_en", "author_name"]
     ordering_fields = ["date_of_creation", "created_at"]
+    lookup_field = "slug"
 
 
 class LeadViewSet(mixins.CreateModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
