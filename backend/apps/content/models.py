@@ -28,8 +28,6 @@ class Project(TimeStampedModel):
     class Status(models.TextChoices):
         UNDER_CONSTRUCTION = "under_construction", _("Under Construction")
         COMPLETED = "completed", _("Completed")
-        FOR_SALE = "for_sale", _("For Sale")
-        WILL_START = "will_start", _("Will Start")
 
     class Segment(models.TextChoices):
         PREMIUM = "premium", _("Premium")

@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 
 from apps.content.models import Amenity, Apartment, ArchitectureSection, InteriorSection, Project, ProjectDetail
@@ -62,15 +63,19 @@ class ProjectAdmin(admin.ModelAdmin):
     list_display_links = ("title",)
     list_filter = ("status", "segment", "completion_date")
     search_fields = ("title", "location_name", "slug")
-    prepopulated_fields = {"slug": ("title",)}
     readonly_fields = ("created_at", "updated_at")
     inlines = [ProjectDetailInline, ArchitectureSectionInline, InteriorSectionInline, ApartmentInline]
 
     fieldsets = (
-        (_("General Info"), {"fields": ("title", "slug", "status", "segment", "completion_date")}),
+        (_("General Info"), {"fields": ("title", "status", "segment", "completion_date")}),
         (_("Location & Media"), {"fields": ("location_name", "location_name_ru", "location_name_en", "number_of_houses", "image")}),
         (_("Timestamps"), {"fields": ("created_at", "updated_at")}),
     )
+
+    def save_model(self, request, obj, form, change):
+        if not obj.slug:
+            obj.slug = slugify(obj.title)
+        super().save_model(request, obj, form, change)
 
     def get_inline_instances(self, request, obj=None):
         inlines = super().get_inline_instances(request, obj)
