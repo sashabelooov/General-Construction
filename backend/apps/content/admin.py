@@ -50,6 +50,7 @@ class ProjectDetailInline(admin.StackedInline):
     )
 
 
+
 class ApartmentInline(admin.TabularInline):
     model = Apartment
     extra = 1
@@ -64,11 +65,13 @@ class ProjectAdmin(admin.ModelAdmin):
     list_filter = ("status", "segment", "completion_date")
     search_fields = ("title", "location_name", "slug")
     readonly_fields = ("created_at", "updated_at")
+    filter_horizontal = ("amenities",)
     inlines = [ProjectDetailInline, ArchitectureSectionInline, InteriorSectionInline, ApartmentInline]
 
     fieldsets = (
         (_("General Info"), {"fields": ("title", "status", "segment", "completion_date")}),
         (_("Location & Media"), {"fields": ("location_name", "location_name_ru", "location_name_en", "number_of_houses", "image")}),
+        (_("Amenities"), {"fields": ("amenities",)}),
         (_("Timestamps"), {"fields": ("created_at", "updated_at")}),
     )
 
@@ -92,8 +95,3 @@ class ApartmentAdmin(admin.ModelAdmin):
     search_fields = ("number", "project__title")
 
 
-@admin.register(Amenity)
-class AmenityAdmin(admin.ModelAdmin):
-    list_display = ("name_uz", "name_ru", "name_en")
-    list_display_links = ("name_uz",)
-    search_fields = ("name_en", "name_ru", "name_uz")
