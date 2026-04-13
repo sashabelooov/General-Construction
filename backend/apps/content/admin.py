@@ -83,11 +83,6 @@ class ProjectAdmin(admin.ModelAdmin):
             obj.slug = slugify(obj.title)
         super().save_model(request, obj, form, change)
 
-    def get_inline_instances(self, request, obj=None):
-        inlines = super().get_inline_instances(request, obj)
-        if obj is None:
-            return [i for i in inlines if not isinstance(i, (ArchitectureSectionInline, InteriorSectionInline))]
-        return inlines
 
 
 @admin.register(Apartment)
