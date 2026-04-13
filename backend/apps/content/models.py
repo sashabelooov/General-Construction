@@ -191,4 +191,4 @@ class ArchitectureSection(TimeStampedModel):
         ordering = ["order", "id"]
 
     def __str__(self) -> str:
-        return f"Architecture Section"
+        return str(_("Architecture Section"))
