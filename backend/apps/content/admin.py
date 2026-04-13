@@ -18,7 +18,7 @@ class InteriorSectionInline(admin.StackedInline):
     extra = 1
     verbose_name = _("Interior Section")
     verbose_name_plural = _("Interior Sections")
-    fields = ("name_uz", "name_ru", "name_en", "description_uz", "description_ru", "description_en", "image", "order")
+    fields = ("name_uz", "name_ru", "name_en", "description_uz", "description_ru", "description_en", "image")
 
 
 class ProjectDetailInline(admin.StackedInline):

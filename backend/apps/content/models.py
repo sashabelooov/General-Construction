@@ -165,7 +165,7 @@ class InteriorSection(TimeStampedModel):
         ordering = ["order", "id"]
 
     def __str__(self) -> str:
-        return self.name_en or self.name_ru or self.name_uz or f"Interior Section {self.pk}"
+        return str(_("Interior Section"))
 
 
 class ArchitectureSection(TimeStampedModel):
