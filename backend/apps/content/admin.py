@@ -25,6 +25,7 @@ class ProjectDetailInline(admin.StackedInline):
     model = ProjectDetail
     can_delete = False
     verbose_name_plural = _("Project Details")
+    filter_horizontal = ("amenities",)
 
     fieldsets = (
         (_("1. Hero Images"), {
@@ -43,7 +44,11 @@ class ProjectDetailInline(admin.StackedInline):
             "fields": ("latitude", "longitude"),
             "description": _("GPS coordinates for the map. Find them on Google Maps.")
         }),
-        (_("5. Architecture & Interior Sections are added below (scroll down)"), {
+        (_("5. Amenities"), {
+            "fields": ("amenities",),
+            "description": _("Select amenities available in this project.")
+        }),
+        (_("6. Architecture & Interior Sections are added below (scroll down)"), {
             "fields": (),
             "description": _("Architecture and Interior sections are added as separate items below. Each section has a title, description and image.")
         }),
@@ -65,13 +70,11 @@ class ProjectAdmin(admin.ModelAdmin):
     list_filter = ("status", "segment", "completion_date")
     search_fields = ("title", "location_name", "slug")
     readonly_fields = ("created_at", "updated_at")
-    filter_horizontal = ("amenities",)
     inlines = [ProjectDetailInline, ArchitectureSectionInline, InteriorSectionInline, ApartmentInline]
 
     fieldsets = (
         (_("General Info"), {"fields": ("title", "status", "segment", "completion_date")}),
         (_("Location & Media"), {"fields": ("location_name", "location_name_ru", "location_name_en", "number_of_houses", "image")}),
-        (_("Amenities"), {"fields": ("amenities",)}),
         (_("Timestamps"), {"fields": ("created_at", "updated_at")}),
     )
 
