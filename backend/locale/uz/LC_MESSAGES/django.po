@@ -615,6 +615,15 @@ msgstr "Parol asosida autentifikatsiya"
 msgid "Enabled"
 msgstr "Yoqilgan"
 
+msgid "Disabled"
+msgstr "O'chirilgan"
+
+msgid "Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only."
+msgstr "Majburiy. 150 ta belgidan ko'p bo'lmasin. Faqat harflar, raqamlar va @/./+/-/_ belgilari."
+
+msgid "Whether the user will be able to authenticate using a password or not. If disabled, they may still be able to authenticate using other backends, such as Single Sign-On or LDAP."
+msgstr "Foydalanuvchi parol orqali tizimga kirishi mumkinligi. O'chirilgan bo'lsa, boshqa usullar, masalan Single Sign-On yoki LDAP orqali kirishi mumkin."
+
 msgid "Password confirm"
 msgstr "Parolni tasdiqlash"
 
