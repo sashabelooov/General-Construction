@@ -321,11 +321,12 @@ class LeadCreateSerializer(serializers.ModelSerializer):
         lead.conversation_id = convo.id
 
         # Forward the new lead to Uysot CRM dashboard (non-blocking)
-        tag_list = [lead.source_page] if lead.source_page else []
         send_lead_to_uysot_async(
             phone=lead.phone,
             name=lead.name,
-            tag_list=tag_list,
+            message="Leads from generalconstruction",
+            email="generalconstruction@gmail.com",
+            tag_list=["https://generalconstruction.uz/"],
         )
 
         return lead
